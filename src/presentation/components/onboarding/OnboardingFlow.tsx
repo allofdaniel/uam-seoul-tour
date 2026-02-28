@@ -55,6 +55,20 @@ const TIME_OPTIONS = [
   { value: "night" as const, name: "도시 야경", icon: "🌃", description: "화려한 불빛" },
 ];
 
+const VOICE_ASSISTANTS = [
+  { value: "professional", name: "브리핑 스타일", icon: "🎙️", desc: "차분하고 전문적인 안내" },
+  { value: "friendly", name: "가이드 스타일", icon: "😊", desc: "친절하고 다정한 설명" },
+  { value: "humorous", name: "위트 스타일", icon: "😜", desc: "재치 있는 농담과 비행" },
+];
+
+const HELI_COLORS = [
+  { name: "Sky Blue", value: "#0ea5e9" },
+  { name: "Classic White", value: "#f8fafc" },
+  { name: "Tactical Black", value: "#1e293b" },
+  { name: "Emergency Red", value: "#ef4444" },
+  { name: "Safety Orange", value: "#f97316" },
+];
+
 type OnboardingStep = "welcome" | "purpose" | "profile" | "boarding-pass" | "complete";
 
 export default function OnboardingFlow() {
@@ -64,6 +78,8 @@ export default function OnboardingFlow() {
   const [callsign, setCallsign] = useState("");
   const [experienceLevel, setExperienceLevel] = useState<"beginner" | "intermediate" | "veteran">("beginner");
   const [timeOfDay, setTimeOfDay] = useState<"day" | "sunset" | "night">("day");
+  const [voiceAssistant, setVoiceAssistant] = useState("professional");
+  const [heliColor, setHeliColor] = useState("#f97316");
 
   const handleCategoryToggle = (code: POICategoryCode) => {
     setSelectedCategories((prev) => (prev.includes(code) ? prev.filter((c) => c !== code) : [...prev, code]));
@@ -198,6 +214,25 @@ export default function OnboardingFlow() {
                   >
                     <span className="text-2xl mb-1">{time.icon}</span>
                     <span className="text-sm font-semibold">{time.name}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <label className="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-3 block">AI 보이스 어시스턴트</label>
+              <div className="space-y-2">
+                {VOICE_ASSISTANTS.map((v) => (
+                  <button
+                    key={v.value}
+                    onClick={() => setVoiceAssistant(v.value)}
+                    className={`w-full flex items-center gap-4 p-3 rounded-2xl border-2 transition-all text-left ${voiceAssistant === v.value ? "border-orange-500 bg-orange-500/10" : "border-gray-800 bg-gray-900/40"}`}
+                  >
+                    <span className="text-xl">{v.icon}</span>
+                    <div>
+                      <p className="font-bold text-xs">{v.name}</p>
+                      <p className="text-gray-500 text-[10px]">{v.desc}</p>
+                    </div>
                   </button>
                 ))}
               </div>
