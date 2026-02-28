@@ -43,18 +43,18 @@ export default function ControlHints() {
       <div className="bg-black/60 backdrop-blur-md border border-gray-700/50 rounded-xl px-6 py-3">
         <div className="flex items-center gap-6 text-xs text-gray-300">
           <div className="flex items-center gap-1">
-            <kbd className="px-1.5 py-0.5 bg-gray-700 rounded text-white">W</kbd>
-            <kbd className="px-1.5 py-0.5 bg-gray-700 rounded text-white">S</kbd>
+            <kbd className="px-1.5 py-0.5 bg-gray-700 rounded text-white">↑</kbd>
+            <kbd className="px-1.5 py-0.5 bg-gray-700 rounded text-white">↓</kbd>
             <span>속도</span>
           </div>
           <div className="flex items-center gap-1">
-            <kbd className="px-1.5 py-0.5 bg-gray-700 rounded text-white">A</kbd>
-            <kbd className="px-1.5 py-0.5 bg-gray-700 rounded text-white">D</kbd>
+            <kbd className="px-1.5 py-0.5 bg-gray-700 rounded text-white">←</kbd>
+            <kbd className="px-1.5 py-0.5 bg-gray-700 rounded text-white">→</kbd>
             <span>회전</span>
           </div>
           <div className="flex items-center gap-1">
-            <kbd className="px-1.5 py-0.5 bg-gray-700 rounded text-white">Q</kbd>
-            <kbd className="px-1.5 py-0.5 bg-gray-700 rounded text-white">E</kbd>
+            <kbd className="px-1.5 py-0.5 bg-gray-700 rounded text-white">PgUp</kbd>
+            <kbd className="px-1.5 py-0.5 bg-gray-700 rounded text-white">PgDn</kbd>
             <span>고도</span>
           </div>
           <div className="flex items-center gap-1">

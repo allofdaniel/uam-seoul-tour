@@ -50,7 +50,7 @@ export const useGuideStore = create<GuideState>((set, get) => ({
     currentTrigger: trigger,
     narrationText: '',
     highlightKeyword: '',
-    displayImage: poi.images?.[0] || '',
+    displayImage: poi.images?.[0]?.image_url || '',
     pendingTransition: false,
   }),
 

@@ -15,7 +15,7 @@ export default function ResultScreen() {
   const { visitedPOIIds, elapsedSeconds, distanceTraveled_km, totalNarrations, pilotProfile, resetGame, setGamePhase } = useGameStore();
   const { trail, resetFlight } = useFlightStore();
 
-  const visitedPOIs = (poiData as POI[]).filter((p) => visitedPOIIds.includes(p.id));
+  const visitedPOIs = (poiData as unknown as POI[]).filter((p) => visitedPOIIds.includes(p.id));
 
   const handleRestart = () => {
     resetGame();

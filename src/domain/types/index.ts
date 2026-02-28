@@ -15,8 +15,8 @@ export type ExperienceLevel = 'beginner' | 'intermediate' | 'veteran';
 export type TriggerType = 'approaching' | 'passing' | 'departing';
 export type TimeOfDay = 'morning' | 'afternoon' | 'evening' | 'night';
 export type Language = 'ko' | 'en';
-export type POICategoryCode = 'landmark' | 'restaurant' | 'culture' | 'nature' | 'shopping';
-export type POIZoneCode = 'yeouido' | 'yongsan' | 'gangnam' | 'jamsil' | 'hangang';
+export type POICategoryCode = 'landmark' | 'restaurant' | 'culture' | 'nature' | 'shopping' | 'cat_landmark';
+export type POIZoneCode = 'yeouido' | 'yongsan' | 'gangnam' | 'jamsil' | 'hangang' | string;
 
 // POI 관련
 export interface POICategory {
@@ -34,6 +34,12 @@ export interface POIZone {
   radius_km: number;
 }
 
+export interface POIImage {
+  id: string;
+  image_url: string;
+  display_order: number;
+}
+
 export interface POI {
   id: string;
   zone_code: POIZoneCode;
@@ -45,7 +51,7 @@ export interface POI {
   altitude_m: number;
   description: string;
   description_en: string;
-  images: string[];
+  images: POIImage[];
   tags: string[];
   visible_range_m: number;
   direction: string;

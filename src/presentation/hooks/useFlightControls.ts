@@ -34,13 +34,17 @@ export default function useFlightControls() {
     if (gamePhase !== 'flying') return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      keysRef.current.add(e.key.toLowerCase());
-      if (e.key === ' ') {
+      const key = e.key.toLowerCase();
+      keysRef.current.add(key);
+      // 방향키, Space, PageUp/Down 기본 동작 방지
+      if (['arrowup', 'arrowdown', 'arrowleft', 'arrowright', ' ', 'pageup', 'pagedown'].includes(key)) {
         e.preventDefault();
+      }
+      if (e.key === ' ') {
         useFlightStore.getState().toggleAutoCruise();
       }
       // L 키 착륙
-      if (e.key.toLowerCase() === 'l') {
+      if (key === 'l') {
         const pos = useFlightStore.getState().position;
         const distToJamsil = Math.sqrt(
           Math.pow(pos.lat - 37.5133, 2) + Math.pow(pos.lon - 127.1001, 2)
@@ -76,29 +80,29 @@ export default function useFlightControls() {
       let newPitch = state.pitch;
       let newRoll = state.roll;
 
-      // 가속/감속
-      if (keys.has('w') || keys.has('arrowup')) {
+      // 가속/감속 (↑↓ 방향키)
+      if (keys.has('arrowup')) {
         newSpeed = Math.min(MAX_SPEED, newSpeed + ACCELERATION * dt);
-      } else if (keys.has('s') || keys.has('arrowdown')) {
+      } else if (keys.has('arrowdown')) {
         newSpeed = Math.max(MIN_SPEED, newSpeed - DECELERATION * dt);
       }
 
-      // 회전
-      if (keys.has('a') || keys.has('arrowleft')) {
+      // 회전 (←→ 방향키)
+      if (keys.has('arrowleft')) {
         newHeading -= YAW_RATE * dt;
         newRoll = Math.max(-30, newRoll - 60 * dt);
-      } else if (keys.has('d') || keys.has('arrowright')) {
+      } else if (keys.has('arrowright')) {
         newHeading += YAW_RATE * dt;
         newRoll = Math.min(30, newRoll + 60 * dt);
       } else {
         newRoll *= INERTIA_DECAY;
       }
 
-      // 고도
-      if (keys.has('q')) {
+      // 고도 (PageUp / PageDown)
+      if (keys.has('pageup') || keys.has('shift')) {
         newAltitude = Math.min(MAX_ALTITUDE, newAltitude + ALTITUDE_RATE * dt);
         newPitch = Math.min(15, newPitch + 30 * dt);
-      } else if (keys.has('e')) {
+      } else if (keys.has('pagedown') || keys.has('control')) {
         newAltitude = Math.max(MIN_ALTITUDE, newAltitude - ALTITUDE_RATE * dt);
         newPitch = Math.max(-15, newPitch - 30 * dt);
       } else {
