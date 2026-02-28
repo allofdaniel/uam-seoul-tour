@@ -345,7 +345,7 @@ export default function MapScene() {
         // ── UAM 방향 ──
         // 뒤집기(pitch +90°) + 우측 90° 회전(heading +90°)
         const hpr = new Cesium.HeadingPitchRoll(
-          Cesium.Math.toRadians(smoothHeading) + Math.PI / 2,
+          Cesium.Math.toRadians(smoothHeading) - Math.PI / 2,
           Math.PI / 2 + Cesium.Math.toRadians(smoothPitch * 0.3),
           Cesium.Math.toRadians(-smoothRoll * 0.5)
         );
