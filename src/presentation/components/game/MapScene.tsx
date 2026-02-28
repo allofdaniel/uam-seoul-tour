@@ -178,38 +178,93 @@ function FallbackScene() {
   const position = useFlightStore((s) => s.position);
   const heading = useFlightStore((s) => s.heading);
   const speed = useFlightStore((s) => s.speed_kmh);
+  const altitude = useFlightStore((s) => s.position.altitude_m);
+
+  // 한강 라인 (간략화)
+  const hangang = [
+    { lat: 37.530, lon: 126.85 },
+    { lat: 37.535, lon: 126.90 },
+    { lat: 37.527, lon: 126.93 },
+    { lat: 37.520, lon: 126.96 },
+    { lat: 37.517, lon: 127.00 },
+    { lat: 37.520, lon: 127.04 },
+    { lat: 37.518, lon: 127.08 },
+    { lat: 37.512, lon: 127.10 },
+  ];
+
+  // 랜드마크 좌표
+  const landmarks = [
+    { name: '여의도', lat: 37.5219, lon: 126.9245, emoji: '🏢' },
+    { name: '남산타워', lat: 37.5512, lon: 126.9882, emoji: '🗼' },
+    { name: '롯데타워', lat: 37.5126, lon: 127.1025, emoji: '🏗️' },
+    { name: '국회', lat: 37.5313, lon: 126.9145, emoji: '🏛️' },
+  ];
+
+  const viewRange = 0.08;
+  const mapW = '100%';
+  const svgSize = 600;
+
+  const toSvg = (lat: number, lon: number) => ({
+    x: ((lon - position.lon + viewRange) / (viewRange * 2)) * svgSize,
+    y: ((position.lat + viewRange - lat) / (viewRange * 2)) * svgSize,
+  });
 
   return (
-    <div className="relative w-full h-full bg-gradient-to-b from-gray-800 via-gray-900 to-black flex items-center justify-center">
-      {/* 그리드 배경 (비행 감각 제공) */}
-      <div
-        className="absolute inset-0 opacity-20"
-        style={{
-          backgroundImage:
-            'linear-gradient(rgba(255,165,0,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,165,0,0.3) 1px, transparent 1px)',
-          backgroundSize: '50px 50px',
-          transform: `perspective(500px) rotateX(60deg)`,
-        }}
-      />
+    <div className="relative w-full h-full bg-gradient-to-b from-gray-900 via-[#0a0a1a] to-black overflow-hidden">
+      {/* SVG 지도 배경 */}
+      <svg viewBox={`0 0 ${svgSize} ${svgSize}`} className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
+        {/* 그리드 */}
+        {Array.from({ length: 20 }, (_, i) => i * (svgSize / 20)).map((v) => (
+          <g key={v}>
+            <line x1={v} y1={0} x2={v} y2={svgSize} stroke="rgba(100,130,180,0.08)" strokeWidth="0.5" />
+            <line x1={0} y1={v} x2={svgSize} y2={v} stroke="rgba(100,130,180,0.08)" strokeWidth="0.5" />
+          </g>
+        ))}
 
-      {/* UAM 기체 표시 */}
-      <div className="relative z-10 text-center">
-        <div
-          className="text-6xl transition-transform duration-200"
-          style={{ transform: `rotate(${heading - 90}deg)` }}
-        >
-          ✈️
+        {/* 한강 */}
+        <polyline
+          points={hangang.map((p) => { const s = toSvg(p.lat, p.lon); return `${s.x},${s.y}`; }).join(' ')}
+          fill="none" stroke="rgba(59,130,246,0.3)" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round"
+        />
+
+        {/* 랜드마크 */}
+        {landmarks.map((lm) => {
+          const s = toSvg(lm.lat, lm.lon);
+          return (
+            <g key={lm.name}>
+              <circle cx={s.x} cy={s.y} r={12} fill="rgba(59,130,246,0.15)" stroke="rgba(59,130,246,0.3)" strokeWidth="1" />
+              <text x={s.x} y={s.y + 5} textAnchor="middle" fontSize="14">{lm.emoji}</text>
+              <text x={s.x} y={s.y + 22} textAnchor="middle" fontSize="8" fill="rgba(148,163,184,0.6)">{lm.name}</text>
+            </g>
+          );
+        })}
+
+        {/* 현재 위치 - UAM 기체 */}
+        <g transform={`translate(${svgSize / 2}, ${svgSize / 2}) rotate(${heading})`}>
+          <polygon points="0,-18 -10,12 0,6 10,12" fill="#f97316" stroke="#fff" strokeWidth="1.5" opacity="0.9" />
+        </g>
+
+        {/* 고도 표시 원 */}
+        <circle cx={svgSize / 2} cy={svgSize / 2} r={30} fill="none" stroke="rgba(249,115,22,0.3)" strokeWidth="1" strokeDasharray="4,3" />
+      </svg>
+
+      {/* HUD 오버레이 정보 */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
+        <div className="bg-black/60 backdrop-blur-sm border border-gray-700/50 rounded-xl px-6 py-3 text-center">
+          <div className="text-orange-400 font-mono text-xs mb-1">
+            <span>LAT {position.lat.toFixed(4)}°N</span>
+            <span className="mx-3 text-gray-600">|</span>
+            <span>LON {position.lon.toFixed(4)}°E</span>
+          </div>
+          <div className="text-white font-mono text-sm font-bold">
+            ALT {altitude.toFixed(0)}m · SPD {speed.toFixed(0)}km/h · HDG {heading.toFixed(0)}°
+          </div>
         </div>
-        <div className="mt-4 text-orange-400 font-mono text-sm">
-          <p>
-            LAT: {position.lat.toFixed(4)} LON: {position.lon.toFixed(4)}
-          </p>
-          <p>
-            ALT: {position.altitude_m.toFixed(0)}m SPD: {speed.toFixed(0)}km/h HDG:{' '}
-            {heading.toFixed(0)}°
-          </p>
-        </div>
-        <p className="text-gray-500 text-xs mt-4">3D 지도 로딩 중...</p>
+      </div>
+
+      {/* 상단 구역 표시 */}
+      <div className="absolute top-4 left-4 z-10 text-xs font-mono text-gray-500">
+        <div className="bg-black/40 rounded px-2 py-1">Seoul TMA · FL185/1000ft AGL</div>
       </div>
     </div>
   );

@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { useGameStore } from '@/stores/useGameStore';
 import { useUIStore } from '@/stores/useUIStore';
+import ErrorBoundary from '@/presentation/components/ErrorBoundary';
 import LoadingScreen from '@/presentation/components/onboarding/LoadingScreen';
 import OnboardingFlow from '@/presentation/components/onboarding/OnboardingFlow';
 import GameView from '@/presentation/components/game/GameView';
@@ -34,13 +35,15 @@ export default function Home() {
   }, [setIsMobile, setIsWebGLSupported]);
 
   return (
-    <main className="relative w-screen h-screen overflow-hidden">
-      {gamePhase === 'loading' && <LoadingScreen />}
-      {gamePhase === 'onboarding' && <OnboardingFlow />}
-      {(gamePhase === 'takeoff' || gamePhase === 'flying' || gamePhase === 'landing') && (
-        <GameView />
-      )}
-      {gamePhase === 'result' && <ResultScreen />}
-    </main>
+    <ErrorBoundary>
+      <main className="relative w-screen h-screen overflow-hidden">
+        {gamePhase === 'loading' && <LoadingScreen />}
+        {gamePhase === 'onboarding' && <OnboardingFlow />}
+        {(gamePhase === 'takeoff' || gamePhase === 'flying' || gamePhase === 'landing') && (
+          <GameView />
+        )}
+        {gamePhase === 'result' && <ResultScreen />}
+      </main>
+    </ErrorBoundary>
   );
 }

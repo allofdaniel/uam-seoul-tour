@@ -17,20 +17,21 @@ export default function ControlHints() {
 
     // 초보가 아닌 경우 1분 후 페이드아웃
     if (experienceLevel !== 'beginner') {
+      let opacity = 1;
       const fadeTimer = setTimeout(() => {
         const fadeInterval = setInterval(() => {
-          setControlHintsOpacity(controlHintsOpacity - 0.02);
-          if (controlHintsOpacity <= 0) {
+          opacity -= 0.02;
+          setControlHintsOpacity(opacity);
+          if (opacity <= 0) {
             setShowControlHints(false);
             clearInterval(fadeInterval);
           }
         }, 50);
-        return () => clearInterval(fadeInterval);
       }, 60000);
 
       return () => clearTimeout(fadeTimer);
     }
-  }, [experienceLevel, controlHintsOpacity, setControlHintsOpacity, setShowControlHints]);
+  }, [experienceLevel, setControlHintsOpacity, setShowControlHints]);
 
   if (!showControlHints) return null;
 

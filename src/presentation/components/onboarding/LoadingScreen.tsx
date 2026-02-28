@@ -15,16 +15,19 @@ export default function LoadingScreen() {
       setDots((d) => (d.length >= 3 ? '' : d + '.'));
     }, 500);
 
-    // 로딩 프로그레스 시뮬레이션
+    // 로딩 프로그레스 시뮬레이션 (functional updater로 stale closure 방지)
+    let progress = 0;
     const progressInterval = setInterval(() => {
-      setLoadingProgress(loadingProgress + Math.random() * 15);
+      progress += Math.random() * 15 + 5;
+      setLoadingProgress(Math.min(100, progress));
+      if (progress >= 100) clearInterval(progressInterval);
     }, 300);
 
     return () => {
       clearInterval(dotInterval);
       clearInterval(progressInterval);
     };
-  }, [loadingProgress, setLoadingProgress]);
+  }, [setLoadingProgress]);
 
   useEffect(() => {
     if (loadingProgress >= 100) {

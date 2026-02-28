@@ -43,6 +43,15 @@ body {
   }
 }
 
+/* animation fill-mode 보장 */
+.animate-fadeIn {
+  animation-fill-mode: forwards;
+}
+
+.animate-slideInRight {
+  animation-fill-mode: forwards;
+}
+
 @keyframes typing {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
