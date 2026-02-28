@@ -1,122 +1,176 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { useFlightStore } from '@/stores/useFlightStore';
 import { useGameStore } from '@/stores/useGameStore';
+import Script from 'next/script';
+
+declare global {
+  interface Window {
+    vw: any;
+    vmap: any;
+    Cesium: any;
+  }
+}
 
 export default function MapScene() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<mapboxgl.Map | null>(null);
-  const animationRef = useRef<number>(0);
+  const mapRef = useRef<any>(null);
+  const [mapLoaded, setMapLoaded] = useState(false);
+  const [scriptLoaded, setScriptLoaded] = useState(false);
   const position = useFlightStore((s) => s.position);
   const heading = useFlightStore((s) => s.heading);
-  const [mapLoaded, setMapLoaded] = useState(false);
+  const pitch = useFlightStore((s) => s.pitch);
+  const apiKey = process.env.NEXT_PUBLIC_VWORLD_API_KEY;
 
-  useEffect(() => {
-    if (!containerRef.current || mapRef.current) return;
+  const initMap = useCallback(() => {
+    if (!window.vw || mapRef.current) return;
 
-    const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
+    try {
+      const vw = window.vw;
 
-    // Mapbox 토큰이 없으면 fallback UI 표시
-    if (!token) {
-      setMapLoaded(true);
-      return;
-    }
+      const options = {
+        mapId: 'vmap',
+        initPosition: new vw.CameraPosition(
+          new vw.CoordZ(126.9245, 37.5219, 500),
+          new vw.Direction(90, -30, 0)
+        ),
+        logo: false,
+        navigation: false,
+      };
 
-    import('mapbox-gl').then((mapboxgl) => {
-      mapboxgl.default.accessToken = token;
-
-      const map = new mapboxgl.default.Map({
-        container: containerRef.current!,
-        style: 'mapbox://styles/mapbox/dark-v11',
-        center: [126.9245, 37.5219], // 여의도
-        zoom: 14,
-        pitch: 60,
-        bearing: 90,
-        antialias: true,
-      });
-
-      map.on('load', () => {
-        // 3D 지형 활성화
-        map.addSource('mapbox-dem', {
-          type: 'raster-dem',
-          url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
-          tileSize: 512,
-          maxzoom: 14,
-        });
-        map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.5 });
-
-        // 안개 효과
-        map.setFog({
-          range: [0.5, 10],
-          color: '#1a1a2e',
-          'horizon-blend': 0.1,
-          'high-color': '#1a1a2e',
-          'space-color': '#000000',
-          'star-intensity': 0.5,
-        });
-
-        // 3D 건물 레이어
-        const layers = map.getStyle().layers;
-        const labelLayerId = layers?.find(
-          (layer) => layer.type === 'symbol' && layer.layout?.['text-field']
-        )?.id;
-
-        map.addLayer(
-          {
-            id: '3d-buildings',
-            source: 'composite',
-            'source-layer': 'building',
-            filter: ['==', 'extrude', 'true'],
-            type: 'fill-extrusion',
-            minzoom: 12,
-            paint: {
-              'fill-extrusion-color': '#2a2a3e',
-              'fill-extrusion-height': ['get', 'height'],
-              'fill-extrusion-base': ['get', 'min_height'],
-              'fill-extrusion-opacity': 0.7,
-            },
-          },
-          labelLayerId
-        );
-
-        setMapLoaded(true);
-      });
+      const map = new vw.Map();
+      map.setOption(options);
+      map.setMapId('vmap');
+      map.setInitPosition(
+        new vw.CameraPosition(
+          new vw.CoordZ(126.9245, 37.5219, 500),
+          new vw.Direction(90, -30, 0)
+        )
+      );
+      map.setLogoVisible(false);
+      map.setNavigationZoomVisible(false);
+      map.start();
 
       mapRef.current = map;
-    });
 
+      // 맵 로딩 완료 대기
+      setTimeout(() => {
+        setMapLoaded(true);
+      }, 2000);
+    } catch (e) {
+      console.error('V-World map init error:', e);
+      setMapLoaded(true); // fallback으로 전환
+    }
+  }, []);
+
+  // 스크립트 로드 후 맵 초기화
+  useEffect(() => {
+    if (scriptLoaded) {
+      // V-World 스크립트가 전역 객체를 설정할 때까지 잠시 대기
+      const timer = setTimeout(initMap, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [scriptLoaded, initMap]);
+
+  // 카메라 추적 (비행 위치에 따라)
+  useEffect(() => {
+    if (!mapRef.current || !mapLoaded) return;
+
+    const map = mapRef.current;
+    const vw = window.vw;
+    if (!vw) return;
+
+    try {
+      // V-World 카메라를 현재 비행 위치로 이동
+      // 카메라는 기체 뒤쪽에서 약간 위에서 바라보는 3인칭 시점
+      const cameraAlt = position.altitude_m + 150; // 기체보다 150m 위
+      const cameraPitch = Math.max(-60, -30 + pitch * 0.5); // 피치에 따라 조정
+
+      const newPos = new vw.CameraPosition(
+        new vw.CoordZ(position.lon, position.lat, cameraAlt),
+        new vw.Direction(heading, cameraPitch, 0)
+      );
+
+      // gotoPosition 또는 setInitPosition으로 카메라 이동
+      if (typeof map.gotoPosition === 'function') {
+        map.gotoPosition(newPos);
+      } else if (typeof map.setInitPosition === 'function') {
+        map.setInitPosition(newPos);
+      }
+
+      // Cesium viewer가 있으면 직접 제어
+      if (map.getViewer && typeof map.getViewer === 'function') {
+        const viewer = map.getViewer();
+        if (viewer && viewer.camera) {
+          const Cesium = window.Cesium || (viewer.scene && viewer.scene.globe);
+          if (window.Cesium) {
+            viewer.camera.setView({
+              destination: window.Cesium.Cartesian3.fromDegrees(
+                position.lon,
+                position.lat,
+                cameraAlt
+              ),
+              orientation: {
+                heading: window.Cesium.Math.toRadians(heading),
+                pitch: window.Cesium.Math.toRadians(cameraPitch),
+                roll: 0,
+              },
+            });
+          }
+        }
+      }
+    } catch {
+      // 카메라 이동 실패 시 무시
+    }
+  }, [position.lat, position.lon, position.altitude_m, heading, pitch, mapLoaded]);
+
+  // Cleanup
+  useEffect(() => {
     return () => {
       if (mapRef.current) {
-        mapRef.current.remove();
+        try {
+          if (typeof mapRef.current.destroy === 'function') {
+            mapRef.current.destroy();
+          }
+        } catch {
+          // cleanup 실패 시 무시
+        }
         mapRef.current = null;
       }
     };
   }, []);
 
-  // 카메라 추적
-  useEffect(() => {
-    if (!mapRef.current || !mapLoaded) return;
-
-    const map = mapRef.current;
-    map.easeTo({
-      center: [position.lon, position.lat],
-      bearing: heading,
-      pitch: 60,
-      zoom: 14.5 - (position.altitude_m / 500) * 2,
-      duration: 100,
-    });
-  }, [position.lat, position.lon, position.altitude_m, heading, mapLoaded]);
-
   return (
-    <div ref={containerRef} className="absolute inset-0 w-full h-full">
-      {!mapLoaded && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-900">
-          {/* 맵이 없을 때 3D 에셋과 기본 UI 표시 */}
-          <FallbackScene />
-        </div>
+    <>
+      {/* V-World 3D WebGL Script */}
+      {apiKey && (
+        <Script
+          src={`https://map.vworld.kr/js/webglMapInit.js.do?version=3.0&apiKey=${apiKey}`}
+          strategy="afterInteractive"
+          onLoad={() => setScriptLoaded(true)}
+          onError={() => {
+            console.error('V-World script load failed');
+            setMapLoaded(true); // fallback
+          }}
+        />
       )}
-    </div>
+
+      <div className="absolute inset-0 w-full h-full">
+        {/* V-World 맵 컨테이너 */}
+        {apiKey && (
+          <div
+            id="vmap"
+            ref={containerRef}
+            className="absolute inset-0 w-full h-full"
+            style={{ display: mapLoaded && mapRef.current ? 'block' : 'none' }}
+          />
+        )}
+
+        {/* Fallback UI (V-World 로딩 전 또는 토큰 없을 때) */}
+        {(!mapLoaded || !apiKey || !mapRef.current) && <FallbackScene />}
+      </div>
+    </>
   );
 }
 
@@ -131,9 +185,10 @@ function FallbackScene() {
       <div
         className="absolute inset-0 opacity-20"
         style={{
-          backgroundImage: 'linear-gradient(rgba(255,165,0,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,165,0,0.3) 1px, transparent 1px)',
+          backgroundImage:
+            'linear-gradient(rgba(255,165,0,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,165,0,0.3) 1px, transparent 1px)',
           backgroundSize: '50px 50px',
-          transform: `perspective(500px) rotateX(60deg) translateY(${(Date.now() / 50) % 50}px)`,
+          transform: `perspective(500px) rotateX(60deg)`,
         }}
       />
 
@@ -146,12 +201,15 @@ function FallbackScene() {
           ✈️
         </div>
         <div className="mt-4 text-orange-400 font-mono text-sm">
-          <p>LAT: {position.lat.toFixed(4)} LON: {position.lon.toFixed(4)}</p>
-          <p>ALT: {position.altitude_m.toFixed(0)}m SPD: {speed.toFixed(0)}km/h HDG: {heading.toFixed(0)}°</p>
+          <p>
+            LAT: {position.lat.toFixed(4)} LON: {position.lon.toFixed(4)}
+          </p>
+          <p>
+            ALT: {position.altitude_m.toFixed(0)}m SPD: {speed.toFixed(0)}km/h HDG:{' '}
+            {heading.toFixed(0)}°
+          </p>
         </div>
-        <p className="text-gray-500 text-xs mt-4">
-          Mapbox 토큰을 설정하면 3D 서울 지형이 표시됩니다
-        </p>
+        <p className="text-gray-500 text-xs mt-4">3D 지도 로딩 중...</p>
       </div>
     </div>
   );

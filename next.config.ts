@@ -2,9 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   transpilePackages: ['three', 'mapbox-gl'],
-  turbopack: {
-    root: '/Users/kimdaniel/uam-seoul-tour',
-  },
+  turbopack: {},
   serverExternalPackages: ['@google/generative-ai'],
   headers: async () => [
     {
