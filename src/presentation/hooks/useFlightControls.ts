@@ -4,14 +4,14 @@ import { useEffect, useRef } from 'react';
 import { useFlightStore } from '@/stores/useFlightStore';
 import { useGameStore } from '@/stores/useGameStore';
 
-const ACCELERATION = 20;       // km/h per second
-const DECELERATION = 15;       // km/h per second
+const ACCELERATION = 25;       // km/h per second
+const DECELERATION = 20;       // km/h per second
 const YAW_RATE = 45;           // degrees per second
-const ALTITUDE_RATE = 30;      // meters per second
+const ALTITUDE_RATE = 40;      // meters per second
 const MIN_SPEED = 30;
-const MAX_SPEED = 150;
-const MIN_ALTITUDE = 50;
-const MAX_ALTITUDE = 500;
+const MAX_SPEED = 350;         // UAM 최대속도 350km/h
+const MIN_ALTITUDE = 30;
+const MAX_ALTITUDE = 800;
 const INERTIA_DECAY = 0.95;
 
 // 서울 바운딩 박스
@@ -43,15 +43,9 @@ export default function useFlightControls() {
       if (e.key === ' ') {
         useFlightStore.getState().toggleAutoCruise();
       }
-      // L 키 착륙
+      // L 키 착륙 (현재 위치에서 착륙)
       if (key === 'l') {
-        const pos = useFlightStore.getState().position;
-        const distToJamsil = Math.sqrt(
-          Math.pow(pos.lat - 37.5133, 2) + Math.pow(pos.lon - 127.1001, 2)
-        ) * 111;
-        if (distToJamsil < 2) {
-          setGamePhase('landing');
-        }
+        setGamePhase('landing');
       }
     };
 

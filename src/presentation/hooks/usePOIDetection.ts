@@ -28,11 +28,8 @@ function calculateBearing(lat1: number, lon1: number, lat2: number, lon2: number
 }
 
 function getTimeOfDay(): 'morning' | 'afternoon' | 'evening' | 'night' {
-  const hour = new Date().getHours();
-  if (hour >= 6 && hour < 12) return 'morning';
-  if (hour >= 12 && hour < 17) return 'afternoon';
-  if (hour >= 17 && hour < 21) return 'evening';
-  return 'night';
+  // 2026년 2월 28일 오후 5~7시 고정
+  return 'evening';
 }
 
 export default function usePOIDetection() {
