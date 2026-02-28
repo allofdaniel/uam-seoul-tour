@@ -61,37 +61,34 @@ function TakeoffOverlay() {
   const setHudVisible = useUIStore((s) => s.setHudVisible);
   const updatePosition = useFlightStore((s) => s.updatePosition);
   const setSpeed = useFlightStore((s) => s.setSpeed);
-  const [countdown, setCountdown] = useState(3);
-  const [phase, setPhase] = useState<'countdown' | 'rising'>('countdown');
+  const [phase, setPhase] = useState<'waiting' | 'rising' | 'complete'>('waiting');
 
-  // 카운트다운
+  // 스페이스바 대기
   useEffect(() => {
-    if (phase !== 'countdown') return;
+    if (phase !== 'waiting') return;
 
-    const interval = setInterval(() => {
-      setCountdown((c: number) => {
-        if (c <= 1) {
-          clearInterval(interval);
-          setPhase('rising');
-          return 0;
-        }
-        return c - 1;
-      });
-    }, 1000);
+    setHudVisible(true);
 
-    return () => clearInterval(interval);
-  }, [phase]);
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === ' ') {
+        e.preventDefault();
+        setPhase('rising');
+      }
+    };
+
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [phase, setHudVisible]);
 
   // 부드러운 상승 애니메이션
   useEffect(() => {
     if (phase !== 'rising') return;
 
-    setHudVisible(true);
     startTimer();
 
     const TARGET_ALTITUDE = 200;
     const TARGET_SPEED = 80;
-    const DURATION = 3000; // 3초
+    const DURATION = 5000; // 5초 (자연스러운 상승)
     const startTime = performance.now();
 
     let rafId: number;
@@ -100,7 +97,7 @@ function TakeoffOverlay() {
       const elapsed = now - startTime;
       const t = Math.min(elapsed / DURATION, 1);
 
-      // ease-in-out 커브
+      // ease-in-out 커브 (부드러운 시작과 끝)
       const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
 
       updatePosition({ altitude_m: eased * TARGET_ALTITUDE });
@@ -109,6 +106,7 @@ function TakeoffOverlay() {
       if (t < 1) {
         rafId = requestAnimationFrame(animate);
       } else {
+        setPhase('complete');
         setGamePhase('flying');
       }
     };
@@ -116,24 +114,38 @@ function TakeoffOverlay() {
     rafId = requestAnimationFrame(animate);
 
     return () => cancelAnimationFrame(rafId);
-  }, [phase, setGamePhase, startTimer, setHudVisible, updatePosition, setSpeed]);
+  }, [phase, setGamePhase, startTimer, updatePosition, setSpeed]);
 
   return (
-    <div className="absolute inset-0 flex items-center justify-center z-30 bg-black/40 transition-opacity">
-      <div className="text-center">
-        {phase === 'countdown' && countdown > 0 ? (
-          <div className="text-8xl font-bold text-orange-400 animate-pulse drop-shadow-2xl">
-            {countdown}
+    <div className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none">
+      {phase === 'waiting' && (
+        <div className="text-center animate-fadeIn">
+          <div className="bg-black/60 backdrop-blur-md border border-gray-700/50 rounded-2xl px-10 py-8">
+            <div className="text-5xl mb-4">✈️</div>
+            <p className="text-white text-lg font-bold mb-2">여의도 버티포트</p>
+            <p className="text-gray-400 text-sm mb-6">이륙 준비 완료</p>
+            <div className="flex items-center justify-center gap-2 animate-pulse">
+              <kbd className="px-4 py-2 bg-orange-500/20 border border-orange-500/50 rounded-lg text-orange-400 font-bold text-sm">
+                SPACE
+              </kbd>
+              <span className="text-gray-300 text-sm">를 눌러 이륙</span>
+            </div>
           </div>
-        ) : (
-          <div className="animate-fadeIn">
-            <div className="text-4xl font-bold text-orange-400 animate-bounce mb-2">
-              TAKEOFF!
+        </div>
+      )}
+      {phase === 'rising' && (
+        <div className="text-center animate-fadeIn">
+          <div className="bg-black/40 backdrop-blur-sm rounded-2xl px-8 py-6">
+            <div className="text-3xl font-bold text-orange-400 animate-bounce mb-2">
+              TAKEOFF
             </div>
             <p className="text-gray-300 text-sm">상승 중...</p>
+            <div className="mt-3 w-40 h-1.5 bg-gray-700 rounded-full overflow-hidden mx-auto">
+              <div className="h-full bg-orange-500 rounded-full animate-takeoff-bar" />
+            </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useMemo, useCallback } from 'react';
+import { useEffect, useState, useMemo, useRef } from 'react';
 import { useGuideStore } from '@/stores/useGuideStore';
 import { useFlightStore } from '@/stores/useFlightStore';
 
@@ -32,6 +32,29 @@ export default function GuidePanel() {
   const [displayText, setDisplayText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [placesPhotoUrl, setPlacesPhotoUrl] = useState<string | null>(null);
+
+  // 부드러운 이미지 전환용 상태
+  const [aerialLoaded, setAerialLoaded] = useState(false);
+  const [photoLoaded, setPhotoLoaded] = useState(false);
+  const [panelVisible, setPanelVisible] = useState(false);
+  const prevPOIRef = useRef<string | null>(null);
+
+  // POI 변경 시 페이드 인/아웃
+  useEffect(() => {
+    if (currentPOI) {
+      if (prevPOIRef.current !== currentPOI.id) {
+        // 새 POI: 이미지 로딩 상태 리셋 → 페이드인
+        setAerialLoaded(false);
+        setPhotoLoaded(false);
+        setPanelVisible(false);
+        setTimeout(() => setPanelVisible(true), 50);
+        prevPOIRef.current = currentPOI.id;
+      }
+    } else {
+      setPanelVisible(false);
+      prevPOIRef.current = null;
+    }
+  }, [currentPOI?.id]);
 
   // 타이핑 애니메이션
   useEffect(() => {
@@ -101,7 +124,7 @@ export default function GuidePanel() {
 
   return (
     <div
-      className={`fixed top-0 right-0 w-[360px] h-screen z-20 transition-transform duration-500 ease-in-out ${
+      className={`fixed top-0 right-0 w-[360px] h-screen z-20 transition-transform duration-700 ease-in-out ${
         hasPOI ? 'translate-x-0' : 'translate-x-full'
       }`}
     >
@@ -129,19 +152,24 @@ export default function GuidePanel() {
 
         {/* 스크롤 가능한 본문 */}
         <div className="flex-1 overflow-y-auto">
-          {/* 항공사진 (현재 고도 기반 위성 뷰) */}
+          {/* 항공사진 (현재 고도 기반 위성 뷰) - 부드러운 페이드인 */}
           {aerialPhotoUrl && (
             <div className="relative">
               <img
                 src={aerialPhotoUrl}
                 alt="항공뷰"
-                className="w-full h-[220px] object-cover"
+                className="w-full h-[220px] object-cover transition-opacity duration-700 ease-in-out"
+                style={{ opacity: aerialLoaded && panelVisible ? 1 : 0 }}
+                onLoad={() => setAerialLoaded(true)}
                 onError={(e) => {
                   (e.target as HTMLImageElement).style.display = 'none';
                 }}
               />
               <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[#0b0f19]/95 to-transparent" />
-              <div className="absolute top-3 left-3 flex gap-2">
+              <div
+                className="absolute top-3 left-3 flex gap-2 transition-opacity duration-500"
+                style={{ opacity: aerialLoaded && panelVisible ? 1 : 0 }}
+              >
                 <span className="px-2.5 py-1 bg-orange-500/90 text-white text-xs font-bold rounded-full shadow-lg">
                   AERIAL VIEW
                 </span>
@@ -152,9 +180,15 @@ export default function GuidePanel() {
             </div>
           )}
 
-          {/* POI 정보 카드 */}
+          {/* POI 정보 카드 - 부드러운 등장 */}
           {currentPOI && (
-            <div className="px-5 py-4">
+            <div
+              className="px-5 py-4 transition-all duration-700 ease-out"
+              style={{
+                opacity: panelVisible ? 1 : 0,
+                transform: panelVisible ? 'translateY(0)' : 'translateY(12px)',
+              }}
+            >
               {/* 카테고리 배지 */}
               <span className="inline-block px-2.5 py-0.5 bg-blue-500/20 border border-blue-500/40 rounded text-blue-300 text-xs font-medium mb-2">
                 {currentPOI.category_code?.replace('cat_', '').toUpperCase() ||
@@ -167,13 +201,15 @@ export default function GuidePanel() {
               </h2>
               <p className="text-gray-500 text-xs mb-4">{currentPOI.name_en}</p>
 
-              {/* 대표 이미지 (Google Places 또는 visitseoul) */}
+              {/* 대표 이미지 (Google Places 또는 visitseoul) - 부드러운 페이드인 */}
               {representativeImage && (
                 <div className="mb-4 rounded-xl overflow-hidden border border-gray-700/30 shadow-lg">
                   <img
                     src={representativeImage}
                     alt={currentPOI.name}
-                    className="w-full h-[160px] object-cover"
+                    className="w-full h-[160px] object-cover transition-opacity duration-700 ease-in-out"
+                    style={{ opacity: photoLoaded && panelVisible ? 1 : 0 }}
+                    onLoad={() => setPhotoLoaded(true)}
                     onError={(e) => {
                       // Places 이미지 실패시 visitseoul 폴백
                       const img = e.target as HTMLImageElement;
@@ -250,9 +286,9 @@ export default function GuidePanel() {
         {/* 하단 비행정보 */}
         <div className="px-5 py-3 border-t border-gray-700/30 bg-[#0b0f19]/95 shrink-0">
           <div className="flex justify-between text-[10px] text-gray-500 font-mono">
-            <span>ALT {position.altitude_m.toFixed(0)}m</span>
-            <span>SPD {speed.toFixed(0)}km/h</span>
-            <span>HDG {heading.toFixed(0)}&deg;</span>
+            <span>고도 {position.altitude_m.toFixed(0)}m</span>
+            <span>속도 {speed.toFixed(0)}km/h</span>
+            <span>방향 {heading.toFixed(0)}&deg;</span>
           </div>
         </div>
       </div>

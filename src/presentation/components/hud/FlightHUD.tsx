@@ -26,24 +26,24 @@ export default function FlightHUD() {
       <div className="flex justify-center px-4 pt-4">
         <div className="flex items-center gap-6 bg-black/60 backdrop-blur-md border border-gray-700/50 rounded-xl px-6 py-3 text-sm font-mono">
           <div className="flex flex-col items-center">
-            <span className="text-gray-400 text-xs">ALT</span>
+            <span className="text-gray-400 text-xs">고도</span>
             <span className="text-white font-bold">{Math.round(position.altitude_m)}m</span>
           </div>
           <div className="w-px h-8 bg-gray-700" />
           <div className="flex flex-col items-center">
-            <span className="text-gray-400 text-xs">SPD</span>
+            <span className="text-gray-400 text-xs">속도</span>
             <span className="text-white font-bold">{Math.round(speed)}km/h</span>
           </div>
           <div className="w-px h-8 bg-gray-700" />
           <div className="flex flex-col items-center">
-            <span className="text-gray-400 text-xs">HDG</span>
+            <span className="text-gray-400 text-xs">진행방향</span>
             <span className="text-white font-bold">
               {getCompassDirection(heading)} {Math.round(heading).toString().padStart(3, '0')}°
             </span>
           </div>
           <div className="w-px h-8 bg-gray-700" />
           <div className="flex flex-col items-center">
-            <span className="text-gray-400 text-xs">TIME</span>
+            <span className="text-gray-400 text-xs">비행시간</span>
             <span className="text-white font-bold">{formatTime(elapsedSeconds)}</span>
           </div>
           {isAutoCruise && (

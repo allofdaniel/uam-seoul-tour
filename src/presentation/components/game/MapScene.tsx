@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useFlightStore } from '@/stores/useFlightStore';
 import { useGameStore } from '@/stores/useGameStore';
 import poiDataRaw from '@/infrastructure/data/poi-data.json';
+import airspaceData from '@/infrastructure/data/airspace-data.json';
 
 const poiData = poiDataRaw as Array<{
   id: string;
@@ -223,6 +224,88 @@ export default function MapScene() {
           },
         });
         poiEntities.set(poi.id, e);
+      });
+
+      // ── 공역 데이터 시각화 ──
+
+      // UAM 회랑 경로 (3D 폴리라인)
+      const corridor = airspaceData.uam_corridors[0];
+      if (corridor) {
+        const corridorPositions = corridor.waypoints.flatMap((wp: any) => [wp.lon, wp.lat, wp.alt || 300]);
+        viewer.entities.add({
+          name: corridor.name,
+          polyline: {
+            positions: Cesium.Cartesian3.fromDegreesArrayHeights(corridorPositions),
+            width: 4,
+            material: new Cesium.PolylineDashMaterialProperty({
+              color: Cesium.Color.fromCssColorString('#f97316').withAlpha(0.7),
+              dashLength: 16,
+            }),
+            clampToGround: false,
+          },
+        });
+
+        // 웨이포인트 마커
+        corridor.waypoints.forEach((wp: any) => {
+          viewer.entities.add({
+            name: wp.name,
+            position: Cesium.Cartesian3.fromDegrees(wp.lon, wp.lat, wp.alt || 300),
+            point: {
+              pixelSize: 8,
+              color: Cesium.Color.ORANGE,
+              outlineColor: Cesium.Color.WHITE,
+              outlineWidth: 2,
+              disableDepthTestDistance: Number.POSITIVE_INFINITY,
+            },
+            label: {
+              text: wp.name,
+              font: 'bold 11px sans-serif',
+              fillColor: Cesium.Color.ORANGE,
+              outlineColor: Cesium.Color.BLACK,
+              outlineWidth: 2,
+              style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+              verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+              pixelOffset: new Cesium.Cartesian2(0, -14),
+              distanceDisplayCondition: new Cesium.DistanceDisplayCondition(0, 8000),
+              disableDepthTestDistance: Number.POSITIVE_INFINITY,
+            },
+          });
+        });
+      }
+
+      // 비행금지/제한구역 (지면 폴리곤)
+      airspaceData.restricted_zones.forEach((zone: any) => {
+        const isProhibited = zone.type === 'P';
+        const positions = zone.boundary.flatMap(([lon, lat]: [number, number]) => [lon, lat]);
+        viewer.entities.add({
+          name: zone.name,
+          polygon: {
+            hierarchy: Cesium.Cartesian3.fromDegreesArray(positions),
+            height: 0,
+            extrudedHeight: isProhibited ? 500 : 400,
+            material: Cesium.Color.fromCssColorString(isProhibited ? '#ff0000' : '#ff4444').withAlpha(isProhibited ? 0.08 : 0.05),
+            outline: true,
+            outlineColor: Cesium.Color.fromCssColorString(isProhibited ? '#ff0000' : '#ff4444').withAlpha(0.4),
+          },
+        });
+      });
+
+      // 위험구역 (원형 표시)
+      airspaceData.danger_zones.forEach((dz: any) => {
+        const radiusM = dz.radius_nm * 1852;
+        viewer.entities.add({
+          name: dz.name,
+          position: Cesium.Cartesian3.fromDegrees(dz.center[0], dz.center[1], 0),
+          ellipse: {
+            semiMajorAxis: radiusM,
+            semiMinorAxis: radiusM,
+            height: 0,
+            extrudedHeight: 300,
+            material: Cesium.Color.fromCssColorString('#ffc800').withAlpha(0.05),
+            outline: true,
+            outlineColor: Cesium.Color.fromCssColorString('#ffc800').withAlpha(0.3),
+          },
+        });
       });
 
       // ── 체이스 카메라 + UAM 위치 업데이트 루프 ──
