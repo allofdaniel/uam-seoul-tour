@@ -17,9 +17,10 @@ const poiData = poiDataRaw as Array<{
   images: Array<{ image_url: string }>;
 }>;
 
-const CESIUM_ION_TOKEN =
+const CESIUM_ION_TOKEN = (
   process.env.NEXT_PUBLIC_CESIUM_ION_TOKEN ||
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI1YWMwMTA2NC00NzEzLTQ2YmYtYTRjZC0wNjVkMTViZWIxYjkiLCJpZCI6MjU2MTQ5LCJpYXQiOjE3MzE5MzY0NjB9.suBcNNjrHr_5CMOkRKudiPALHhPeqA97jXuMMrUpqp8';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI1YWMwMTA2NC00NzEzLTQ2YmYtYTRjZC0wNjVkMTViZWIxYjkiLCJpZCI6MjU2MTQ5LCJpYXQiOjE3MzE5MzY0NjB9.suBcNNjrHr_5CMOkRKudiPALHhPeqA97jXuMMrUpqp8'
+).trim();
 
 export default function MapScene() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -62,7 +63,6 @@ export default function MapScene() {
         selectionIndicator: false,
         navigationHelpButton: false,
         scene3DOnly: true,
-        skyAtmosphere: true,
         requestRenderMode: false,
         msaaSamples: 4,
       });
@@ -94,10 +94,11 @@ export default function MapScene() {
       viewer.clock.shouldAnimate = false; // 시간 고정
 
       // 석양 분위기 대기 효과
-      if (viewer.scene.skyAtmosphere) {
-        viewer.scene.skyAtmosphere.hueShift = -0.05;
-        viewer.scene.skyAtmosphere.saturationShift = 0.2;
-        viewer.scene.skyAtmosphere.brightnessShift = -0.1;
+      const skyAtm = viewer.scene.skyAtmosphere;
+      if (skyAtm && typeof skyAtm === 'object' && 'hueShift' in skyAtm) {
+        skyAtm.hueShift = -0.05;
+        skyAtm.saturationShift = 0.2;
+        skyAtm.brightnessShift = -0.1;
       }
 
       viewerRef.current = viewer;
