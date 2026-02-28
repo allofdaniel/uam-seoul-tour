@@ -7,15 +7,25 @@ import { POICategoryCode } from "@/domain/types";
 const CATEGORIES: { code: POICategoryCode; name: string; icon: string; description: string }[] = [
   { code: "landmark", name: "랜드마크 관광", icon: "🏛️", description: "세계적인 명소를 하늘에서 감상하세요" },
   { code: "restaurant", name: "맛집 탐방", icon: "🍽️", description: "현지 미식 명소를 찾아 비행하세요" },
-  { code: "culture", name: "도시 탐험", icon: "🏙️", description: "도시의 스카이라인을 탐험하세요" },
   { code: "nature", name: "자연 탐사", icon: "🏔️", description: "웅장한 산과 숲 위를 비행하세요" },
-  { code: "shopping", name: "휴양지 비행", icon: "🏖️", description: "해변과 리조트를 만나세요" },
 ];
 
 const EXPERIENCE_LEVELS = [
   { value: "beginner" as const, name: "초보 조종사", description: "처음이에요, 기본부터 알려주세요" },
   { value: "intermediate" as const, name: "중급 조종사", description: "비행 경험이 조금 있어요" },
   { value: "veteran" as const, name: "베테랑 파일럿", description: "하늘은 제 놀이터입니다" },
+];
+
+const TIME_OPTIONS = [
+  { value: "day" as const, name: "맑은 낮", icon: "☀️", description: "선명한 시야" },
+  { value: "sunset" as const, name: "노을 저녁", icon: "🌅", description: "낭만적인 비행" },
+  { value: "night" as const, name: "도시 야경", icon: "🌃", description: "화려한 불빛" },
+];
+
+const VOICE_ASSISTANTS = [
+  { value: "professional", name: "브리핑 스타일", icon: "🎙️", desc: "차분하고 전문적인 안내" },
+  { value: "friendly", name: "가이드 스타일", icon: "😊", desc: "친절하고 다정한 설명" },
+  { value: "humorous", name: "위트 스타일", icon: "😜", desc: "재치 있는 농담과 비행" },
 ];
 
 type OnboardingStep = "welcome" | "purpose" | "profile" | "boarding-pass" | "complete";
@@ -45,6 +55,8 @@ export default function OnboardingFlow() {
   const [selectedCategories, setSelectedCategories] = useState<POICategoryCode[]>([]);
   const [callsign, setCallsign] = useState("");
   const [experienceLevel, setExperienceLevel] = useState<"beginner" | "intermediate" | "veteran">("beginner");
+  const [timeOfDay, setTimeOfDay] = useState<"day" | "sunset" | "night">("day");
+  const [voiceAssistant, setVoiceAssistant] = useState("professional");
 
   const handleCategoryToggle = (code: POICategoryCode) => {
     setSelectedCategories((prev) => (prev.includes(code) ? prev.filter((c) => c !== code) : [...prev, code]));
@@ -118,7 +130,7 @@ export default function OnboardingFlow() {
             <h2 className="text-3xl font-bold mb-2">어떤 관광을 하고 싶으신가요?</h2>
             <p className="text-gray-400 mb-8">목적에 따라 Gemini가 최적의 비행 루트를 안내합니다.</p>
 
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-10">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10">
               {CATEGORIES.map((cat) => (
                 <button
                   key={cat.code}
@@ -172,6 +184,47 @@ export default function OnboardingFlow() {
               </div>
             </div>
 
+            {/* 시간대 선택 추가 */}
+            <div className="mb-6">
+              <label className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-3 block">비행 시간대</label>
+              <div className="grid grid-cols-3 gap-3">
+                {TIME_OPTIONS.map((time) => (
+                  <button
+                    key={time.value}
+                    onClick={() => setTimeOfDay(time.value)}
+                    className={`flex flex-col items-center p-3 rounded-xl border-2 transition-all ${
+                      timeOfDay === time.value
+                        ? "border-orange-500 bg-orange-500/10"
+                        : "border-gray-700 bg-gray-900/50 hover:border-gray-500"
+                    }`}
+                  >
+                    <span className="text-2xl mb-1">{time.icon}</span>
+                    <span className="text-sm font-semibold">{time.name}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="mb-8">
+              <label className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-3 block">AI 보이스 어시스턴트</label>
+              <div className="space-y-2">
+                {VOICE_ASSISTANTS.map((v) => (
+                  <button
+                    key={v.value}
+                    onClick={() => setVoiceAssistant(v.value)}
+                    className={`w-full flex items-center gap-4 p-3 rounded-2xl border-2 transition-all text-left ${voiceAssistant === v.value ? "border-orange-500 bg-orange-500/10" : "border-gray-800 bg-gray-900/40"}`}
+                  >
+                    <span className="text-xl">{v.icon}</span>
+                    <div>
+                      <p className="font-bold text-xs">{v.name}</p>
+                      <p className="text-gray-500 text-[10px]">{v.desc}</p>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* 비행 경험 선택 */}
             <div className="mb-8">
               <label className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-3 block">비행 경험 수준</label>
               <div className="flex flex-col gap-2">
@@ -291,12 +344,22 @@ export default function OnboardingFlow() {
 
       <style jsx>{`
         @keyframes loading {
-          0% { width: 0%; }
-          100% { width: 100%; }
+          0% {
+            width: 0%;
+          }
+          100% {
+            width: 100%;
+          }
         }
         @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
         .animate-fadeIn {
           animation: fadeIn 0.5s ease-out forwards;
