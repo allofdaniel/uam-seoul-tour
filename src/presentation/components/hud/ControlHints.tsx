@@ -63,7 +63,7 @@ export default function ControlHints() {
           </div>
           <div className="flex items-center gap-1">
             <kbd className="px-1.5 py-0.5 bg-gray-700 rounded text-white">L</kbd>
-            <span>착륙</span>
+            <span>현위치 착륙</span>
           </div>
         </div>
       </div>

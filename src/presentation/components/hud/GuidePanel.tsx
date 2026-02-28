@@ -69,7 +69,7 @@ export default function GuidePanel() {
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse" />
             <span className="text-orange-400 font-bold text-sm tracking-wide">
-              AI 관광 가이드
+              Gemini 가이드
             </span>
             {pendingTransition && (
               <span className="text-xs text-yellow-400 animate-pulse ml-1">
@@ -172,7 +172,7 @@ export default function GuidePanel() {
               <div className="flex items-center gap-2 mb-3">
                 <div className="w-1.5 h-1.5 bg-orange-400 rounded-full animate-pulse" />
                 <span className="text-orange-400 text-xs font-semibold tracking-wide">
-                  AI NARRATION
+                  GEMINI NARRATION
                 </span>
               </div>
               <div className="text-gray-200 text-sm leading-relaxed">

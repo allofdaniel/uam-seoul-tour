@@ -25,12 +25,8 @@ export default function GameView() {
   // 게임 루프 훅
   useGameLoop();
 
-  // 잠실 착륙 구역 근접 판별
-  const distToJamsil =
-    Math.sqrt(
-      Math.pow(position.lat - 37.5133, 2) + Math.pow(position.lon - 127.1001, 2)
-    ) * 111;
-  const nearLandingZone = gamePhase === 'flying' && distToJamsil < 2;
+  // L키 착륙 안내 (항상 표시)
+  const showLandingHint = gamePhase === 'flying';
 
   return (
     <div className="relative w-full h-full">
@@ -50,14 +46,7 @@ export default function GameView() {
       {/* 이륙 시퀀스 */}
       {gamePhase === 'takeoff' && <TakeoffOverlay />}
 
-      {/* 착륙 가능 안내 */}
-      {nearLandingZone && (
-        <div className="absolute top-20 left-1/2 -translate-x-1/2 z-30">
-          <div className="bg-orange-500/90 backdrop-blur-sm px-6 py-3 rounded-full text-white font-medium animate-bounce shadow-lg shadow-orange-500/20">
-            착륙 가능 - L 키를 눌러 잠실 버티포트에 착륙하세요
-          </div>
-        </div>
-      )}
+      {/* 착륙 불필요 - L키로 언제든 착륙 가능 */}
 
       {/* 착륙 시퀀스 */}
       {gamePhase === 'landing' && <LandingOverlay />}

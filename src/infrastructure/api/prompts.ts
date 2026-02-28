@@ -21,21 +21,41 @@ export function buildSystemPrompt(request: GeminiRequest): string {
   }
 
   if (isKorean) {
-    return `당신은 서울 관광 전문 UAM 탑승 안내원 "스카이바운드 가이드"입니다.
+    return `당신은 서울 관광 전문 UAM 탑승 안내원 "스카이바운드 Gemini 가이드"입니다.
 승객 "${request.pilotProfile.callsign}"님을 위해 ${toneInstruction} 관광 안내를 해주세요.
+
+현재 상황:
+- 날짜: 2026년 2월 28일 (겨울 끝자락, 이른 봄)
+- 시간: 오후 5~7시 (해질녘, 석양)
+- 날씨: 겨울 저녁, 서울 하늘이 붉게 물들고 있음
+
 규칙:
 - 2~3문장으로 간결하게 (문장당 50자 이내)
 - 현재 비행 방향과 POI의 위치 관계를 언급
-- 시간대(${request.timeOfDay})에 맞는 분위기 반영
+- 저녁 시간대에 맞는 분위기를 반영하세요:
+  * 야경이 아름다운 곳은 "지금 해가 지면서 조명이 하나둘 켜지고 있다" 등 시간 맞는 멘트
+  * 낮에 보기 좋은 곳은 "낮에 방문하면 더 좋은 곳이지만, 지금은 석양과 함께 독특한 매력이 있다" 등
+  * 밤에 특히 좋은 곳은 "저녁 무렵부터 야경이 시작되어 지금이 가장 아름다운 시간" 등
+  * 계절감도 반영: 겨울 끝자락의 서울, 봄이 다가오는 시기
 - 반드시 JSON 형식으로 응답: {"narration": "안내 텍스트", "highlightKeyword": "핵심 키워드"}`;
   }
 
-  return `You are "Skybound Guide", a UAM tourism narrator for Seoul.
+  return `You are "Skybound Gemini Guide", a UAM tourism narrator for Seoul.
 Guide passenger "${request.pilotProfile.callsign}" ${toneInstruction}.
+
+Current context:
+- Date: February 28, 2026 (late winter, early spring)
+- Time: 5-7 PM (sunset/dusk)
+- Weather: Winter evening, Seoul sky painted in sunset hues
+
 Rules:
 - Keep it to 2-3 sentences (under 50 chars each)
 - Mention the POI's direction relative to the aircraft
-- Reflect the time of day (${request.timeOfDay})
+- Reflect the evening time context:
+  * For places with beautiful night views: mention lights turning on as sun sets
+  * For daytime attractions: mention they're best by day but have unique charm at sunset
+  * For nighttime highlights: mention this is the golden hour when night views begin
+  * Include seasonal context: late winter Seoul, spring approaching
 - Respond in JSON: {"narration": "guide text", "highlightKeyword": "key word"}`;
 }
 
@@ -66,6 +86,7 @@ POI: ${targetPOI.name} (${targetPOI.category})
 설명: ${targetPOI.description}
 거리: ${Math.round(targetPOI.distance_m)}m, 방향: ${directionText}
 고도: ${Math.round(vehiclePosition.altitude_m)}m, 속도: ${Math.round(request.speed_kmh)}km/h
+시간대: 2026년 2월 28일 오후 5~7시 (석양/해질녘)
 승객 선호: ${request.passengerPreferences.join(', ')}${historyContext}`;
   }
 
@@ -74,6 +95,7 @@ POI: ${targetPOI.name_en || targetPOI.name} (${targetPOI.category})
 Description: ${targetPOI.description}
 Distance: ${Math.round(targetPOI.distance_m)}m, Direction: ${directionText}
 Altitude: ${Math.round(vehiclePosition.altitude_m)}m, Speed: ${Math.round(request.speed_kmh)}km/h
+Time: Feb 28, 2026, 5-7 PM (sunset/dusk)
 Preferences: ${request.passengerPreferences.join(', ')}${historyContext}`;
 }
 

@@ -37,7 +37,7 @@ export const useFlightStore = create<FlightState>((set, get) => ({
 
   updatePosition: (pos) => set((state) => ({ position: { ...state.position, ...pos } })),
   setHeading: (h) => set({ heading: ((h % 360) + 360) % 360 }),
-  setSpeed: (s) => set({ speed_kmh: Math.max(0, Math.min(150, s)) }),
+  setSpeed: (s) => set({ speed_kmh: Math.max(0, Math.min(350, s)) }),
   setPitch: (p) => set({ pitch: Math.max(-30, Math.min(30, p)) }),
   setRoll: (r) => set({ roll: Math.max(-45, Math.min(45, r)) }),
   toggleAutoCruise: () => set((state) => ({ isAutoCruise: !state.isAutoCruise })),

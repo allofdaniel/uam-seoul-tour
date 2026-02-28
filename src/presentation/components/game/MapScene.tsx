@@ -89,6 +89,17 @@ export default function MapScene() {
       viewer.scene.fog.enabled = true;
       viewer.scene.fog.density = 0.0002;
 
+      // 시간 설정: 2026년 2월 28일 오후 6시 (KST = UTC+9)
+      viewer.clock.currentTime = Cesium.JulianDate.fromIso8601('2026-02-28T09:00:00Z'); // UTC 09:00 = KST 18:00
+      viewer.clock.shouldAnimate = false; // 시간 고정
+
+      // 석양 분위기 대기 효과
+      if (viewer.scene.skyAtmosphere) {
+        viewer.scene.skyAtmosphere.hueShift = -0.05;
+        viewer.scene.skyAtmosphere.saturationShift = 0.2;
+        viewer.scene.skyAtmosphere.brightnessShift = -0.1;
+      }
+
       viewerRef.current = viewer;
 
       // Google 3D Tiles 로딩
