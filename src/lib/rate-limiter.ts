@@ -3,10 +3,25 @@ interface RateLimitEntry {
   lastCleanup: number;
 }
 
+interface RateLimitConfig {
+  minIntervalMs: number;
+  maxPerMinute: number;
+}
+
 const store = new Map<string, RateLimitEntry>();
-const MIN_INTERVAL_MS = 10000;
-const MAX_PER_MINUTE = 6;
 const CLEANUP_INTERVAL_MS = 300000;
+
+// 키별 Rate Limit 설정
+const KEY_CONFIGS: Record<string, RateLimitConfig> = {
+  gemini: { minIntervalMs: 10000, maxPerMinute: 6 },
+  'voice-guide': { minIntervalMs: 5000, maxPerMinute: 10 },
+};
+
+const DEFAULT_CONFIG: RateLimitConfig = { minIntervalMs: 10000, maxPerMinute: 6 };
+
+function getConfig(key: string): RateLimitConfig {
+  return KEY_CONFIGS[key] || DEFAULT_CONFIG;
+}
 
 export function checkRateLimit(key: string = 'global'): {
   allowed: boolean;
@@ -16,6 +31,7 @@ export function checkRateLimit(key: string = 'global'): {
 } {
   const now = Date.now();
   const windowStart = now - 60000;
+  const config = getConfig(key);
 
   let entry = store.get(key);
   if (!entry) {
@@ -34,18 +50,18 @@ export function checkRateLimit(key: string = 'global'): {
 
   // 최소 간격 체크
   const lastTimestamp = validTimestamps[validTimestamps.length - 1] || 0;
-  if (now - lastTimestamp < MIN_INTERVAL_MS) {
-    const retryAfter = Math.ceil((MIN_INTERVAL_MS - (now - lastTimestamp)) / 1000);
+  if (now - lastTimestamp < config.minIntervalMs) {
+    const retryAfter = Math.ceil((config.minIntervalMs - (now - lastTimestamp)) / 1000);
     return {
       allowed: false,
       retryAfter,
-      remaining: MAX_PER_MINUTE - validTimestamps.length,
+      remaining: config.maxPerMinute - validTimestamps.length,
       reset: Math.ceil((windowStart + 60000) / 1000),
     };
   }
 
   // 분당 최대 횟수 체크
-  if (validTimestamps.length >= MAX_PER_MINUTE) {
+  if (validTimestamps.length >= config.maxPerMinute) {
     const oldestInWindow = validTimestamps[0];
     const retryAfter = Math.ceil((oldestInWindow + 60000 - now) / 1000);
     return {
@@ -63,7 +79,7 @@ export function checkRateLimit(key: string = 'global'): {
   return {
     allowed: true,
     retryAfter: 0,
-    remaining: MAX_PER_MINUTE - validTimestamps.length,
+    remaining: config.maxPerMinute - validTimestamps.length,
     reset: Math.ceil((now + 60000) / 1000),
   };
 }

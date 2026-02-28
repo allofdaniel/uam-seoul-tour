@@ -3,6 +3,7 @@
 import { useEffect, useState, useMemo, useRef } from 'react';
 import { useGuideStore } from '@/stores/useGuideStore';
 import { useFlightStore } from '@/stores/useFlightStore';
+import { useVoiceStore } from '@/stores/useVoiceStore';
 
 // 고도 → Google Maps Static API 줌 레벨 변환
 function altitudeToZoom(altitudeM: number): number {
@@ -23,11 +24,13 @@ export default function GuidePanel() {
     audioEnabled,
     toggleAudio,
     pendingTransition,
+    source,
   } = useGuideStore();
 
   const position = useFlightStore((s) => s.position);
   const speed = useFlightStore((s) => s.speed_kmh);
   const heading = useFlightStore((s) => s.heading);
+  const voicePhase = useVoiceStore((s) => s.voicePhase);
 
   const [displayText, setDisplayText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -39,11 +42,12 @@ export default function GuidePanel() {
   const [panelVisible, setPanelVisible] = useState(false);
   const prevPOIRef = useRef<string | null>(null);
 
+  const isVoiceMode = source === 'voice' || voicePhase !== 'idle';
+
   // POI 변경 시 페이드 인/아웃
   useEffect(() => {
     if (currentPOI) {
       if (prevPOIRef.current !== currentPOI.id) {
-        // 새 POI: 이미지 로딩 상태 리셋 → 페이드인
         setAerialLoaded(false);
         setPhotoLoaded(false);
         setPanelVisible(false);
@@ -82,7 +86,7 @@ export default function GuidePanel() {
 
   // Google Places API로 대표 사진 가져오기
   useEffect(() => {
-    if (!currentPOI) {
+    if (!currentPOI || currentPOI.id === 'voice') {
       setPlacesPhotoUrl(null);
       return;
     }
@@ -110,32 +114,44 @@ export default function GuidePanel() {
 
   // 항공사진 URL (Google Maps Static API, 현재 고도 기반 줌)
   const aerialPhotoUrl = useMemo(() => {
-    if (!currentPOI) return '';
+    if (!currentPOI || currentPOI.id === 'voice') return '';
     const apiKey = process.env.NEXT_PUBLIC_GOOGLE_TILES_API_KEY;
     if (!apiKey) return '';
     const zoom = altitudeToZoom(position.altitude_m);
     return `https://maps.googleapis.com/maps/api/staticmap?center=${currentPOI.lat},${currentPOI.lon}&zoom=${zoom}&size=400x250&maptype=satellite&key=${apiKey}`;
   }, [currentPOI, position.altitude_m]);
 
+  // POI가 있거나, 음성 모드로 내레이션 중이면 표시
   const hasPOI = currentPOI !== null;
+  const showPanel = hasPOI || (isVoiceMode && (isNarrating || narrationText));
 
-  // 대표이미지: Places API 우선, 없으면 visitseoul 이미지
   const representativeImage = placesPhotoUrl || displayImage;
 
   return (
     <div
       className={`fixed top-0 right-0 w-[360px] h-screen z-20 transition-transform duration-700 ease-in-out ${
-        hasPOI ? 'translate-x-0' : 'translate-x-full'
+        showPanel ? 'translate-x-0' : 'translate-x-full'
       }`}
     >
       <div className="h-full bg-[#0b0f19]/90 backdrop-blur-xl border-l border-gray-700/30 flex flex-col overflow-hidden">
         {/* 헤더 */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-gray-700/30 shrink-0">
           <div className="flex items-center gap-2">
-            <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse" />
-            <span className="text-orange-400 font-bold text-sm tracking-wide">
-              Gemini 가이드
-            </span>
+            {isVoiceMode ? (
+              <>
+                <div className="w-2 h-2 bg-indigo-400 rounded-full animate-pulse" />
+                <span className="text-indigo-400 font-bold text-sm tracking-wide">
+                  음성 대화
+                </span>
+              </>
+            ) : (
+              <>
+                <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse" />
+                <span className="text-orange-400 font-bold text-sm tracking-wide">
+                  Gemini 가이드
+                </span>
+              </>
+            )}
             {pendingTransition && (
               <span className="text-xs text-yellow-400 animate-pulse ml-1">
                 전환 중...
@@ -152,8 +168,8 @@ export default function GuidePanel() {
 
         {/* 스크롤 가능한 본문 */}
         <div className="flex-1 overflow-y-auto">
-          {/* 항공사진 (현재 고도 기반 위성 뷰) - 부드러운 페이드인 */}
-          {aerialPhotoUrl && (
+          {/* 항공사진 (현재 고도 기반 위성 뷰) - 음성 대화 아닐 때만 */}
+          {aerialPhotoUrl && !isVoiceMode && (
             <div className="relative">
               <img
                 src={aerialPhotoUrl}
@@ -180,8 +196,8 @@ export default function GuidePanel() {
             </div>
           )}
 
-          {/* POI 정보 카드 - 부드러운 등장 */}
-          {currentPOI && (
+          {/* POI 정보 카드 - 음성 모드가 아닐 때 */}
+          {currentPOI && currentPOI.id !== 'voice' && !isVoiceMode && (
             <div
               className="px-5 py-4 transition-all duration-700 ease-out"
               style={{
@@ -189,19 +205,15 @@ export default function GuidePanel() {
                 transform: panelVisible ? 'translateY(0)' : 'translateY(12px)',
               }}
             >
-              {/* 카테고리 배지 */}
               <span className="inline-block px-2.5 py-0.5 bg-blue-500/20 border border-blue-500/40 rounded text-blue-300 text-xs font-medium mb-2">
-                {currentPOI.category_code?.replace('cat_', '').toUpperCase() ||
-                  'LANDMARK'}
+                {currentPOI.category_code?.replace('cat_', '').toUpperCase() || 'LANDMARK'}
               </span>
 
-              {/* POI 이름 */}
               <h2 className="text-white font-bold text-xl leading-tight mb-1">
                 {currentPOI.name}
               </h2>
               <p className="text-gray-500 text-xs mb-4">{currentPOI.name_en}</p>
 
-              {/* 대표 이미지 (Google Places 또는 visitseoul) - 부드러운 페이드인 */}
               {representativeImage && (
                 <div className="mb-4 rounded-xl overflow-hidden border border-gray-700/30 shadow-lg">
                   <img
@@ -211,7 +223,6 @@ export default function GuidePanel() {
                     style={{ opacity: photoLoaded && panelVisible ? 1 : 0 }}
                     onLoad={() => setPhotoLoaded(true)}
                     onError={(e) => {
-                      // Places 이미지 실패시 visitseoul 폴백
                       const img = e.target as HTMLImageElement;
                       if (placesPhotoUrl && displayImage && img.src !== displayImage) {
                         img.src = displayImage;
@@ -231,12 +242,10 @@ export default function GuidePanel() {
                 </div>
               )}
 
-              {/* 설명 */}
               <p className="text-gray-300 text-sm leading-relaxed mb-4">
                 {currentPOI.description}
               </p>
 
-              {/* 태그 */}
               {currentPOI.tags && currentPOI.tags.length > 0 && (
                 <div className="flex flex-wrap gap-1.5 mb-4">
                   {currentPOI.tags.map((tag: string, i: number) => (
@@ -256,13 +265,13 @@ export default function GuidePanel() {
             </div>
           )}
 
-          {/* Gemini 내레이션 */}
+          {/* 내레이션 (자동 가이드 또는 음성 대화) */}
           {(isNarrating || narrationText) && (
             <div className="px-5 py-4 border-t border-gray-700/30">
               <div className="flex items-center gap-2 mb-3">
-                <div className="w-1.5 h-1.5 bg-orange-400 rounded-full animate-pulse" />
-                <span className="text-orange-400 text-xs font-semibold tracking-wide">
-                  GEMINI NARRATION
+                <div className={`w-1.5 h-1.5 rounded-full animate-pulse ${isVoiceMode ? 'bg-indigo-400' : 'bg-orange-400'}`} />
+                <span className={`text-xs font-semibold tracking-wide ${isVoiceMode ? 'text-indigo-400' : 'text-orange-400'}`}>
+                  {isVoiceMode ? 'VOICE RESPONSE' : 'GEMINI NARRATION'}
                 </span>
               </div>
               <div className="text-gray-200 text-sm leading-relaxed">
@@ -279,6 +288,17 @@ export default function GuidePanel() {
                   </>
                 )}
               </div>
+              {highlightKeyword && (
+                <div className="mt-3">
+                  <span className={`inline-block px-2 py-1 rounded-full text-xs ${
+                    isVoiceMode
+                      ? 'bg-indigo-500/20 border border-indigo-500/30 text-indigo-400'
+                      : 'bg-orange-500/20 border border-orange-500/30 text-orange-400'
+                  }`}>
+                    #{highlightKeyword}
+                  </span>
+                </div>
+              )}
             </div>
           )}
         </div>

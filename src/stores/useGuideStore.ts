@@ -13,10 +13,12 @@ interface GuideState {
   narrationHistory: NarrationRecord[];
   pendingTransition: boolean;
   lastNarrationTime: number;
+  source: 'auto' | 'voice';
 
   // Actions
   startNarration: (poi: POI, trigger: TriggerType) => void;
   setNarrationText: (text: string, keyword?: string) => void;
+  setVoiceNarration: (text: string, keyword?: string) => void;
   endNarration: () => void;
   enqueuePOI: (poi: POI) => void;
   dequeuePOI: () => POI | null;
@@ -43,6 +45,7 @@ export const useGuideStore = create<GuideState>((set, get) => ({
   narrationHistory: [],
   pendingTransition: false,
   lastNarrationTime: 0,
+  source: 'auto',
 
   startNarration: (poi, trigger) => set({
     isNarrating: true,
@@ -52,11 +55,20 @@ export const useGuideStore = create<GuideState>((set, get) => ({
     highlightKeyword: '',
     displayImage: poi.images?.[0]?.image_url || '',
     pendingTransition: false,
+    source: 'auto',
   }),
 
   setNarrationText: (text, keyword) => set({
     narrationText: text,
     highlightKeyword: keyword || '',
+  }),
+
+  setVoiceNarration: (text, keyword) => set({
+    isNarrating: true,
+    narrationText: text,
+    highlightKeyword: keyword || '',
+    source: 'voice',
+    displayImage: '',
   }),
 
   endNarration: () => {
@@ -133,5 +145,6 @@ export const useGuideStore = create<GuideState>((set, get) => ({
     narrationHistory: [],
     pendingTransition: false,
     lastNarrationTime: 0,
+    source: 'auto',
   }),
 }));

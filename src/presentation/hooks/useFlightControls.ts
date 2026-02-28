@@ -43,6 +43,10 @@ export default function useFlightControls() {
       if (e.key === ' ') {
         useFlightStore.getState().toggleAutoCruise();
       }
+      // M 키 마이크 토글
+      if (key === 'm') {
+        window.dispatchEvent(new CustomEvent('voice-toggle'));
+      }
       // L 키 착륙 (현재 위치에서 착륙)
       if (key === 'l') {
         setGamePhase('landing');
