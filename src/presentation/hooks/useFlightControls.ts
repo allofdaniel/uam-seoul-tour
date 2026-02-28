@@ -113,8 +113,8 @@ export default function useFlightControls() {
       // 위치 업데이트 (속도 기반)
       const speedMs = (newSpeed / 3.6); // m/s
       const headingRad = (newHeading * Math.PI) / 180;
-      const dLat = (speedMs * Math.cos(headingRad) * dt) / 111320;
-      const dLon = (speedMs * Math.sin(headingRad) * dt) / (111320 * Math.cos((state.position.lat * Math.PI) / 180));
+      const dLat = -(speedMs * Math.cos(headingRad) * dt) / 111320;
+      const dLon = -(speedMs * Math.sin(headingRad) * dt) / (111320 * Math.cos((state.position.lat * Math.PI) / 180));
 
       let newLat = state.position.lat + dLat;
       let newLon = state.position.lon + dLon;
