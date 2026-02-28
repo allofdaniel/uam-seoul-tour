@@ -343,14 +343,11 @@ export default function MapScene() {
         uamEntity.position = pos;
 
         // ── UAM 방향 ──
-        // 모델: +Y=노즈, +Z=상부 (Z-up OBJ, glTF 변환 안 됨)
-        // CesiumJS glTF: +Y=위, -Z=앞 으로 해석
-        // → pitch=-90° 로 모델 +Y(노즈)를 수평 전방으로 회전
-        // → heading 그대로 적용 (PI 오프셋 불필요)
+        // 뒤집기(pitch +90°) + 우측 90° 회전(heading +90°)
         const hpr = new Cesium.HeadingPitchRoll(
-          Cesium.Math.toRadians(smoothHeading),
-          -Math.PI / 2 + Cesium.Math.toRadians(smoothPitch * 0.3),
-          Cesium.Math.toRadians(smoothRoll * 0.5)
+          Cesium.Math.toRadians(smoothHeading) + Math.PI / 2,
+          Math.PI / 2 + Cesium.Math.toRadians(smoothPitch * 0.3),
+          Cesium.Math.toRadians(-smoothRoll * 0.5)
         );
         uamEntity.orientation = Cesium.Transforms.headingPitchRollQuaternion(pos, hpr);
 
