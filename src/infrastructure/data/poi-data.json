@@ -10,20 +10,20 @@
     "altitude_m": 0.0,
     "description": "영화 기생충 촬영지로 유명한 청운동과 부암동 연결 터널입니다.",
     "description_en": "A tunnel connecting Cheongun-dong and Buam-dong, famous as a filming location for 'Parasite'.",
+    "visible_range_m": 100.0,
+    "direction": "all",
+    "tags": [
+      "기생충",
+      "자하문터널",
+      "기생충촬영지"
+    ],
     "images": [
       {
         "id": "img_jah_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=40989&fileTy=MEDIA&fileNo=2&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "기생충",
-      "자하문터널",
-      "기생충촬영지"
-    ],
-    "visible_range_m": 100.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_worldcup_autumn",
@@ -36,19 +36,19 @@
     "altitude_m": 0.0,
     "description": "난지천공원을 따라 펼쳐진 아름다운 단풍 산책길입니다.",
     "description_en": "A beautiful autumn foliage walking path stretching along Nanjicheon Park.",
+    "visible_range_m": 200.0,
+    "direction": "all",
+    "tags": [
+      "가을단풍길",
+      "월드컵로"
+    ],
     "images": [
       {
         "id": "img_wor_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=45402&fileTy=MEDIA&fileNo=3&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "가을단풍길",
-      "월드컵로"
-    ],
-    "visible_range_m": 200.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_jamsil_bridge",
@@ -61,19 +61,19 @@
     "altitude_m": 0.0,
     "description": "한강의 6번째 다리로 수중보가 설치되어 수위를 조절합니다.",
     "description_en": "The 6th bridge on the Han River, featuring a submerged weir to control water levels.",
+    "visible_range_m": 500.0,
+    "direction": "all",
+    "tags": [
+      "한강",
+      "야경"
+    ],
     "images": [
       {
         "id": "img_jam_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=53003&fileTy=MEDIA&fileNo=2&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "한강",
-      "야경"
-    ],
-    "visible_range_m": 500.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_wtc_seoul",
@@ -86,19 +86,19 @@
     "altitude_m": 0.0,
     "description": "대한민국 최초의 옥외광고물 자유표시구역이자 복합문화공간입니다.",
     "description_en": "Korea's first free-display zone for outdoor advertisements and a cultural complex.",
+    "visible_range_m": 300.0,
+    "direction": "all",
+    "tags": [
+      "별마당도서관",
+      "아쿠아리움"
+    ],
     "images": [
       {
         "id": "img_wtc_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=56101&fileTy=MEDIA&fileNo=1&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "별마당도서관",
-      "아쿠아리움"
-    ],
-    "visible_range_m": 300.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_seoul_sky",
@@ -111,19 +111,19 @@
     "altitude_m": 500.0,
     "description": "롯데월드타워 최상층에 위치한 세계 5위 높이의 전망대입니다.",
     "description_en": "The world's 5th highest observatory located at the top of Lotte World Tower.",
+    "visible_range_m": 1000.0,
+    "direction": "all",
+    "tags": [
+      "전망대",
+      "롯데월드타워"
+    ],
     "images": [
       {
         "id": "img_sky_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=60808&fileTy=MEDIA&fileNo=1&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "전망대",
-      "롯데월드타워"
-    ],
-    "visible_range_m": 1000.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_seoul_dal",
@@ -136,19 +136,19 @@
     "altitude_m": 130.0,
     "description": "여의도 상공을 비행하는 계류식 헬륨가스 기구 체험시설입니다.",
     "description_en": "A tethered helium gas balloon experience facility flying over Yeouido.",
+    "visible_range_m": 500.0,
+    "direction": "all",
+    "tags": [
+      "서울달",
+      "여의도"
+    ],
     "images": [
       {
         "id": "img_dal_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=72273&fileTy=MEDIA&fileNo=1&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "서울달",
-      "여의도"
-    ],
-    "visible_range_m": 500.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_cheongdam_bridge",
@@ -161,19 +161,19 @@
     "altitude_m": 0.0,
     "description": "국내 최초의 복층 교량으로 영화 어벤져스2 촬영지입니다.",
     "description_en": "Korea's first double-deck bridge and a filming location for 'Avengers 2'.",
+    "visible_range_m": 500.0,
+    "direction": "all",
+    "tags": [
+      "청담대교",
+      "어벤져스2"
+    ],
     "images": [
       {
         "id": "img_cdb_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=74464&fileTy=MEDIA&fileNo=1&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "청담대교",
-      "어벤져스2"
-    ],
-    "visible_range_m": 500.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_yongmasan_skywalk",
@@ -186,19 +186,19 @@
     "altitude_m": 10.0,
     "description": "숲 위를 걷는 듯한 경험을 제공하는 무장애 데크 전망대입니다.",
     "description_en": "A barrier-free deck observatory providing the experience of walking above the forest.",
+    "visible_range_m": 300.0,
+    "direction": "all",
+    "tags": [
+      "용마산",
+      "서울둘레길"
+    ],
     "images": [
       {
         "id": "img_yms_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=77253&fileTy=MEDIA&fileNo=1&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "용마산",
-      "서울둘레길"
-    ],
-    "visible_range_m": 300.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_khu_seoul",
@@ -211,19 +211,19 @@
     "altitude_m": 0.0,
     "description": "웅장한 고딕 양식 건물과 녹지가 아름다운 캠퍼스입니다.",
     "description_en": "A campus known for its magnificent Gothic architecture and beautiful greenery.",
+    "visible_range_m": 200.0,
+    "direction": "all",
+    "tags": [
+      "경희대학교",
+      "평화의전당"
+    ],
     "images": [
       {
         "id": "img_khu_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=77423&fileTy=MEDIA&fileNo=1&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "경희대학교",
-      "평화의전당"
-    ],
-    "visible_range_m": 200.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_namsan_tower",
@@ -236,19 +236,19 @@
     "altitude_m": 480.0,
     "description": "서울의 랜드마크이자 360도 파노라마 뷰를 자랑하는 전망대입니다.",
     "description_en": "A landmark of Seoul and an observatory boasting a 360-degree panoramic view.",
+    "visible_range_m": 1000.0,
+    "direction": "all",
+    "tags": [
+      "남산타워",
+      "사랑의자물쇠"
+    ],
     "images": [
       {
         "id": "img_ns_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=68274&fileTy=MEDIA&fileNo=2&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "남산타워",
-      "사랑의자물쇠"
-    ],
-    "visible_range_m": 1000.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_63_square",
@@ -261,19 +261,19 @@
     "altitude_m": 250.0,
     "description": "여의도의 대표 랜드마크로 전망대와 아쿠아리움을 갖춘 복합 공간입니다.",
     "description_en": "A representative landmark in Yeouido, a complex space with an observatory and aquarium.",
+    "visible_range_m": 500.0,
+    "direction": "all",
+    "tags": [
+      "63빌딩",
+      "여의도"
+    ],
     "images": [
       {
         "id": "img_63_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=68043&fileTy=MEDIA&fileNo=2&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "63빌딩",
-      "여의도"
-    ],
-    "visible_range_m": 500.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_bukchon_hanok",
@@ -286,19 +286,19 @@
     "altitude_m": 0.0,
     "description": "전통 한옥이 밀집된 서울의 대표적인 생활 한옥촌입니다.",
     "description_en": "A representative traditional hanok village in Seoul where residents actually live.",
+    "visible_range_m": 200.0,
+    "direction": "all",
+    "tags": [
+      "북촌한옥마을",
+      "전통문화"
+    ],
     "images": [
       {
         "id": "img_bc_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=42685&fileTy=MEDIA&fileNo=2&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "북촌한옥마을",
-      "전통문화"
-    ],
-    "visible_range_m": 200.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_banpo_fountain",
@@ -311,19 +311,19 @@
     "altitude_m": 0.0,
     "description": "낙하용 수중펌프를 이용한 세계 최장 교량 분수입니다.",
     "description_en": "The world's longest bridge fountain using drop-down submersible pumps.",
+    "visible_range_m": 500.0,
+    "direction": "all",
+    "tags": [
+      "무지개분수",
+      "한강공원"
+    ],
     "images": [
       {
         "id": "img_bf_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=17046&fileTy=MEDIA&fileNo=2&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "무지개분수",
-      "한강공원"
-    ],
-    "visible_range_m": 500.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_gwanghwamun_night",
@@ -336,19 +336,19 @@
     "altitude_m": 0.0,
     "description": "역사성과 문화가 공존하는 서울 도심의 대표적인 야경 명소입니다.",
     "description_en": "A representative night view spot in downtown Seoul where history and culture coexist.",
+    "visible_range_m": 500.0,
+    "direction": "all",
+    "tags": [
+      "야경",
+      "세종대왕"
+    ],
     "images": [
       {
         "id": "img_ghn_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=8799&fileTy=MEDIA&fileNo=3&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "야경",
-      "세종대왕"
-    ],
-    "visible_range_m": 500.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_banpo_night",
@@ -361,19 +361,19 @@
     "altitude_m": 0.0,
     "description": "분수와 불빛이 어우러진 낭만적인 한강의 야경 명소입니다.",
     "description_en": "A romantic night view spot on the Han River with fountains and lights.",
+    "visible_range_m": 500.0,
+    "direction": "all",
+    "tags": [
+      "야경",
+      "데이트코스"
+    ],
     "images": [
       {
         "id": "img_bpn_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=42326&fileTy=MEDIA&fileNo=3&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "야경",
-      "데이트코스"
-    ],
-    "visible_range_m": 500.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_namsan_night",
@@ -386,18 +386,18 @@
     "altitude_m": 480.0,
     "description": "각종 드라마와 예능에 등장하는 서울의 대표적인 한류 야경 명소입니다.",
     "description_en": "A representative Hallyu night view spot in Seoul appearing in various dramas.",
+    "visible_range_m": 1000.0,
+    "direction": "all",
+    "tags": [
+      "한류명소"
+    ],
     "images": [
       {
         "id": "img_ntn_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=8809&fileTy=MEDIA&fileNo=2&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "한류명소"
-    ],
-    "visible_range_m": 1000.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_skku_seoul",
@@ -410,19 +410,19 @@
     "altitude_m": 0.0,
     "description": "조선시대 국립최고학부인 성균관의 전통을 잇는 대학교입니다.",
     "description_en": "A university that continues the tradition of Sungkyunkwan, the highest educational institution of Joseon.",
+    "visible_range_m": 200.0,
+    "direction": "all",
+    "tags": [
+      "명륜당",
+      "성균관대학교"
+    ],
     "images": [
       {
         "id": "img_skk_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=13223&fileTy=MEDIA&fileNo=2&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "명륜당",
-      "성균관대학교"
-    ],
-    "visible_range_m": 200.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_lotte_world_tower",
@@ -435,18 +435,18 @@
     "altitude_m": 555.0,
     "description": "쇼핑, 전망, 문화시설이 한데 모인 123층의 초고층 수직도시입니다.",
     "description_en": "A 123-story super-tall vertical city combining shopping, views, and cultural facilities.",
+    "visible_range_m": 1000.0,
+    "direction": "all",
+    "tags": [
+      "잠실"
+    ],
     "images": [
       {
         "id": "img_lwt_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=68179&fileTy=MEDIA&fileNo=1&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "잠실"
-    ],
-    "visible_range_m": 1000.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_seoullo_7017",
@@ -459,18 +459,18 @@
     "altitude_m": 17.0,
     "description": "폐쇄된 고가도로를 보행자 전용 사람길로 재탄생시킨 도시재생 공원입니다.",
     "description_en": "An urban regeneration park that transformed a closed overpass into a pedestrian path.",
+    "visible_range_m": 300.0,
+    "direction": "all",
+    "tags": [
+      "서울로7017"
+    ],
     "images": [
       {
         "id": "img_sl7_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=42213&fileTy=MEDIA&fileNo=6&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "서울로7017"
-    ],
-    "visible_range_m": 300.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_central_post_office",
@@ -483,18 +483,18 @@
     "altitude_m": 0.0,
     "description": "명동에 위치한 현대적 우체국 청사로 비즈니스 회의 시설을 제공합니다.",
     "description_en": "A modern post office building in Myeong-dong providing business meeting facilities.",
+    "visible_range_m": 200.0,
+    "direction": "all",
+    "tags": [
+      "명동"
+    ],
     "images": [
       {
         "id": "img_cpo_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=18447&fileTy=MEDIA&fileNo=2&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "명동"
-    ],
-    "visible_range_m": 200.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_sevitseom",
@@ -507,18 +507,18 @@
     "altitude_m": 0.0,
     "description": "한강 수변에 조성된 세계 최초의 수상 문화 복합공간입니다.",
     "description_en": "The world's first floating cultural complex created on the Han River waterfront.",
+    "visible_range_m": 500.0,
+    "direction": "all",
+    "tags": [
+      "세빛섬"
+    ],
     "images": [
       {
         "id": "img_svs_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=42023&fileTy=MEDIA&fileNo=2&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "세빛섬"
-    ],
-    "visible_range_m": 500.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_coex",
@@ -531,18 +531,18 @@
     "altitude_m": 0.0,
     "description": "국제회의와 전시가 열리는 대규모 마이스(MICE) 복합 단지입니다.",
     "description_en": "A large-scale MICE complex hosting international conferences and exhibitions.",
+    "visible_range_m": 400.0,
+    "direction": "all",
+    "tags": [
+      "코엑스몰"
+    ],
     "images": [
       {
         "id": "img_cox_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=72651&fileTy=MEDIA&fileNo=1&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "코엑스몰"
-    ],
-    "visible_range_m": 400.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_ddp",
@@ -555,18 +555,18 @@
     "altitude_m": 0.0,
     "description": "혁신적인 디자인의 건축물로 각종 전시와 패션쇼가 열리는 문화공간입니다.",
     "description_en": "A cultural space with innovative architecture hosting exhibitions and fashion shows.",
+    "visible_range_m": 300.0,
+    "direction": "all",
+    "tags": [
+      "동대문디자인플라자"
+    ],
     "images": [
       {
         "id": "img_ddp_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=68049&fileTy=MEDIA&fileNo=1&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "동대문디자인플라자"
-    ],
-    "visible_range_m": 300.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_ecc",
@@ -579,18 +579,18 @@
     "altitude_m": 0.0,
     "description": "프랑스 건축가 도미니크 페로가 설계한 이화여대 내 지하 복합 단지입니다.",
     "description_en": "An underground complex at Ewha Womans University designed by Dominique Perrault.",
+    "visible_range_m": 200.0,
+    "direction": "all",
+    "tags": [
+      "이화여자대학교"
+    ],
     "images": [
       {
         "id": "img_ecc_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=21373&fileTy=MEDIA&fileNo=2&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "이화여자대학교"
-    ],
-    "visible_range_m": 200.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_yonsei_campus",
@@ -603,18 +603,18 @@
     "altitude_m": 0.0,
     "description": "근현대 역사가 담긴 석조건물과 아름다운 조경을 자랑하는 캠퍼스입니다.",
     "description_en": "A campus boasting stone buildings with modern history and beautiful landscaping.",
+    "visible_range_m": 200.0,
+    "direction": "all",
+    "tags": [
+      "연세대학교"
+    ],
     "images": [
       {
         "id": "img_yon_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=21377&fileTy=MEDIA&fileNo=2&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "연세대학교"
-    ],
-    "visible_range_m": 200.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_namsan_cablecar",
@@ -627,18 +627,18 @@
     "altitude_m": 138.0,
     "description": "남산의 풍광을 한눈에 조망할 수 있으며 N서울타워까지 편리하게 이동할 수 있는 명소입니다.",
     "description_en": "A cable car offering a panoramic view of Namsan and a convenient way to reach N Seoul Tower.",
+    "visible_range_m": 300.0,
+    "direction": "all",
+    "tags": [
+      "남산케이블카"
+    ],
     "images": [
       {
         "id": "img_nc_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=32472&fileTy=MEDIA&fileNo=3&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "남산케이블카"
-    ],
-    "visible_range_m": 300.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_ikseon_hanok",
@@ -651,18 +651,18 @@
     "altitude_m": 0.0,
     "description": "1920년대 한옥 골목에 트렌디한 카페와 맛집이 어우러진 복고풍 감성 거리입니다.",
     "description_en": "A retro-style street with trendy cafes and restaurants set within 1920s hanok alleys.",
+    "visible_range_m": 200.0,
+    "direction": "all",
+    "tags": [
+      "익선동"
+    ],
     "images": [
       {
         "id": "img_ik_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=67734&fileTy=MEDIA&fileNo=2&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "익선동"
-    ],
-    "visible_range_m": 200.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_bukak_palgakjeong",
@@ -675,21 +675,21 @@
     "altitude_m": 0.0,
     "description": "서울 전경을 한눈에 내려다볼 수 있는 전망 명소로 드라이브와 야경 감상에 적합합니다.",
     "description_en": "A famous observatory spot where you can see the entire view of Seoul, popular for driving and night views.",
-    "images": [
-      {
-        "id": "img_bukak_01",
-        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=68348&fileTy=MEDIA&fileNo=1&thumbTy=M",
-        "display_order": 1
-      }
-    ],
+    "visible_range_m": 300.0,
+    "direction": "all",
     "tags": [
       "북악산둘레길",
       "북악스카이웨이",
       "야경",
       "팔각정"
     ],
-    "visible_range_m": 300.0,
-    "direction": "all"
+    "images": [
+      {
+        "id": "img_bukak_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=68348&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      }
+    ]
   },
   {
     "id": "poi_gwanghwamun_square",
@@ -702,20 +702,20 @@
     "altitude_m": 0.0,
     "description": "조선 시대 육조 거리의 역사를 회복한 서울의 중심 광장으로 세종대왕 동상이 자리합니다.",
     "description_en": "The central square of Seoul that restored the history of the Six Ministries Street from the Joseon Dynasty.",
+    "visible_range_m": 300.0,
+    "direction": "all",
+    "tags": [
+      "광화문",
+      "광화문광장",
+      "세종대왕"
+    ],
     "images": [
       {
         "id": "img_gh_sq_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=66716&fileTy=MEDIA&fileNo=3&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "광화문",
-      "광화문광장",
-      "세종대왕"
-    ],
-    "visible_range_m": 300.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_cheongwadae",
@@ -728,20 +728,20 @@
     "altitude_m": 0.0,
     "description": "대한민국 대통령의 공식 집무실이자 상징적인 장소로 현재 국민에게 개방되었습니다.",
     "description_en": "The official office and symbolic place of the President of South Korea, now open to the public.",
+    "visible_range_m": 200.0,
+    "direction": "all",
+    "tags": [
+      "대통령",
+      "청와대",
+      "관람"
+    ],
     "images": [
       {
         "id": "img_cwd_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=72703&fileTy=MEDIA&fileNo=1&thumbTy=M",
         "display_order": 1
       }
-    ],
-    "tags": [
-      "대통령",
-      "청와대",
-      "관람"
-    ],
-    "visible_range_m": 200.0,
-    "direction": "all"
+    ]
   },
   {
     "id": "poi_national_assembly",
@@ -754,19 +754,1414 @@
     "altitude_m": 0.0,
     "description": "한국의 민주주의와 인권을 상징하는 여의도 소재 입법부 건물입니다.",
     "description_en": "The legislative building located in Yeouido, symbolizing Korea's democracy and human rights.",
+    "visible_range_m": 400.0,
+    "direction": "all",
+    "tags": [
+      "여의도",
+      "국회의사당",
+      "민주주의"
+    ],
     "images": [
       {
         "id": "img_na_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=68371&fileTy=MEDIA&fileNo=1&thumbTy=M",
         "display_order": 1
       }
-    ],
+    ]
+  },
+  {
+    "id": "poi_curryin",
+    "zone_code": "zone_gangnam",
+    "category_code": "cat_restaurant",
+    "name": "커리인",
+    "name_en": "Curry-in",
+    "lat": 37.511674,
+    "lon": 127.065531,
+    "altitude_m": 0.0,
+    "description": "인도인 오너가 직접 운영하는 인도 커리 식당으로, 집밥처럼 편안한 분위기에서 본토의 맛을 즐길 수 있습니다. 할랄 인증을 받아 안심하고 이용할 수 있습니다.",
+    "description_en": "An Indian curry restaurant run by an Indian owner where you can enjoy authentic tastes in a cozy, home-style atmosphere. It is Halal certified for peace of mind.",
+    "visible_range_m": 50.0,
+    "direction": "all",
     "tags": [
-      "여의도",
-      "국회의사당",
-      "민주주의"
+      "살람서울",
+      "커리인",
+      "인도커리",
+      "삼성동맛집",
+      "할랄"
     ],
-    "visible_range_m": 400.0,
-    "direction": "all"
+    "images": [
+      {
+        "id": "img_curryin_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78605&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_curryin_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78606&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 2
+      },
+      {
+        "id": "img_curryin_03",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78606&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 3
+      }
+    ]
+  },
+  {
+    "id": "poi_sanchon",
+    "zone_code": "zone_jongno",
+    "category_code": "cat_restaurant",
+    "name": "산촌",
+    "name_en": "Sanchon",
+    "lat": 37.573797,
+    "lon": 126.98626,
+    "altitude_m": 0.0,
+    "description": "사찰 음식을 선보이는 전통 한옥 식당으로, 산나물과 신선한 채소를 중심으로 정갈한 비건 요리를 제공합니다.",
+    "description_en": "A traditional Korean restaurant specializing in temple food, offering clean and refined vegan dishes centered on wild greens and fresh vegetables in a Hanok setting.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "산촌",
+      "살람서울",
+      "사찰음식",
+      "비건",
+      "인사동맛집"
+    ],
+    "images": [
+      {
+        "id": "img_sanchon_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78602&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_sanchon_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78604&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 2
+      },
+      {
+        "id": "img_sanchon_03",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78604&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 3
+      },
+      {
+        "id": "img_sanchon_04",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78603&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 4
+      },
+      {
+        "id": "img_sanchon_05",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78603&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 5
+      }
+    ]
+  },
+  {
+    "id": "poi_hamcho",
+    "zone_code": "zone_junggu",
+    "category_code": "cat_restaurant",
+    "name": "함초간장게장",
+    "name_en": "Hamcho Ganjanggejang",
+    "lat": 37.562,
+    "lon": 126.986563,
+    "altitude_m": 0.0,
+    "description": "비법 재료인 함초를 더해 깊고 깔끔한 감칠맛을 자랑하는 간장게장 전문점입니다. 한국의 해산물 발효 문화를 경험할 수 있는 특별한 곳입니다.",
+    "description_en": "A restaurant specializing in Ganjanggejang (soy sauce marinated crab) featuring glasswort (Hamcho) for a deep, clean flavor. A special place to experience Korea's fermented seafood culture.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "함초간장게장",
+      "살람서울",
+      "간장게장",
+      "명동맛집",
+      "해산물"
+    ],
+    "images": [
+      {
+        "id": "img_hamcho_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78600&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_hamcho_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78601&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 2
+      },
+      {
+        "id": "img_hamcho_03",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78601&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 3
+      }
+    ]
+  },
+  {
+    "id": "poi_sobalab",
+    "zone_code": "zone_seodaemun",
+    "category_code": "cat_restaurant",
+    "name": "소바연구소 신촌본점",
+    "name_en": "Soba Research Lab",
+    "lat": 37.558775,
+    "lon": 126.939459,
+    "altitude_m": 0.0,
+    "description": "자가제분과 제면으로 정성을 다하는 소바 맛집입니다. 들기름소바와 납작 소바 등 독창적인 메뉴들을 선보입니다.",
+    "description_en": "A soba specialty restaurant that grinds and kneads its own flour. It offers creative menus such as perilla oil soba and the world's first flat soba.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "살람서울",
+      "소바연구소",
+      "신촌맛집",
+      "메밀소바",
+      "자가제면"
+    ],
+    "images": [
+      {
+        "id": "img_sobalab_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78598&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_sobalab_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78598&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 2
+      },
+      {
+        "id": "img_sobalab_03",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78599&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 3
+      }
+    ]
+  },
+  {
+    "id": "poi_myeongdongjeong",
+    "zone_code": "zone_junggu",
+    "category_code": "cat_restaurant",
+    "name": "명동정",
+    "name_en": "Myeongdongjeong",
+    "lat": 37.561532,
+    "lon": 126.98849,
+    "altitude_m": 0.0,
+    "description": "할랄 미트를 사용한 정통 한정식 전문점으로, 궁중요리를 바탕으로 품격 있는 한국 전통 식문화를 선보입니다.",
+    "description_en": "A traditional Han-jeongsik (Korean full-course meal) restaurant using Halal meat, presenting the dignity of Korean royal cuisine and traditional food culture.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "명동정",
+      "살람서울",
+      "한정식",
+      "할랄미트",
+      "궁중요리"
+    ],
+    "images": [
+      {
+        "id": "img_myeongdong_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78617&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_myeongdong_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78617&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 2
+      },
+      {
+        "id": "img_myeongdong_03",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78618&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 3
+      }
+    ]
+  },
+  {
+    "id": "poi_gosami_hapjeong",
+    "zone_code": "zone_mapo",
+    "category_code": "cat_restaurant",
+    "name": "고삼이 합정직영점",
+    "name_en": "Gosami Hapjeong",
+    "lat": 37.55013,
+    "lon": 126.910767,
+    "altitude_m": 0.0,
+    "description": "석쇠에 구운 신선한 생선구이와 매콤한 오징어볶음으로 유명한 맛집입니다. 해외 관광객들에게도 할랄 한식 맛집으로 잘 알려져 있습니다.",
+    "description_en": "A popular restaurant famous for charcoal-grilled fresh fish and spicy stir-fried squid. It is well-known among international tourists as a great spot for Halal-friendly Korean food.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "고삼이",
+      "살람서울",
+      "합정맛집",
+      "생선구이",
+      "오징어볶음"
+    ],
+    "images": [
+      {
+        "id": "img_gosami_h_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78620&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_gosami_h_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78622&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 2
+      }
+    ]
+  },
+  {
+    "id": "poi_gosami_sinchon",
+    "zone_code": "zone_seodaemun",
+    "category_code": "cat_restaurant",
+    "name": "고삼이 신촌점",
+    "name_en": "Gosami Sinchon",
+    "lat": 37.558319,
+    "lon": 126.934715,
+    "altitude_m": 0.0,
+    "description": "20년 동안 신촌을 지켜온 생선구이 전문점으로, 직화로 구워 육즙이 살아있는 생선구이와 다양한 한식 백반을 즐길 수 있습니다.",
+    "description_en": "A grilled fish specialty restaurant that has been a Sinchon staple for 20 years, offering juicy fire-grilled fish and various Korean home-style meals (Baekban).",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "고삼이",
+      "살람서울",
+      "신촌맛집",
+      "생선구이",
+      "노포"
+    ],
+    "images": [
+      {
+        "id": "img_gosami_s_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78624&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_gosami_s_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78625&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 2
+      }
+    ]
+  },
+  {
+    "id": "poi_kampungku",
+    "zone_code": "zone_junggu",
+    "category_code": "cat_restaurant",
+    "name": "캄풍쿠",
+    "name_en": "Kampungku",
+    "lat": 37.559072,
+    "lon": 126.986014,
+    "altitude_m": 0.0,
+    "description": "말레이시아 셰프가 조리하는 나시고랭과 나시르막은 물론, 할랄 재료로 만든 인기 한식들도 즐길 수 있는 이색적인 식당입니다.",
+    "description_en": "A unique restaurant where you can enjoy Nasi Goreng and Nasi Lemak prepared by a Malaysian chef, alongside popular Korean dishes made with Halal ingredients.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "캄풍쿠",
+      "살람서울",
+      "나시고랭",
+      "할랄한식",
+      "말레이시아음식"
+    ],
+    "images": [
+      {
+        "id": "img_kampung_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78626&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_kampung_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78627&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 2
+      }
+    ]
+  },
+  {
+    "id": "poi_musin",
+    "zone_code": "zone_gangnam",
+    "category_code": "cat_restaurant",
+    "name": "청담무신",
+    "name_en": "Cheongdam Musin",
+    "lat": 37.525744,
+    "lon": 127.050686,
+    "altitude_m": 0.0,
+    "description": "장어구이와 갓포요리를 전문으로 하는 퓨전 일식당으로, 강화도에서 공수한 초대형 갯벌 장어와 프라이빗한 공간이 특징입니다.",
+    "description_en": "A fusion Japanese restaurant specializing in grilled eel and Kappo cuisine, featuring giant tidal flat eels from Ganghwado and private dining rooms.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "청담무신",
+      "살람서울",
+      "장어구이",
+      "청담동맛집",
+      "해산물"
+    ],
+    "images": [
+      {
+        "id": "img_musin_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78785&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      }
+    ]
+  },
+  {
+    "id": "poi_swallow",
+    "zone_code": "zone_seocho",
+    "category_code": "cat_restaurant",
+    "name": "스왈로 베이커리 카페",
+    "name_en": "Swallow Bakery Cafe",
+    "lat": 37.484383,
+    "lon": 127.014453,
+    "altitude_m": 0.0,
+    "description": "제로웨이스트를 추구하는 비건 베이커리 카페로, 친환경 철학을 담은 맛있는 식사와 디저트를 세련된 공간에서 즐길 수 있습니다.",
+    "description_en": "A zero-waste vegan bakery cafe offering delicious eco-friendly meals and desserts in a sophisticated space with a relaxing view.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "스왈로",
+      "살람서울",
+      "비건카페",
+      "제로웨이스트",
+      "서초맛집"
+    ],
+    "images": [
+      {
+        "id": "img_swallow_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78633&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_swallow_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78634&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 2
+      }
+    ]
+  },
+  {
+    "id": "poi_seouliya",
+    "zone_code": "zone_mapo",
+    "category_code": "cat_restaurant",
+    "name": "서울이야",
+    "name_en": "Seoul-iya",
+    "lat": 37.55927,
+    "lon": 126.924391,
+    "altitude_m": 0.0,
+    "description": "할랄푸드로 재해석한 캐주얼 한식 식당으로, 닭고기와 김치를 뭉근하게 끓여낸 닭고기김치찜이 대표 메뉴입니다.",
+    "description_en": "A casual Korean restaurant serving Halal-friendly interpretations of classic dishes, with the slow-cooked chicken kimchi stew being a highlight.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "서울이야",
+      "살람서울",
+      "할랄푸드",
+      "홍대맛집",
+      "김치찜"
+    ],
+    "images": [
+      {
+        "id": "img_seouliya_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78631&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_seouliya_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78632&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 2
+      }
+    ]
+  },
+  {
+    "id": "poi_chaeum",
+    "zone_code": "zone_junggu",
+    "category_code": "cat_restaurant",
+    "name": "명동채움 한정식",
+    "name_en": "Myeongdong Chaeum",
+    "lat": 37.560358,
+    "lon": 126.985876,
+    "altitude_m": 0.0,
+    "description": "신선한 18가지 반찬과 국으로 구성된 할랄 한정식 전문점으로, 한국 전통 식문화의 풍성함을 한 상에 담아냈습니다.",
+    "description_en": "A Halal-friendly Han-jeongsik specialist serving a table full of 18 fresh side dishes and soups, showcasing the richness of Korean traditional food culture.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "명동채움",
+      "살람서울",
+      "할랄한정식",
+      "명동맛집",
+      "전통식단"
+    ],
+    "images": [
+      {
+        "id": "img_chaeum_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78628&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_chaeum_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78629&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 2
+      },
+      {
+        "id": "img_chaeum_03",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78630&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 3
+      }
+    ]
+  },
+  {
+    "id": "poi_monks",
+    "zone_code": "zone_yongsan",
+    "category_code": "cat_restaurant",
+    "name": "몽크스부처",
+    "name_en": "Monks Butcher",
+    "lat": 37.535445,
+    "lon": 126.999224,
+    "altitude_m": 0.0,
+    "description": "세련된 감각의 비건 메뉴에 한식 요소를 더해 먹는 재미를 살린 레스토랑으로, 젊은 층 사이에서 인기가 높습니다.",
+    "description_en": "A trendy restaurant capturing the hearts of youth with sophisticated vegan menus that incorporate Korean elements for a fun dining experience.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "몽크스부처",
+      "살람서울",
+      "비건레스토랑",
+      "이태원맛집",
+      "모던한식"
+    ],
+    "images": [
+      {
+        "id": "img_monks_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78788&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      }
+    ]
+  },
+  {
+    "id": "poi_alta",
+    "zone_code": "zone_yongsan",
+    "category_code": "cat_restaurant",
+    "name": "알트에이",
+    "name_en": "Alt.a",
+    "lat": 37.532453,
+    "lon": 126.994473,
+    "altitude_m": 0.0,
+    "description": "미쉐린 가이드 빕그루망 2025에 선정된 비건 중식 명가로, 식물성 재료로 한국식 중식의 깊은 맛을 재현했습니다.",
+    "description_en": "A renowned plant-based Korean-Chinese restaurant selected for Michelin Bib Gourmand 2025, recreating the deep flavors of Chinese cuisine with vegan ingredients.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "알트에이",
+      "살람서울",
+      "비건중식",
+      "미쉐린빕그루망",
+      "식물성요리"
+    ],
+    "images": [
+      {
+        "id": "img_alta_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78790&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      }
+    ]
+  },
+  {
+    "id": "poi_gyeongsong",
+    "zone_code": "zone_gangdong",
+    "category_code": "cat_restaurant",
+    "name": "경송",
+    "name_en": "Gyeongsong",
+    "lat": 37.538539,
+    "lon": 127.127982,
+    "altitude_m": 0.0,
+    "description": "마늘양념의 깊은 맛이 어우러진 숯불 소갈비 전문점으로, K-바베큐의 최신 트렌드를 경험할 수 있는 감각적인 곳입니다.",
+    "description_en": "A charcoal-grilled beef rib specialty restaurant featuring deep garlic-seasoned meat, perfect for experiencing the latest trends in K-BBQ.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "경송",
+      "살람서울",
+      "숯불갈비",
+      "천호맛집",
+      "K바베큐"
+    ],
+    "images": [
+      {
+        "id": "img_gyeong_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78792&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      }
+    ]
+  },
+  {
+    "id": "poi_seokyeong",
+    "zone_code": "zone_gangnam",
+    "category_code": "cat_restaurant",
+    "name": "서경한우 역삼본점",
+    "name_en": "Seokyeong Hanu",
+    "lat": 37.497857,
+    "lon": 127.03884,
+    "altitude_m": 0.0,
+    "description": "자체 농장에서 키운 한우를 합리적인 가격에 제공하는 소고기 전문점입니다. 할랄 인증 고기와 아랍어 메뉴판을 갖추고 있습니다.",
+    "description_en": "A premium Hanu (Korean beef) restaurant providing high-quality beef from its own farm at reasonable prices, featuring Halal meat and Arabic menus.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "서경한우",
+      "살람서울",
+      "한우맛집",
+      "할랄비프",
+      "역삼맛집"
+    ],
+    "images": [
+      {
+        "id": "img_seokyeong_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78794&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      }
+    ]
+  },
+  {
+    "id": "poi_noagit",
+    "zone_code": "zone_seocho",
+    "category_code": "cat_restaurant",
+    "name": "노작가의 아지트",
+    "name_en": "No Author's Agit",
+    "lat": 37.514822,
+    "lon": 127.019246,
+    "altitude_m": 0.0,
+    "description": "세계 150개국을 여행한 작가가 운영하는 이탈리안 레스토랑으로, 여행자의 감성과 할랄 친화 메뉴를 함께 만날 수 있습니다.",
+    "description_en": "An Italian restaurant run by a writer who traveled to over 150 countries, offering traveler's sentiment alongside Halal-friendly Italian dishes.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "노작가의아지트",
+      "살람서울",
+      "이탈리안",
+      "방배맛집",
+      "여행자식당"
+    ],
+    "images": [
+      {
+        "id": "img_noagit_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78803&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      }
+    ]
+  },
+  {
+    "id": "poi_yangin",
+    "zone_code": "zone_mapo",
+    "category_code": "cat_restaurant",
+    "name": "양인환대 홍대점",
+    "name_en": "Yanginhwandae",
+    "lat": 37.553745,
+    "lon": 126.924756,
+    "altitude_m": 0.0,
+    "description": "한식의 지혜로 새롭게 해석한 양념 양고기 구이 전문점입니다. 할랄 인증을 받은 양고기를 사용하여 건강하고 고급스러운 맛을 선사합니다.",
+    "description_en": "A grilled lamb specialty restaurant reinterpreting lamb with Korean wisdom, using Halal-certified meat for a healthy and premium taste.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "양인환대",
+      "살람서울",
+      "할랄양고기",
+      "홍대맛집",
+      "양갈비"
+    ],
+    "images": [
+      {
+        "id": "img_yangin_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78805&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      }
+    ]
+  },
+  {
+    "id": "poi_meoktong",
+    "zone_code": "zone_yeongdeungpo",
+    "category_code": "cat_restaurant",
+    "name": "먹통낙지전문점",
+    "name_en": "Meoktong Nakji",
+    "lat": 37.518875,
+    "lon": 126.906741,
+    "altitude_m": 0.0,
+    "description": "남해산 싱싱한 산낙지로 끓이는 연포탕과 낙지볶음 전문점입니다. 로컬 시장의 활기와 정통 한식 해물의 맛을 느낄 수 있습니다.",
+    "description_en": "A specialist in octopus dishes using fresh long-armed octopus from the South Sea, offering authentic Korean seafood flavors near the traditional market.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "먹통낙지",
+      "살람서울",
+      "해산물맛집",
+      "영등포맛집",
+      "연포탕"
+    ],
+    "images": [
+      {
+        "id": "img_meoktong_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78807&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      }
+    ]
+  },
+  {
+    "id": "poi_yundal",
+    "zone_code": "zone_yeongdeungpo",
+    "category_code": "cat_restaurant",
+    "name": "윤달오리전문점",
+    "name_en": "Yundal Ori",
+    "lat": 37.520662,
+    "lon": 126.901625,
+    "altitude_m": 0.0,
+    "description": "영등포 지역 주민들이 아끼는 오리고기 노포 맛집으로, 신선한 생오리구이와 매콤한 주물럭 등 내공 깊은 맛을 자랑합니다.",
+    "description_en": "A local favorite duck specialty restaurant in Yeongdeungpo, boasting deep flavors with fresh grilled duck and spicy marinated duck bulgogi.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "윤달오리",
+      "살람서울",
+      "오리구이",
+      "영등포맛집",
+      "로컬맛집"
+    ],
+    "images": [
+      {
+        "id": "img_yundal_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78809&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      }
+    ]
+  },
+  {
+    "id": "poi_byeolyangjip",
+    "zone_code": "zone_gangnam",
+    "category_code": "cat_restaurant",
+    "name": "별양집",
+    "name_en": "Byeolyangjip",
+    "lat": 37.504403,
+    "lon": 127.043661,
+    "altitude_m": 0.0,
+    "description": "한식 소고기 내장구이의 진수를 맛볼 수 있는 식당으로, 풍부한 풍미의 대창구이가 일품입니다. 블루리본 서베이에 선정된 검증된 맛집입니다.",
+    "description_en": "A restaurant where you can taste the essence of Korean-style beef offal grilling, with its rich-flavored grilled large intestines being a masterpiece. It is a verified spot selected by the Blue Ribbon Survey.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "별양집",
+      "살람서울",
+      "대창구이",
+      "블루리본"
+    ],
+    "images": [
+      {
+        "id": "img_byeol_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78537&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_byeol_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78539&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 2
+      }
+    ]
+  },
+  {
+    "id": "poi_sunmine_ddm",
+    "zone_code": "zone_junggu",
+    "category_code": "cat_restaurant",
+    "name": "순미네 행복게장 동대문점",
+    "name_en": "Sunmine Haengbok Gejang",
+    "lat": 37.567711,
+    "lon": 127.007765,
+    "altitude_m": 0.0,
+    "description": "조미료 없이 한식 정통 레시피로 깊은 맛을 내는 간장게장 전문 식당입니다. DDP 인근에 위치하며 합리적인 가격의 무한리필이 특징입니다.",
+    "description_en": "A soy sauce marinated crab specialty restaurant that creates deep flavors with traditional Korean recipes without seasonings. Located near DDP, it features reasonably priced unlimited refills.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "순미네행복게장",
+      "살람서울",
+      "무한리필",
+      "간장게장"
+    ],
+    "images": [
+      {
+        "id": "img_sunmine_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78540&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_sunmine_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78541&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 2
+      }
+    ]
+  },
+  {
+    "id": "poi_wonhalmae",
+    "zone_code": "zone_jongno",
+    "category_code": "cat_restaurant",
+    "name": "원할매 소문난 원조 닭한마리",
+    "name_en": "Wonhalmae Dak-hanmari",
+    "lat": 37.570284,
+    "lon": 127.005304,
+    "altitude_m": 0.0,
+    "description": "서울 동대문 닭한마리거리의 원조집으로 손꼽히는 곳입니다. 진한 국물과 부드러운 닭고기, 칼국수 면의 조화로운 맛을 경험할 수 있습니다.",
+    "description_en": "One of the original restaurants in the Dongdaemun Dak-hanmari street. You can experience the harmonious taste of rich broth, tender chicken, and kalguksu noodles.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "원할매닭한마리",
+      "살람서울",
+      "동대문맛집",
+      "닭한마리"
+    ],
+    "images": [
+      {
+        "id": "img_wonhal_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78542&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_wonhal_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78545&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 2
+      }
+    ]
+  },
+  {
+    "id": "poi_busanjip_kbbq",
+    "zone_code": "zone_junggu",
+    "category_code": "cat_restaurant",
+    "name": "부산집 KBBQ",
+    "name_en": "Busanjip KBBQ",
+    "lat": 37.563167,
+    "lon": 126.985096,
+    "altitude_m": 0.0,
+    "description": "할랄 미트를 사용한 한국식 고깃집으로, 한우 등심과 양갈비 등 다양한 부위를 명동 한복판에서 즐길 수 있어 무슬림 관광객들에게 인기가 많습니다.",
+    "description_en": "A Korean BBQ restaurant using Halal meat, popular among Muslim tourists for enjoying various cuts like Hanu sirloin and lamb ribs in the middle of Myeongdong.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "부산집KBBQ",
+      "살람서울",
+      "할랄미트"
+    ],
+    "images": [
+      {
+        "id": "img_busan_k_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78673&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_busan_k_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78548&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 2
+      },
+      {
+        "id": "img_busan_k_03",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78548&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 3
+      },
+      {
+        "id": "img_busan_k_04",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78550&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 4
+      }
+    ]
+  },
+  {
+    "id": "poi_busanjip_chicken",
+    "zone_code": "zone_junggu",
+    "category_code": "cat_restaurant",
+    "name": "부산집 후라이드치킨",
+    "name_en": "Busanjip Fried Chicken",
+    "lat": 37.56314,
+    "lon": 126.984851,
+    "altitude_m": 0.0,
+    "description": "할랄 인증 재료를 사용해 바삭한 한국식 프라이드치킨과 매콤한 양념치킨을 선보이는 곳입니다.",
+    "description_en": "A place serving crispy Korean fried chicken and spicy seasoned chicken using Halal-certified ingredients.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "부산집치킨",
+      "살람서울",
+      "할랄치킨"
+    ],
+    "images": [
+      {
+        "id": "img_busan_c_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78675&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_busan_c_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78553&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 2
+      },
+      {
+        "id": "img_busan_c_03",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78554&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 3
+      }
+    ]
+  },
+  {
+    "id": "poi_myeongdong_busan",
+    "zone_code": "zone_junggu",
+    "category_code": "cat_restaurant",
+    "name": "명동부산집",
+    "name_en": "Myeongdong Busanjip",
+    "lat": 37.56316,
+    "lon": 126.984974,
+    "altitude_m": 0.0,
+    "description": "엄격한 할랄 기준을 준수하며 찌개, 비빔밥 등 한국의 일상적인 맛을 제공하는 할랄 한식의 대표 명소입니다.",
+    "description_en": "A representative Halal Korean food spot providing everyday Korean tastes like stews and bibimbap while adhering to strict Halal standards.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "명동부산집",
+      "살람서울",
+      "명동맛집"
+    ],
+    "images": [
+      {
+        "id": "img_m_busan_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78557&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_m_busan_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78558&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 2
+      }
+    ]
+  },
+  {
+    "id": "poi_myeongdong_chungmu",
+    "zone_code": "zone_junggu",
+    "category_code": "cat_restaurant",
+    "name": "명동충무김밥",
+    "name_en": "Myeongdong Chungmu Gimbap",
+    "lat": 37.563138,
+    "lon": 126.985197,
+    "altitude_m": 0.0,
+    "description": "40년 넘게 명동을 지켜온 로컬 노포로, 매콤한 오징어무침과 아삭한 무김치가 곁들여진 충무김밥 단일 메뉴의 깊은 맛을 자랑합니다.",
+    "description_en": "A local landmark in Myeongdong for over 40 years, boasting the deep flavor of its single menu, Chungmu Gimbap, served with spicy squid and crunchy radish kimchi.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "명동충무김밥",
+      "살람서울",
+      "노포"
+    ],
+    "images": [
+      {
+        "id": "img_chungmu_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78559&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_chungmu_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78559&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 2
+      },
+      {
+        "id": "img_chungmu_03",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78560&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 3
+      }
+    ]
+  },
+  {
+    "id": "poi_bali_holiday",
+    "zone_code": "zone_junggu",
+    "category_code": "cat_restaurant",
+    "name": "발리홀리데이",
+    "name_en": "Bali Holiday",
+    "lat": 37.559497,
+    "lon": 126.98588,
+    "altitude_m": 0.0,
+    "description": "나시고랭, 사떼 등 인도네시아의 맛을 고스란히 담아낸 식당으로, 모든 요리가 할랄푸드이며 기도실을 갖추고 있습니다.",
+    "description_en": "A restaurant capturing the authentic tastes of Indonesia like Nasi Goreng and Sate; all dishes are Halal and it is equipped with a prayer room.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "발리홀리데이",
+      "살람서울",
+      "인도네시아음식"
+    ],
+    "images": [
+      {
+        "id": "img_bali_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78562&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_bali_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78563&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 2
+      },
+      {
+        "id": "img_bali_03",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78564&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 3
+      }
+    ]
+  },
+  {
+    "id": "poi_cherry_garden",
+    "zone_code": "zone_jongno",
+    "category_code": "cat_restaurant",
+    "name": "체리가든",
+    "name_en": "Cherry Garden",
+    "lat": 37.572305,
+    "lon": 127.013987,
+    "altitude_m": 0.0,
+    "description": "싱가포르에서 25년간 거주한 오너의 경험을 바탕으로 할랄 한식과 비건 메뉴를 제공하는 동대문 맛집입니다.",
+    "description_en": "A Dongdaemun restaurant offering Halal Korean and vegan menus, based on the owner's 25-year experience living in Singapore.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "체리가든",
+      "살람서울",
+      "할랄한식",
+      "동대문맛집"
+    ],
+    "images": [
+      {
+        "id": "img_cherry_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78573&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_cherry_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78574&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 2
+      },
+      {
+        "id": "img_cherry_03",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78574&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 3
+      }
+    ]
+  },
+  {
+    "id": "poi_nusantaraku",
+    "zone_code": "zone_mapo",
+    "category_code": "cat_restaurant",
+    "name": "누산타라쿠",
+    "name_en": "Nusantaraku",
+    "lat": 37.555849,
+    "lon": 126.925227,
+    "altitude_m": 0.0,
+    "description": "할랄 인증 육류와 현지 공수 재료로 인도네시아 본토의 맛을 재현한 비스트로입니다.",
+    "description_en": "An Indonesian bistro reproducing authentic flavors using Halal-certified meats and locally sourced ingredients from Southeast Asia.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "누산타라쿠",
+      "살람서울",
+      "나시고랭",
+      "홍대맛집"
+    ],
+    "images": [
+      {
+        "id": "img_nusan_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78575&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_nusan_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78576&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 2
+      }
+    ]
+  },
+  {
+    "id": "poi_sunny_bowl",
+    "zone_code": "zone_mapo",
+    "category_code": "cat_restaurant",
+    "name": "써니보울",
+    "name_en": "Sunny Bowl",
+    "lat": 37.555746,
+    "lon": 126.947467,
+    "altitude_m": 0.0,
+    "description": "아시아 및 이탈리아 요리를 비건 재료로 풀어낸 자연친화적인 맛집으로, 건강한 메뉴를 제안합니다.",
+    "description_en": "A nature-friendly vegan restaurant near Ewha Womans Univ offering healthy Asian and Italian-based dishes using tofu and quinoa.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "써니보울",
+      "살람서울",
+      "비건푸드",
+      "마포맛집"
+    ],
+    "images": [
+      {
+        "id": "img_sunny_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78577&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_sunny_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78578&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 2
+      },
+      {
+        "id": "img_sunny_03",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78578&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 3
+      }
+    ]
+  },
+  {
+    "id": "poi_slunch_factory",
+    "zone_code": "zone_mapo",
+    "category_code": "cat_restaurant",
+    "name": "슬런치 팩토리",
+    "name_en": "Slunch Factory",
+    "lat": 37.552524,
+    "lon": 126.925035,
+    "altitude_m": 0.0,
+    "description": "블루리본 서베이에 7년 연속 선정된 비건 레스토랑으로, 홍대 특유의 젊은 감각과 이색적인 요리가 돋보입니다.",
+    "description_en": "A vegan restaurant selected by Blue Ribbon Survey for 7 consecutive years, known for its trendy Hongdae vibe and creative vegan dishes.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "슬런치팩토리",
+      "살람서울",
+      "블루리본",
+      "비건피자"
+    ],
+    "images": [
+      {
+        "id": "img_slunch_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78579&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_slunch_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78579&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 2
+      },
+      {
+        "id": "img_slunch_03",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78580&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 3
+      },
+      {
+        "id": "img_slunch_04",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78580&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 4
+      }
+    ]
+  },
+  {
+    "id": "poi_dots_vegan",
+    "zone_code": "zone_mapo",
+    "category_code": "cat_restaurant",
+    "name": "점점점점점점",
+    "name_en": "Dots Vegan",
+    "lat": 37.577235,
+    "lon": 126.89621,
+    "altitude_m": 0.0,
+    "description": "지속가능한 가치를 담은 인테리어와 수제 소스로 완성한 8가지 비건 런치 코스를 선보이는 문화 공간 겸 레스토랑입니다.",
+    "description_en": "A cultural space and restaurant offering an 8-course vegan lunch with homemade sauces, featuring an interior focused on sustainability.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "점점점점점점",
+      "살람서울",
+      "비건코스",
+      "지속가능성"
+    ],
+    "images": [
+      {
+        "id": "img_dots_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78581&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_dots_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78582&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 2
+      }
+    ]
+  },
+  {
+    "id": "poi_everest_ydp",
+    "zone_code": "zone_yeongdeungpo",
+    "category_code": "cat_restaurant",
+    "name": "에베레스트 영등포점",
+    "name_en": "Everest Yeongdeungpo",
+    "lat": 37.515968,
+    "lon": 126.906136,
+    "altitude_m": 0.0,
+    "description": "2007년부터 정통 인도 및 네팔 요리를 선보여온 곳으로, 현지 공수한 화덕 탄두르로 깊은 풍미를 더합니다.",
+    "description_en": "Serving authentic Indian and Nepalese cuisine since 2007, this restaurant uses a traditional tandoor oven for deep flavor.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "에베레스트",
+      "살람서울",
+      "네팔요리",
+      "탄두리"
+    ],
+    "images": [
+      {
+        "id": "img_ever_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78583&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_ever_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78583&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 2
+      },
+      {
+        "id": "img_ever_03",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78585&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 3
+      },
+      {
+        "id": "img_ever_04",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78585&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 4
+      }
+    ]
+  },
+  {
+    "id": "poi_lepakla",
+    "zone_code": "zone_junggu",
+    "category_code": "cat_restaurant",
+    "name": "레팍라식당",
+    "name_en": "Lepakla",
+    "lat": 37.560759,
+    "lon": 126.98694,
+    "altitude_m": 0.0,
+    "description": "나시르막, 락사 등 말레이시아 정통 요리를 편안한 분위기에서 즐길 수 있는 식당입니다.",
+    "description_en": "A restaurant where you can enjoy authentic Malaysian dishes like Nasi Lemak and Laksa in a relaxing atmosphere.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "레팍라식당",
+      "살람서울",
+      "말레이시아음식",
+      "나시르막"
+    ],
+    "images": [
+      {
+        "id": "img_lepak_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78586&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_lepak_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78586&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 2
+      },
+      {
+        "id": "img_lepak_03",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78586&fileTy=MEDIA&fileNo=3&thumbTy=M",
+        "display_order": 3
+      },
+      {
+        "id": "img_lepak_04",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78587&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 4
+      }
+    ]
+  },
+  {
+    "id": "poi_vegan_insa",
+    "zone_code": "zone_jongno",
+    "category_code": "cat_restaurant",
+    "name": "비건인사",
+    "name_en": "Vegan Insa",
+    "lat": 37.57479,
+    "lon": 126.988573,
+    "altitude_m": 0.0,
+    "description": "전통 한옥의 고즈넉한 분위기 속에서 정갈한 한식 기반 비건 요리를 경험할 수 있는 익선동 레스토랑입니다.",
+    "description_en": "An Ikseon-dong restaurant offering refined Korean-based vegan dishes within a peaceful traditional Hanok setting.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "비건인사",
+      "살람서울",
+      "익선동맛집",
+      "한옥식당"
+    ],
+    "images": [
+      {
+        "id": "img_v_insa_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78588&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_v_insa_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78588&fileTy=MEDIA&fileNo=3&thumbTy=M",
+        "display_order": 2
+      },
+      {
+        "id": "img_v_insa_03",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78588&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 3
+      }
+    ]
+  },
+  {
+    "id": "poi_gonggan_nokum",
+    "zone_code": "zone_gangseo",
+    "category_code": "cat_restaurant",
+    "name": "비건식당 공간녹음",
+    "name_en": "Gonggan Nokum",
+    "lat": 37.5596,
+    "lon": 126.832686,
+    "altitude_m": 0.0,
+    "description": "정갈한 비건 요리와 함께 라이브 공연을 감상할 수 있는 마곡의 감성 문화 공간입니다.",
+    "description_en": "A trendy cultural space in Magok where you can enjoy refined vegan food alongside live music performances.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "공간녹음",
+      "살람서울",
+      "라이브공연",
+      "마곡맛집"
+    ],
+    "images": [
+      {
+        "id": "img_gn_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78590&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_gn_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78590&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 2
+      },
+      {
+        "id": "img_gn_03",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78591&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 3
+      }
+    ]
+  },
+  {
+    "id": "poi_iftar",
+    "zone_code": "zone_jongno",
+    "category_code": "cat_restaurant",
+    "name": "이프타르",
+    "name_en": "Iftar",
+    "lat": 37.577009,
+    "lon": 126.96968,
+    "altitude_m": 0.0,
+    "description": "경복궁 인근 한옥에서 엄격한 할랄 인증 재료로 정통 한식의 깊은 맛을 선보이는 식당입니다.",
+    "description_en": "A restaurant near Gyeongbokgung serving deep-flavored traditional Korean food made with strictly Halal-certified ingredients in a Hanok.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "이프타르",
+      "살람서울",
+      "할랄미트",
+      "경복궁맛집"
+    ],
+    "images": [
+      {
+        "id": "img_iftar_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78592&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_iftar_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78592&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 2
+      },
+      {
+        "id": "img_iftar_03",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78593&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 3
+      },
+      {
+        "id": "img_iftar_04",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78593&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 4
+      }
+    ]
+  },
+  {
+    "id": "poi_le_oignon",
+    "zone_code": "zone_gangnam",
+    "category_code": "cat_restaurant",
+    "name": "르오뇽",
+    "name_en": "Le Oignon",
+    "lat": 37.520626,
+    "lon": 127.024092,
+    "altitude_m": 0.0,
+    "description": "페스코 베지테리언 프랑스 요리 전문점으로 가로수길 미쉐린 가이드에 선정된 섬세한 코스 요리를 제공합니다.",
+    "description_en": "A Pesco-vegetarian French restaurant in Garosu-gil featured in the Michelin Guide, serving delicate course meals.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "르오뇽",
+      "살람서울",
+      "프랑스요리",
+      "가로수길맛집"
+    ],
+    "images": [
+      {
+        "id": "img_oignon_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78594&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_oignon_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78594&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 2
+      },
+      {
+        "id": "img_oignon_03",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78595&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 3
+      },
+      {
+        "id": "img_oignon_04",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78595&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 4
+      }
+    ]
+  },
+  {
+    "id": "poi_camels_kitchen",
+    "zone_code": "zone_mapo",
+    "category_code": "cat_restaurant",
+    "name": "카멜스 키친",
+    "name_en": "Camel's Kitchen",
+    "lat": 37.552186,
+    "lon": 126.906893,
+    "altitude_m": 0.0,
+    "description": "태국 요리 기반의 페스코 비건 식당으로 독창적인 버섯과 두부 요리로 서울미식주간에 선정되었습니다.",
+    "description_en": "An Asian-fusion Pesco-vegan restaurant famous for unique textures of mushrooms and tofu, listed in Seoul Gourmet Week.",
+    "visible_range_m": 50.0,
+    "direction": "all",
+    "tags": [
+      "카멜스키친",
+      "살람서울",
+      "비건푸드",
+      "망원동맛집"
+    ],
+    "images": [
+      {
+        "id": "img_camel_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78596&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      },
+      {
+        "id": "img_camel_02",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78596&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 2
+      },
+      {
+        "id": "img_camel_03",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78597&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 3
+      },
+      {
+        "id": "img_camel_04",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=78597&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 4
+      }
+    ]
   }
 ]

@@ -23,7 +23,7 @@ const CESIUM_ION_TOKEN = (
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI1YWMwMTA2NC00NzEzLTQ2YmYtYTRjZC0wNjVkMTViZWIxYjkiLCJpZCI6MjU2MTQ5LCJpYXQiOjE3MzE5MzY0NjB9.suBcNNjrHr_5CMOkRKudiPALHhPeqA97jXuMMrUpqp8'
 ).trim();
 
-// POI 핀 마커 SVG (오렌지/초록)
+// POI 핀 마커 SVG
 function createPinDataUri(color: string): string {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="48" viewBox="0 0 36 48">
     <defs><filter id="s"><feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-opacity="0.5"/></filter></defs>
@@ -51,16 +51,13 @@ export default function MapScene() {
         return;
       }
 
-      // Cesium Ion 토큰
       Cesium.Ion.defaultAccessToken = CESIUM_ION_TOKEN;
 
-      // Google Maps API 키
       const googleApiKey = process.env.NEXT_PUBLIC_GOOGLE_TILES_API_KEY;
       if (googleApiKey && Cesium.GoogleMaps) {
         Cesium.GoogleMaps.defaultApiKey = googleApiKey;
       }
 
-      // Viewer 생성
       const viewer = new Cesium.Viewer(containerRef.current, {
         animation: false,
         timeline: false,
@@ -78,13 +75,12 @@ export default function MapScene() {
         msaaSamples: 4,
       });
 
-      // 기본 크레딧 숨김
       try {
         const creditContainer = viewer.cesiumWidget.creditContainer as HTMLElement;
         if (creditContainer) creditContainer.style.display = 'none';
       } catch {}
 
-      // 카메라 컨트롤 비활성화 (직접 제어)
+      // 카메라 컨트롤 비활성화
       const sc = viewer.scene.screenSpaceCameraController;
       sc.enableRotate = false;
       sc.enableTranslate = false;
@@ -96,15 +92,14 @@ export default function MapScene() {
       viewer.scene.globe.baseColor = Cesium.Color.fromCssColorString('#0d1117');
       viewer.scene.globe.depthTestAgainstTerrain = false;
 
-      // 안개/대기 효과
+      // 안개/대기
       viewer.scene.fog.enabled = true;
       viewer.scene.fog.density = 0.0002;
 
-      // 시간 설정: 2026년 2월 28일 오후 6시 (KST = UTC+9)
+      // 시간: 석양 분위기
       viewer.clock.currentTime = Cesium.JulianDate.fromIso8601('2026-02-28T09:00:00Z');
       viewer.clock.shouldAnimate = false;
 
-      // 석양 분위기 대기 효과
       try {
         const skyAtm = viewer.scene.skyAtmosphere;
         if (skyAtm && typeof skyAtm === 'object' && typeof skyAtm.hueShift === 'number') {
@@ -116,7 +111,7 @@ export default function MapScene() {
 
       viewerRef.current = viewer;
 
-      // Google 3D Tiles 로딩 (완료 후 화면 표시)
+      // Google 3D Tiles 로딩
       (async () => {
         try {
           let tileset;
@@ -129,20 +124,18 @@ export default function MapScene() {
           }
           if (tileset && !destroyed) {
             viewer.scene.primitives.add(tileset);
-            // 3D 타일 초기 렌더 대기 후 로딩 해제
             setTimeout(() => { if (!destroyed) setLoading(false); }, 2500);
           } else if (!destroyed) {
             setLoading(false);
           }
         } catch (err) {
-          console.warn('Google 3D Tiles 로딩 실패, Cesium OSM Buildings으로 폴백:', err);
+          console.warn('Google 3D Tiles 로딩 실패, OSM Buildings 폴백:', err);
           try {
             const osmBuildings = await Cesium.createOsmBuildingsAsync();
             if (!destroyed) viewer.scene.primitives.add(osmBuildings);
           } catch (e2) {
             console.warn('OSM Buildings도 실패:', e2);
           }
-          // 폴백 후 로딩 해제
           setTimeout(() => { if (!destroyed) setLoading(false); }, 1500);
         }
       })();
@@ -163,10 +156,13 @@ export default function MapScene() {
           minimumPixelSize: 64,
           maximumScale: 20,
           scale: 3.0,
+          // 완전 불투명 + 원본 색상 유지
+          colorBlendMode: Cesium.ColorBlendMode.HIGHLIGHT,
+          color: Cesium.Color.WHITE,
         },
       });
 
-      // ── 헬리패드 엔티티 ──
+      // ── 헬리패드 ──
       [
         { lat: 37.5219, lon: 126.9245, name: '여의도 버티포트' },
         { lat: 37.5133, lon: 127.1001, name: '잠실 버티포트' },
@@ -193,7 +189,7 @@ export default function MapScene() {
         });
       });
 
-      // ── POI 마커 (지면 고정 핀 + 라벨) ──
+      // ── POI 마커 ──
       const orangePin = createPinDataUri('#f97316');
       const greenPin = createPinDataUri('#22c55e');
       const poiEntities = new Map<string, any>();
@@ -229,8 +225,6 @@ export default function MapScene() {
       });
 
       // ── 공역 데이터 시각화 ──
-
-      // UAM 회랑 경로 (3D 폴리라인)
       const corridor = airspaceData.uam_corridors[0];
       if (corridor) {
         const corridorPositions = corridor.waypoints.flatMap((wp: any) => [wp.lon, wp.lat, wp.alt || 300]);
@@ -247,7 +241,6 @@ export default function MapScene() {
           },
         });
 
-        // 웨이포인트 마커
         corridor.waypoints.forEach((wp: any) => {
           viewer.entities.add({
             name: wp.name,
@@ -275,7 +268,7 @@ export default function MapScene() {
         });
       }
 
-      // 비행금지/제한구역 (지면 폴리곤)
+      // 비행금지/제한구역
       airspaceData.restricted_zones.forEach((zone: any) => {
         const isProhibited = zone.type === 'P';
         const positions = zone.boundary.flatMap(([lon, lat]: [number, number]) => [lon, lat]);
@@ -292,7 +285,7 @@ export default function MapScene() {
         });
       });
 
-      // 위험구역 (원형 표시)
+      // 위험구역
       airspaceData.danger_zones.forEach((dz: any) => {
         const radiusM = dz.radius_nm * 1852;
         viewer.entities.add({
@@ -310,38 +303,65 @@ export default function MapScene() {
         });
       });
 
-      // ── 체이스 카메라 + UAM 위치 업데이트 루프 ──
+      // ── 부드러운 보간 변수 ──
+      let smoothLat = initState.position.lat;
+      let smoothLon = initState.position.lon;
+      let smoothAlt = initState.position.altitude_m || 10;
       let smoothHeading = initState.heading;
+      let smoothPitch = 0;
+      let smoothRoll = 0;
+      let cameraSmoothedHeading = initState.heading;
 
+      // ── 체이스 카메라 + UAM 위치 업데이트 루프 ──
       viewer.scene.preRender.addEventListener(() => {
         if (destroyed) return;
 
         const state = useFlightStore.getState();
         const { lat, lon, altitude_m } = state.position;
 
+        // ── 위치 부드러운 보간 (덜덜거림 방지) ──
+        const posLerp = 0.12;
+        const rotLerp = 0.08;
+
+        smoothLat += (lat - smoothLat) * posLerp;
+        smoothLon += (lon - smoothLon) * posLerp;
+        smoothAlt += (altitude_m - smoothAlt) * posLerp;
+
+        // 헤딩 보간 (360도 래핑 처리)
+        let headingDiff = state.heading - smoothHeading;
+        while (headingDiff > 180) headingDiff -= 360;
+        while (headingDiff < -180) headingDiff += 360;
+        smoothHeading += headingDiff * rotLerp;
+        smoothHeading = ((smoothHeading % 360) + 360) % 360;
+
+        // 피치, 롤 보간
+        smoothPitch += (state.pitch - smoothPitch) * rotLerp;
+        smoothRoll += (state.roll - smoothRoll) * rotLerp;
+
         // UAM 위치
-        const pos = Cesium.Cartesian3.fromDegrees(lon, lat, altitude_m);
+        const pos = Cesium.Cartesian3.fromDegrees(smoothLon, smoothLat, smoothAlt);
         uamEntity.position = pos;
 
         // ── UAM 방향 ──
-        // 모델 좌표계: +Y=기수(노즈), +Z=기체 상부
-        // CesiumJS glTF 매핑: +Z→North, +Y→Up
-        // heading+PI로 기수 방향 보정, pitch+PI/2로 +Y를 heading 방향으로
+        // 모델: +Y=노즈, +Z=상부 (Z-up OBJ, glTF 변환 안 됨)
+        // CesiumJS glTF: +Y=위, -Z=앞 으로 해석
+        // → pitch=-90° 로 모델 +Y(노즈)를 수평 전방으로 회전
+        // → heading 그대로 적용 (PI 오프셋 불필요)
         const hpr = new Cesium.HeadingPitchRoll(
-          Cesium.Math.toRadians(state.heading) + Math.PI,
-          Math.PI / 2 - Cesium.Math.toRadians(state.pitch * 0.3),
-          Cesium.Math.toRadians(-state.roll * 0.5)
+          Cesium.Math.toRadians(smoothHeading),
+          -Math.PI / 2 + Cesium.Math.toRadians(smoothPitch * 0.3),
+          Cesium.Math.toRadians(smoothRoll * 0.5)
         );
         uamEntity.orientation = Cesium.Transforms.headingPitchRollQuaternion(pos, hpr);
 
         // ── 부드러운 체이스 카메라 ──
-        let headingDiff = state.heading - smoothHeading;
-        while (headingDiff > 180) headingDiff -= 360;
-        while (headingDiff < -180) headingDiff += 360;
-        smoothHeading += headingDiff * 0.06;
+        let camHeadingDiff = smoothHeading - cameraSmoothedHeading;
+        while (camHeadingDiff > 180) camHeadingDiff -= 360;
+        while (camHeadingDiff < -180) camHeadingDiff += 360;
+        cameraSmoothedHeading += camHeadingDiff * 0.04; // 카메라는 더 느리게 따라감
 
         const cameraRange = Math.max(80, 100 + state.speed_kmh * 0.4);
-        const cameraHeading = Cesium.Math.toRadians(smoothHeading) + Math.PI;
+        const cameraHeading = Cesium.Math.toRadians(cameraSmoothedHeading) + Math.PI;
         const cameraPitch = Cesium.Math.toRadians(-15);
 
         viewer.camera.lookAt(
@@ -358,7 +378,7 @@ export default function MapScene() {
         });
       });
 
-      // 초기 카메라 뷰 (여의도 상공)
+      // 초기 카메라 뷰
       viewer.camera.setView({
         destination: Cesium.Cartesian3.fromDegrees(126.9245, 37.5219, 500),
         orientation: {
@@ -368,7 +388,7 @@ export default function MapScene() {
         },
       });
 
-      // 만약 3D 타일이 8초 내 로딩 안 되면 폴백으로 화면 표시
+      // 8초 폴백 타이머
       setTimeout(() => { if (!destroyed && loading) setLoading(false); }, 8000);
     };
 
