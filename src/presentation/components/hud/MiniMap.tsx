@@ -81,6 +81,7 @@ export default function MiniMap() {
               alt=""
               className="absolute inset-0 w-full h-full object-cover opacity-60"
               draggable={false}
+              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
             />
           )}
 
