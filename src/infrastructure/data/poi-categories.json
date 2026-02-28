@@ -1,0 +1,7 @@
+[
+  { "code": "landmark", "name": "랜드마크 관광", "name_en": "Landmarks", "icon": "🏛️" },
+  { "code": "restaurant", "name": "맛집 탐방", "name_en": "Food & Dining", "icon": "🍽️" },
+  { "code": "culture", "name": "도시 탐험", "name_en": "Culture & City", "icon": "🎭" },
+  { "code": "nature", "name": "자연 탐사", "name_en": "Nature", "icon": "🌿" },
+  { "code": "shopping", "name": "휴양지 비행", "name_en": "Shopping & Leisure", "icon": "🛍️" }
+]

@@ -1,0 +1,7 @@
+[
+  { "code": "yeouido", "name": "여의도", "center_lat": 37.5219, "center_lon": 126.9245, "radius_km": 1.5 },
+  { "code": "yongsan", "name": "용산", "center_lat": 37.5326, "center_lon": 126.9900, "radius_km": 2.0 },
+  { "code": "gangnam", "name": "강남", "center_lat": 37.4979, "center_lon": 127.0276, "radius_km": 2.0 },
+  { "code": "jamsil", "name": "잠실", "center_lat": 37.5133, "center_lon": 127.1001, "radius_km": 2.0 },
+  { "code": "hangang", "name": "한강변", "center_lat": 37.5170, "center_lon": 126.9700, "radius_km": 3.0 }
+]
