@@ -56,10 +56,12 @@ const _mat4 = new THREE.Matrix4();
 
 // ── Module-level tiles renderer ref ──
 let _tilesRenderer: any = null;
+let _tilesLoaded = false;
 
 // ── Google Photorealistic 3D Tiles ──
 function Google3DTiles() {
   const { scene, camera, gl } = useThree();
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     let disposed = false;
@@ -105,6 +107,8 @@ function Google3DTiles() {
         tiles.setResolutionFromRenderer(camera, gl);
 
         _tilesRenderer = tiles;
+        _tilesLoaded = true;
+        setLoaded(true);
       } catch (err) {
         console.error('Failed to load Google 3D Tiles:', err);
       }
@@ -116,6 +120,7 @@ function Google3DTiles() {
         scene.remove(_tilesRenderer.group);
         _tilesRenderer.dispose();
         _tilesRenderer = null;
+        _tilesLoaded = false;
       }
     };
   }, [scene, camera, gl]);
@@ -130,6 +135,54 @@ function Google3DTiles() {
   });
 
   return null;
+}
+
+// ── 폴백 지형 (Google Tiles 로딩 전/실패 시) ──
+function FallbackTerrain() {
+  const vworldKey = process.env.NEXT_PUBLIC_VWORLD_API_KEY;
+
+  const texture = useMemo(() => {
+    if (!vworldKey) return null;
+    const loader = new THREE.TextureLoader();
+    const url = `https://api.vworld.kr/req/image?service=image&request=getmap&key=${vworldKey}&basemap=PHOTO&center=126.98,37.54&crs=EPSG:4326&zoom=13&size=1024,1024&format=jpeg`;
+    const tex = loader.load(url, undefined, undefined, () => {
+      console.warn('V-World fallback texture failed');
+    });
+    tex.colorSpace = THREE.SRGBColorSpace;
+    return tex;
+  }, [vworldKey]);
+
+  // 폴백 지면: 서울 중심의 20km x 20km 평면 (ECEF 좌표)
+  const { pos, quat, size } = useMemo(() => {
+    const center = gpsToScene(37.54, 126.98, -5);
+    const up = getLocalUp(37.54, 126.98);
+    const east = getLocalEast(126.98);
+    const north = new THREE.Vector3().crossVectors(up, east).normalize();
+    const m = new THREE.Matrix4().makeBasis(east, up, north.clone().negate());
+    const q = new THREE.Quaternion().setFromRotationMatrix(m);
+    return { pos: center, quat: q, size: 25000 };
+  }, []);
+
+  return (
+    <group position={pos} quaternion={quat}>
+      {/* 위성사진 또는 녹색 지면 */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]}>
+        <planeGeometry args={[size, size]} />
+        <meshStandardMaterial
+          color={texture ? '#ffffff' : '#2d5a1e'}
+          map={texture}
+          roughness={0.9}
+        />
+      </mesh>
+      {/* 한강 */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 1, 1500]}>
+        <planeGeometry args={[size, 800]} />
+        <meshStandardMaterial color="#1a4a6a" transparent opacity={0.7} roughness={0.3} />
+      </mesh>
+      {/* 그리드 */}
+      <gridHelper args={[size, 100, '#3a6a3a', '#2a4a2a']} position={[0, 0.5, 0]} />
+    </group>
+  );
 }
 
 // ── UAM 기체 (Archer EVTOL) ──
@@ -376,6 +429,7 @@ function Scene3DContent() {
       <ChaseCamera />
       <Lighting />
       <Google3DTiles />
+      <FallbackTerrain />
 
       <Suspense fallback={null}>
         <UAMModel />

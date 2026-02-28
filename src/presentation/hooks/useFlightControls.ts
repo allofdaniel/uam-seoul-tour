@@ -80,29 +80,29 @@ export default function useFlightControls() {
       let newPitch = state.pitch;
       let newRoll = state.roll;
 
-      // 가속/감속 (↑↓ 방향키)
-      if (keys.has('arrowup')) {
+      // 가속/감속 (W/↑, S/↓)
+      if (keys.has('w') || keys.has('arrowup')) {
         newSpeed = Math.min(MAX_SPEED, newSpeed + ACCELERATION * dt);
-      } else if (keys.has('arrowdown')) {
+      } else if (keys.has('s') || keys.has('arrowdown')) {
         newSpeed = Math.max(MIN_SPEED, newSpeed - DECELERATION * dt);
       }
 
-      // 회전 (←→ 방향키)
-      if (keys.has('arrowleft')) {
+      // 회전 (A/←, D/→)
+      if (keys.has('a') || keys.has('arrowleft')) {
         newHeading -= YAW_RATE * dt;
         newRoll = Math.max(-30, newRoll - 60 * dt);
-      } else if (keys.has('arrowright')) {
+      } else if (keys.has('d') || keys.has('arrowright')) {
         newHeading += YAW_RATE * dt;
         newRoll = Math.min(30, newRoll + 60 * dt);
       } else {
         newRoll *= INERTIA_DECAY;
       }
 
-      // 고도 (PageUp / PageDown)
-      if (keys.has('pageup') || keys.has('shift')) {
+      // 고도 (Q/PgUp/Shift, E/PgDn/Ctrl)
+      if (keys.has('q') || keys.has('pageup') || keys.has('shift')) {
         newAltitude = Math.min(MAX_ALTITUDE, newAltitude + ALTITUDE_RATE * dt);
         newPitch = Math.min(15, newPitch + 30 * dt);
-      } else if (keys.has('pagedown') || keys.has('control')) {
+      } else if (keys.has('e') || keys.has('pagedown') || keys.has('control')) {
         newAltitude = Math.max(MIN_ALTITUDE, newAltitude - ALTITUDE_RATE * dt);
         newPitch = Math.max(-15, newPitch - 30 * dt);
       } else {
