@@ -116,7 +116,7 @@ export default function MapScene() {
 
       viewerRef.current = viewer;
 
-      // Google 3D Tiles 로딩
+      // Google 3D Tiles 로딩 (완료 후 화면 표시)
       (async () => {
         try {
           let tileset;
@@ -129,6 +129,10 @@ export default function MapScene() {
           }
           if (tileset && !destroyed) {
             viewer.scene.primitives.add(tileset);
+            // 3D 타일 초기 렌더 대기 후 로딩 해제
+            setTimeout(() => { if (!destroyed) setLoading(false); }, 2500);
+          } else if (!destroyed) {
+            setLoading(false);
           }
         } catch (err) {
           console.warn('Google 3D Tiles 로딩 실패, Cesium OSM Buildings으로 폴백:', err);
@@ -138,6 +142,8 @@ export default function MapScene() {
           } catch (e2) {
             console.warn('OSM Buildings도 실패:', e2);
           }
+          // 폴백 후 로딩 해제
+          setTimeout(() => { if (!destroyed) setLoading(false); }, 1500);
         }
       })();
 
@@ -157,10 +163,6 @@ export default function MapScene() {
           minimumPixelSize: 64,
           maximumScale: 20,
           scale: 3.0,
-          silhouetteColor: Cesium.Color.ORANGE,
-          silhouetteSize: 1.5,
-          colorBlendMode: Cesium.ColorBlendMode.HIGHLIGHT,
-          color: Cesium.Color.WHITE.withAlpha(1.0),
         },
       });
 
@@ -321,10 +323,13 @@ export default function MapScene() {
         const pos = Cesium.Cartesian3.fromDegrees(lon, lat, altitude_m);
         uamEntity.position = pos;
 
-        // ── UAM 방향 (모델 보정: GLB의 +Y축이 기수 → pitch -90°로 수평 배치) ──
+        // ── UAM 방향 ──
+        // 모델 좌표계: +Y=기수(노즈), +Z=기체 상부
+        // CesiumJS glTF 매핑: +Z→North, +Y→Up
+        // heading+PI로 기수 방향 보정, pitch+PI/2로 +Y를 heading 방향으로
         const hpr = new Cesium.HeadingPitchRoll(
-          Cesium.Math.toRadians(state.heading),
-          -Math.PI / 2 + Cesium.Math.toRadians(state.pitch * 0.3),
+          Cesium.Math.toRadians(state.heading) + Math.PI,
+          Math.PI / 2 - Cesium.Math.toRadians(state.pitch * 0.3),
           Cesium.Math.toRadians(-state.roll * 0.5)
         );
         uamEntity.orientation = Cesium.Transforms.headingPitchRollQuaternion(pos, hpr);
@@ -363,7 +368,8 @@ export default function MapScene() {
         },
       });
 
-      setLoading(false);
+      // 만약 3D 타일이 8초 내 로딩 안 되면 폴백으로 화면 표시
+      setTimeout(() => { if (!destroyed && loading) setLoading(false); }, 8000);
     };
 
     initViewer();
