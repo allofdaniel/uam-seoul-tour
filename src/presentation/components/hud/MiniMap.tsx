@@ -31,12 +31,6 @@ export default function MiniMap() {
     return Math.abs(poi.lat - position.lat) < range && Math.abs(poi.lon - position.lon) < range;
   });
 
-  // UAM 회랑 경로
-  const corridor = airspaceData.uam_corridors[0];
-  const corridorInRange = corridor.waypoints.filter((wp) =>
-    Math.abs(wp.lat - position.lat) < range && Math.abs(wp.lon - position.lon) < range
-  );
-
   // 비행금지/제한구역 중 미니맵 범위 내에 있는 것
   const restrictedInRange = airspaceData.restricted_zones.filter((zone) =>
     zone.boundary.some(([lon, lat]) =>
@@ -47,11 +41,6 @@ export default function MiniMap() {
   // 위험구역 중 범위 내
   const dangerInRange = airspaceData.danger_zones.filter((dz) =>
     Math.abs(dz.center[1] - position.lat) < range && Math.abs(dz.center[0] - position.lon) < range
-  );
-
-  // CTR 구역 범위 내
-  const ctrInRange = airspaceData.ctr_zones.filter((ctr) =>
-    Math.abs(ctr.center[1] - position.lat) < range * 3 && Math.abs(ctr.center[0] - position.lon) < range * 3
   );
 
   // 공항 범위 내
@@ -85,21 +74,6 @@ export default function MiniMap() {
             fill="none" stroke="rgba(100,100,160,0.2)" strokeWidth="0.5" strokeDasharray="3,3" />
           <circle cx={mapSize / 2} cy={mapSize / 2} r={(3 / (range * 2 * 111.32)) * mapSize}
             fill="none" stroke="rgba(100,100,160,0.2)" strokeWidth="0.5" strokeDasharray="3,3" />
-
-          {/* CTR 구역 (큰 원) */}
-          {ctrInRange.map((ctr) => {
-            const c = toMapCoord(ctr.center[1], ctr.center[0]);
-            const radiusKm = ctr.radius_nm * 1.852;
-            const radiusPx = (radiusKm / (range * 2 * 111.32)) * mapSize;
-            return (
-              <g key={ctr.id}>
-                <circle cx={clamp(c.x)} cy={clamp(c.y)} r={radiusPx}
-                  fill="rgba(46,204,113,0.05)" stroke={ctr.color} strokeWidth="0.8" strokeDasharray="4,2" opacity={0.5} />
-                <text x={clamp(c.x)} y={clamp(c.y) - radiusPx - 2} textAnchor="middle"
-                  fontSize="7" fill={ctr.color} opacity={0.6}>{ctr.name}</text>
-              </g>
-            );
-          })}
 
           {/* 비행금지/제한구역 (폴리곤) */}
           {restrictedInRange.map((zone) => {
@@ -138,31 +112,6 @@ export default function MiniMap() {
             );
           })}
 
-          {/* UAM 회랑 경로 */}
-          {corridorInRange.length > 1 && (
-            <polyline
-              points={corridor.waypoints.map((wp) => {
-                const c = toMapCoord(wp.lat, wp.lon);
-                return `${clamp(c.x)},${clamp(c.y)}`;
-              }).join(' ')}
-              fill="none"
-              stroke="rgba(249,115,22,0.3)"
-              strokeWidth="2"
-              strokeDasharray="6,3"
-            />
-          )}
-
-          {/* UAM 웨이포인트 */}
-          {corridorInRange.map((wp, i) => {
-            const c = toMapCoord(wp.lat, wp.lon);
-            return (
-              <g key={`wp-${i}`}>
-                <rect x={clamp(c.x) - 2} y={clamp(c.y) - 2} width={4} height={4}
-                  fill="#f97316" opacity={0.6} transform={`rotate(45, ${clamp(c.x)}, ${clamp(c.y)})`} />
-              </g>
-            );
-          })}
-
           {/* 공항 마커 */}
           {airportsInRange.map((ap) => {
             const c = toMapCoord(ap.coords[1], ap.coords[0]);
@@ -189,7 +138,7 @@ export default function MiniMap() {
             />
           )}
 
-          {/* POI 마커 */}
+          {/* POI 마커 + 이름 */}
           {nearbyPOIs.map((poi) => {
             const c = toMapCoord(poi.lat, poi.lon);
             const visited = visitedPOIIds.includes(poi.id);
@@ -199,6 +148,13 @@ export default function MiniMap() {
                   fill={visited ? '#22c55e' : '#3b82f6'} opacity={0.8} />
                 <circle cx={clamp(c.x)} cy={clamp(c.y)} r={6}
                   fill="none" stroke={visited ? '#22c55e' : '#3b82f6'} opacity={0.3} strokeWidth={0.8} />
+                <text
+                  x={clamp(c.x) + 8} y={clamp(c.y) + 3}
+                  fontSize="7" fill={visited ? '#22c55e' : '#93c5fd'}
+                  opacity={0.9}
+                >
+                  {poi.name}
+                </text>
               </g>
             );
           })}
@@ -222,9 +178,6 @@ export default function MiniMap() {
           </span>
           <span className="flex items-center gap-1">
             <span className="w-2 h-2 bg-yellow-500/50 inline-block rounded-full" /> 위험
-          </span>
-          <span className="flex items-center gap-1">
-            <span className="w-2 h-2 bg-orange-500/50 inline-block" style={{ transform: 'rotate(45deg)' }} /> 회랑
           </span>
           <span className="flex items-center gap-1">
             <span className="w-2 h-2 bg-blue-500/80 inline-block rounded-full" /> POI

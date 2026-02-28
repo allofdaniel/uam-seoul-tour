@@ -74,3 +74,32 @@ body {
 .animate-wave1 { animation: wave1 0.8s ease-in-out infinite; }
 .animate-wave2 { animation: wave2 0.6s ease-in-out infinite; }
 .animate-wave3 { animation: wave3 0.7s ease-in-out infinite 0.1s; }
+
+/* 이륙 프로그레스 바 애니메이션 */
+@keyframes takeoffBar {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+.animate-takeoff-bar {
+  animation: takeoffBar 5s ease-in-out forwards;
+}
+
+/* CesiumJS UI 숨김 */
+.cesium-viewer .cesium-widget-credits,
+.cesium-viewer .cesium-viewer-toolbar,
+.cesium-viewer-bottom,
+.cesium-viewer .cesium-viewer-animationContainer,
+.cesium-viewer .cesium-viewer-timelineContainer {
+  display: none !important;
+}
+
+.cesium-viewer,
+.cesium-widget {
+  outline: none !important;
+}
+
+.cesium-widget canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
