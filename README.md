@@ -3,7 +3,7 @@
 > **UAM으로 서울 하늘을 날며 AI 가이드와 함께하는 비행 관광 체험 게임**  
 > Google Gemini Hackathon 2025 | Team SkySnap Seoul
 
-🔗 **[Live Demo → uam-seoul-tour.vercel.app](https://uam-seoul-tour.vercel.app/)**
+🔗 **[Live Demo → skybound](https://uam-seoul-tour.vercel.app/)**
 
 <img width="4913" height="12290" alt="Image" src="https://github.com/user-attachments/assets/cc27aa44-c7b4-45e5-b082-6841ce7e5986" />
 
