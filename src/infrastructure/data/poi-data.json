@@ -10,8 +10,18 @@
     "altitude_m": 0.0,
     "description": "영화 기생충 촬영지로 유명한 청운동과 부암동 연결 터널입니다.",
     "description_en": "A tunnel connecting Cheongun-dong and Buam-dong, famous as a filming location for 'Parasite'.",
-    "images": [],
-    "tags": [],
+    "images": [
+      {
+        "id": "img_jah_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=40989&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 1
+      }
+    ],
+    "tags": [
+      "기생충",
+      "자하문터널",
+      "기생충촬영지"
+    ],
     "visible_range_m": 100.0,
     "direction": "all"
   },
@@ -26,8 +36,17 @@
     "altitude_m": 0.0,
     "description": "난지천공원을 따라 펼쳐진 아름다운 단풍 산책길입니다.",
     "description_en": "A beautiful autumn foliage walking path stretching along Nanjicheon Park.",
-    "images": [],
-    "tags": [],
+    "images": [
+      {
+        "id": "img_wor_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=45402&fileTy=MEDIA&fileNo=3&thumbTy=M",
+        "display_order": 1
+      }
+    ],
+    "tags": [
+      "가을단풍길",
+      "월드컵로"
+    ],
     "visible_range_m": 200.0,
     "direction": "all"
   },
@@ -42,8 +61,17 @@
     "altitude_m": 0.0,
     "description": "한강의 6번째 다리로 수중보가 설치되어 수위를 조절합니다.",
     "description_en": "The 6th bridge on the Han River, featuring a submerged weir to control water levels.",
-    "images": [],
-    "tags": [],
+    "images": [
+      {
+        "id": "img_jam_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=53003&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 1
+      }
+    ],
+    "tags": [
+      "한강",
+      "야경"
+    ],
     "visible_range_m": 500.0,
     "direction": "all"
   },
@@ -58,8 +86,17 @@
     "altitude_m": 0.0,
     "description": "대한민국 최초의 옥외광고물 자유표시구역이자 복합문화공간입니다.",
     "description_en": "Korea's first free-display zone for outdoor advertisements and a cultural complex.",
-    "images": [],
-    "tags": [],
+    "images": [
+      {
+        "id": "img_wtc_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=56101&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      }
+    ],
+    "tags": [
+      "별마당도서관",
+      "아쿠아리움"
+    ],
     "visible_range_m": 300.0,
     "direction": "all"
   },
@@ -74,8 +111,17 @@
     "altitude_m": 500.0,
     "description": "롯데월드타워 최상층에 위치한 세계 5위 높이의 전망대입니다.",
     "description_en": "The world's 5th highest observatory located at the top of Lotte World Tower.",
-    "images": [],
-    "tags": [],
+    "images": [
+      {
+        "id": "img_sky_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=60808&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      }
+    ],
+    "tags": [
+      "전망대",
+      "롯데월드타워"
+    ],
     "visible_range_m": 1000.0,
     "direction": "all"
   },
@@ -90,8 +136,17 @@
     "altitude_m": 130.0,
     "description": "여의도 상공을 비행하는 계류식 헬륨가스 기구 체험시설입니다.",
     "description_en": "A tethered helium gas balloon experience facility flying over Yeouido.",
-    "images": [],
-    "tags": [],
+    "images": [
+      {
+        "id": "img_dal_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=72273&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      }
+    ],
+    "tags": [
+      "서울달",
+      "여의도"
+    ],
     "visible_range_m": 500.0,
     "direction": "all"
   },
@@ -106,8 +161,17 @@
     "altitude_m": 0.0,
     "description": "국내 최초의 복층 교량으로 영화 어벤져스2 촬영지입니다.",
     "description_en": "Korea's first double-deck bridge and a filming location for 'Avengers 2'.",
-    "images": [],
-    "tags": [],
+    "images": [
+      {
+        "id": "img_cdb_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=74464&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      }
+    ],
+    "tags": [
+      "청담대교",
+      "어벤져스2"
+    ],
     "visible_range_m": 500.0,
     "direction": "all"
   },
@@ -122,8 +186,17 @@
     "altitude_m": 10.0,
     "description": "숲 위를 걷는 듯한 경험을 제공하는 무장애 데크 전망대입니다.",
     "description_en": "A barrier-free deck observatory providing the experience of walking above the forest.",
-    "images": [],
-    "tags": [],
+    "images": [
+      {
+        "id": "img_yms_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=77253&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      }
+    ],
+    "tags": [
+      "용마산",
+      "서울둘레길"
+    ],
     "visible_range_m": 300.0,
     "direction": "all"
   },
@@ -138,14 +211,23 @@
     "altitude_m": 0.0,
     "description": "웅장한 고딕 양식 건물과 녹지가 아름다운 캠퍼스입니다.",
     "description_en": "A campus known for its magnificent Gothic architecture and beautiful greenery.",
-    "images": [],
-    "tags": [],
+    "images": [
+      {
+        "id": "img_khu_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=77423&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      }
+    ],
+    "tags": [
+      "경희대학교",
+      "평화의전당"
+    ],
     "visible_range_m": 200.0,
     "direction": "all"
   },
   {
     "id": "poi_namsan_tower",
-    "zone_code": "zone_yongsan",
+    "zone_code": "zone_용산",
     "category_code": "cat_landmark",
     "name": "남산서울타워",
     "name_en": "N Seoul Tower",
@@ -154,8 +236,17 @@
     "altitude_m": 480.0,
     "description": "서울의 랜드마크이자 360도 파노라마 뷰를 자랑하는 전망대입니다.",
     "description_en": "A landmark of Seoul and an observatory boasting a 360-degree panoramic view.",
-    "images": [],
-    "tags": [],
+    "images": [
+      {
+        "id": "img_ns_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=68274&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 1
+      }
+    ],
+    "tags": [
+      "남산타워",
+      "사랑의자물쇠"
+    ],
     "visible_range_m": 1000.0,
     "direction": "all"
   },
@@ -170,8 +261,17 @@
     "altitude_m": 250.0,
     "description": "여의도의 대표 랜드마크로 전망대와 아쿠아리움을 갖춘 복합 공간입니다.",
     "description_en": "A representative landmark in Yeouido, a complex space with an observatory and aquarium.",
-    "images": [],
-    "tags": [],
+    "images": [
+      {
+        "id": "img_63_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=68043&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 1
+      }
+    ],
+    "tags": [
+      "63빌딩",
+      "여의도"
+    ],
     "visible_range_m": 500.0,
     "direction": "all"
   },
@@ -181,13 +281,22 @@
     "category_code": "cat_landmark",
     "name": "북촌한옥마을",
     "name_en": "Bukchon Hanok Village",
-    "lat": 37.579070,
+    "lat": 37.57907,
     "lon": 126.986428,
     "altitude_m": 0.0,
     "description": "전통 한옥이 밀집된 서울의 대표적인 생활 한옥촌입니다.",
     "description_en": "A representative traditional hanok village in Seoul where residents actually live.",
-    "images": [],
-    "tags": [],
+    "images": [
+      {
+        "id": "img_bc_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=42685&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 1
+      }
+    ],
+    "tags": [
+      "북촌한옥마을",
+      "전통문화"
+    ],
     "visible_range_m": 200.0,
     "direction": "all"
   },
@@ -202,8 +311,17 @@
     "altitude_m": 0.0,
     "description": "낙하용 수중펌프를 이용한 세계 최장 교량 분수입니다.",
     "description_en": "The world's longest bridge fountain using drop-down submersible pumps.",
-    "images": [],
-    "tags": [],
+    "images": [
+      {
+        "id": "img_bf_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=17046&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 1
+      }
+    ],
+    "tags": [
+      "무지개분수",
+      "한강공원"
+    ],
     "visible_range_m": 500.0,
     "direction": "all"
   },
@@ -218,8 +336,17 @@
     "altitude_m": 0.0,
     "description": "역사성과 문화가 공존하는 서울 도심의 대표적인 야경 명소입니다.",
     "description_en": "A representative night view spot in downtown Seoul where history and culture coexist.",
-    "images": [],
-    "tags": [],
+    "images": [
+      {
+        "id": "img_ghn_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=8799&fileTy=MEDIA&fileNo=3&thumbTy=M",
+        "display_order": 1
+      }
+    ],
+    "tags": [
+      "야경",
+      "세종대왕"
+    ],
     "visible_range_m": 500.0,
     "direction": "all"
   },
@@ -234,8 +361,17 @@
     "altitude_m": 0.0,
     "description": "분수와 불빛이 어우러진 낭만적인 한강의 야경 명소입니다.",
     "description_en": "A romantic night view spot on the Han River with fountains and lights.",
-    "images": [],
-    "tags": [],
+    "images": [
+      {
+        "id": "img_bpn_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=42326&fileTy=MEDIA&fileNo=3&thumbTy=M",
+        "display_order": 1
+      }
+    ],
+    "tags": [
+      "야경",
+      "데이트코스"
+    ],
     "visible_range_m": 500.0,
     "direction": "all"
   },
@@ -250,8 +386,16 @@
     "altitude_m": 480.0,
     "description": "각종 드라마와 예능에 등장하는 서울의 대표적인 한류 야경 명소입니다.",
     "description_en": "A representative Hallyu night view spot in Seoul appearing in various dramas.",
-    "images": [],
-    "tags": [],
+    "images": [
+      {
+        "id": "img_ntn_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=8809&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 1
+      }
+    ],
+    "tags": [
+      "한류명소"
+    ],
     "visible_range_m": 1000.0,
     "direction": "all"
   },
@@ -261,13 +405,22 @@
     "category_code": "cat_landmark",
     "name": "성균관대학교",
     "name_en": "Sungkyunkwan University",
-    "lat": 37.587230,
+    "lat": 37.58723,
     "lon": 126.993116,
     "altitude_m": 0.0,
     "description": "조선시대 국립최고학부인 성균관의 전통을 잇는 대학교입니다.",
     "description_en": "A university that continues the tradition of Sungkyunkwan, the highest educational institution of Joseon.",
-    "images": [],
-    "tags": [],
+    "images": [
+      {
+        "id": "img_skk_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=13223&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 1
+      }
+    ],
+    "tags": [
+      "명륜당",
+      "성균관대학교"
+    ],
     "visible_range_m": 200.0,
     "direction": "all"
   },
@@ -282,8 +435,16 @@
     "altitude_m": 555.0,
     "description": "쇼핑, 전망, 문화시설이 한데 모인 123층의 초고층 수직도시입니다.",
     "description_en": "A 123-story super-tall vertical city combining shopping, views, and cultural facilities.",
-    "images": [],
-    "tags": [],
+    "images": [
+      {
+        "id": "img_lwt_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=68179&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      }
+    ],
+    "tags": [
+      "잠실"
+    ],
     "visible_range_m": 1000.0,
     "direction": "all"
   },
@@ -298,8 +459,16 @@
     "altitude_m": 17.0,
     "description": "폐쇄된 고가도로를 보행자 전용 사람길로 재탄생시킨 도시재생 공원입니다.",
     "description_en": "An urban regeneration park that transformed a closed overpass into a pedestrian path.",
-    "images": [],
-    "tags": [],
+    "images": [
+      {
+        "id": "img_sl7_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=42213&fileTy=MEDIA&fileNo=6&thumbTy=M",
+        "display_order": 1
+      }
+    ],
+    "tags": [
+      "서울로7017"
+    ],
     "visible_range_m": 300.0,
     "direction": "all"
   },
@@ -314,8 +483,16 @@
     "altitude_m": 0.0,
     "description": "명동에 위치한 현대적 우체국 청사로 비즈니스 회의 시설을 제공합니다.",
     "description_en": "A modern post office building in Myeong-dong providing business meeting facilities.",
-    "images": [],
-    "tags": [],
+    "images": [
+      {
+        "id": "img_cpo_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=18447&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 1
+      }
+    ],
+    "tags": [
+      "명동"
+    ],
     "visible_range_m": 200.0,
     "direction": "all"
   },
@@ -330,8 +507,16 @@
     "altitude_m": 0.0,
     "description": "한강 수변에 조성된 세계 최초의 수상 문화 복합공간입니다.",
     "description_en": "The world's first floating cultural complex created on the Han River waterfront.",
-    "images": [],
-    "tags": [],
+    "images": [
+      {
+        "id": "img_svs_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=42023&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 1
+      }
+    ],
+    "tags": [
+      "세빛섬"
+    ],
     "visible_range_m": 500.0,
     "direction": "all"
   },
@@ -342,12 +527,20 @@
     "name": "코엑스",
     "name_en": "COEX",
     "lat": 37.511823,
-    "lon": 127.059160,
+    "lon": 127.05916,
     "altitude_m": 0.0,
     "description": "국제회의와 전시가 열리는 대규모 마이스(MICE) 복합 단지입니다.",
     "description_en": "A large-scale MICE complex hosting international conferences and exhibitions.",
-    "images": [],
-    "tags": [],
+    "images": [
+      {
+        "id": "img_cox_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=72651&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      }
+    ],
+    "tags": [
+      "코엑스몰"
+    ],
     "visible_range_m": 400.0,
     "direction": "all"
   },
@@ -362,8 +555,16 @@
     "altitude_m": 0.0,
     "description": "혁신적인 디자인의 건축물로 각종 전시와 패션쇼가 열리는 문화공간입니다.",
     "description_en": "A cultural space with innovative architecture hosting exhibitions and fashion shows.",
-    "images": [],
-    "tags": [],
+    "images": [
+      {
+        "id": "img_ddp_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=68049&fileTy=MEDIA&fileNo=1&thumbTy=M",
+        "display_order": 1
+      }
+    ],
+    "tags": [
+      "동대문디자인플라자"
+    ],
     "visible_range_m": 300.0,
     "direction": "all"
   },
@@ -378,8 +579,16 @@
     "altitude_m": 0.0,
     "description": "프랑스 건축가 도미니크 페로가 설계한 이화여대 내 지하 복합 단지입니다.",
     "description_en": "An underground complex at Ewha Womans University designed by Dominique Perrault.",
-    "images": [],
-    "tags": [],
+    "images": [
+      {
+        "id": "img_ecc_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=21373&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 1
+      }
+    ],
+    "tags": [
+      "이화여자대학교"
+    ],
     "visible_range_m": 200.0,
     "direction": "all"
   },
@@ -394,8 +603,16 @@
     "altitude_m": 0.0,
     "description": "근현대 역사가 담긴 석조건물과 아름다운 조경을 자랑하는 캠퍼스입니다.",
     "description_en": "A campus boasting stone buildings with modern history and beautiful landscaping.",
-    "images": [],
-    "tags": [],
+    "images": [
+      {
+        "id": "img_yon_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=21377&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 1
+      }
+    ],
+    "tags": [
+      "연세대학교"
+    ],
     "visible_range_m": 200.0,
     "direction": "all"
   },
@@ -410,8 +627,16 @@
     "altitude_m": 138.0,
     "description": "남산의 풍광을 한눈에 조망할 수 있으며 N서울타워까지 편리하게 이동할 수 있는 명소입니다.",
     "description_en": "A cable car offering a panoramic view of Namsan and a convenient way to reach N Seoul Tower.",
-    "images": [],
-    "tags": [],
+    "images": [
+      {
+        "id": "img_nc_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=32472&fileTy=MEDIA&fileNo=3&thumbTy=M",
+        "display_order": 1
+      }
+    ],
+    "tags": [
+      "남산케이블카"
+    ],
     "visible_range_m": 300.0,
     "direction": "all"
   },
@@ -426,8 +651,16 @@
     "altitude_m": 0.0,
     "description": "1920년대 한옥 골목에 트렌디한 카페와 맛집이 어우러진 복고풍 감성 거리입니다.",
     "description_en": "A retro-style street with trendy cafes and restaurants set within 1920s hanok alleys.",
-    "images": [],
-    "tags": [],
+    "images": [
+      {
+        "id": "img_ik_01",
+        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=67734&fileTy=MEDIA&fileNo=2&thumbTy=M",
+        "display_order": 1
+      }
+    ],
+    "tags": [
+      "익선동"
+    ],
     "visible_range_m": 200.0,
     "direction": "all"
   },
@@ -447,14 +680,14 @@
         "id": "img_bukak_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=68348&fileTy=MEDIA&fileNo=1&thumbTy=M",
         "display_order": 1
-      },
-      {
-        "id": "img_bukak_02",
-        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=68349&fileTy=MEDIA&fileNo=1&thumbTy=M",
-        "display_order": 2
       }
     ],
-    "tags": ["북악산둘레길", "북악스카이웨이", "야경", "팔각정"],
+    "tags": [
+      "북악산둘레길",
+      "북악스카이웨이",
+      "야경",
+      "팔각정"
+    ],
     "visible_range_m": 300.0,
     "direction": "all"
   },
@@ -474,14 +707,13 @@
         "id": "img_gh_sq_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=66716&fileTy=MEDIA&fileNo=3&thumbTy=M",
         "display_order": 1
-      },
-      {
-        "id": "img_gh_sq_02",
-        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=66717&fileTy=MEDIA&fileNo=3&thumbTy=M",
-        "display_order": 2
       }
     ],
-    "tags": ["광화문", "광화문광장", "세종대왕"],
+    "tags": [
+      "광화문",
+      "광화문광장",
+      "세종대왕"
+    ],
     "visible_range_m": 300.0,
     "direction": "all"
   },
@@ -501,14 +733,13 @@
         "id": "img_cwd_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=72703&fileTy=MEDIA&fileNo=1&thumbTy=M",
         "display_order": 1
-      },
-      {
-        "id": "img_cwd_02",
-        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=72704&fileTy=MEDIA&fileNo=1&thumbTy=M",
-        "display_order": 2
       }
     ],
-    "tags": ["대통령", "청와대", "관람"],
+    "tags": [
+      "대통령",
+      "청와대",
+      "관람"
+    ],
     "visible_range_m": 200.0,
     "direction": "all"
   },
@@ -519,7 +750,7 @@
     "name": "국회의사당",
     "name_en": "National Assembly Building",
     "lat": 37.531809,
-    "lon": 126.914070,
+    "lon": 126.91407,
     "altitude_m": 0.0,
     "description": "한국의 민주주의와 인권을 상징하는 여의도 소재 입법부 건물입니다.",
     "description_en": "The legislative building located in Yeouido, symbolizing Korea's democracy and human rights.",
@@ -528,14 +759,13 @@
         "id": "img_na_01",
         "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=68371&fileTy=MEDIA&fileNo=1&thumbTy=M",
         "display_order": 1
-      },
-      {
-        "id": "img_na_02",
-        "image_url": "https://api.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=68372&fileTy=MEDIA&fileNo=1&thumbTy=M",
-        "display_order": 2
       }
     ],
-    "tags": ["여의도", "국회의사당", "민주주의"],
+    "tags": [
+      "여의도",
+      "국회의사당",
+      "민주주의"
+    ],
     "visible_range_m": 400.0,
     "direction": "all"
   }

@@ -1,22 +1,135 @@
 'use client';
 
-import { Suspense, useRef, useMemo, useEffect } from 'react';
+import { Suspense, useRef, useMemo, useEffect, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { useGLTF, Sky, Html } from '@react-three/drei';
+import { useGLTF, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { useFlightStore } from '@/stores/useFlightStore';
 import { useGameStore } from '@/stores/useGameStore';
 
-// GPS → Local 좌표 변환 (원점: 여의도)
-const ORIGIN = { lat: 37.5219, lon: 126.9245 };
-const M_PER_DEG_LAT = 111320;
-const M_PER_DEG_LON = M_PER_DEG_LAT * Math.cos(ORIGIN.lat * Math.PI / 180);
-const SCALE = 1; // 1 Three.js unit = 1 meter
+// ── WGS84 타원체 상수 ──
+const WGS84_A = 6378137.0;
+const WGS84_F = 1 / 298.257223563;
+const WGS84_E2 = 2 * WGS84_F - WGS84_F * WGS84_F;
 
-function gpsToLocal(lat: number, lon: number, alt: number = 0): [number, number, number] {
-  const x = (lon - ORIGIN.lon) * M_PER_DEG_LON * SCALE;
-  const z = -(lat - ORIGIN.lat) * M_PER_DEG_LAT * SCALE;
-  return [x, alt * SCALE, z];
+// ── GPS → ECEF → Scene 좌표 변환 ──
+// tiles.group.rotation.x = -PI/2 이므로 ECEF(x,y,z) → Scene(x, z, -y)
+function gpsToScene(lat: number, lon: number, alt: number): THREE.Vector3 {
+  const latRad = lat * Math.PI / 180;
+  const lonRad = lon * Math.PI / 180;
+  const sinLat = Math.sin(latRad);
+  const cosLat = Math.cos(latRad);
+  const sinLon = Math.sin(lonRad);
+  const cosLon = Math.cos(lonRad);
+  const N = WGS84_A / Math.sqrt(1 - WGS84_E2 * sinLat * sinLat);
+  const ecefX = (N + alt) * cosLat * cosLon;
+  const ecefY = (N + alt) * cosLat * sinLon;
+  const ecefZ = (N * (1 - WGS84_E2) + alt) * sinLat;
+  return new THREE.Vector3(ecefX, ecefZ, -ecefY);
+}
+
+// 로컬 UP 벡터 (지구 표면 수직 방향, scene 좌표계)
+function getLocalUp(lat: number, lon: number): THREE.Vector3 {
+  return gpsToScene(lat, lon, 0).normalize();
+}
+
+// 로컬 EAST 벡터 (scene 좌표계)
+function getLocalEast(lon: number): THREE.Vector3 {
+  const lonRad = lon * Math.PI / 180;
+  // ECEF East: (-sin(lon), cos(lon), 0) → Scene: (-sin(lon), 0, -cos(lon))
+  return new THREE.Vector3(-Math.sin(lonRad), 0, -Math.cos(lonRad)).normalize();
+}
+
+// 로컬 NORTH 벡터 = UP × EAST
+function getLocalNorth(lat: number, lon: number): THREE.Vector3 {
+  const up = getLocalUp(lat, lon);
+  const east = getLocalEast(lon);
+  return new THREE.Vector3().crossVectors(up, east).normalize();
+}
+
+// 재사용 벡터 (GC pressure 감소)
+const _v1 = new THREE.Vector3();
+const _v2 = new THREE.Vector3();
+const _v3 = new THREE.Vector3();
+const _quat = new THREE.Quaternion();
+const _mat4 = new THREE.Matrix4();
+
+// ── Module-level tiles renderer ref ──
+let _tilesRenderer: any = null;
+
+// ── Google Photorealistic 3D Tiles ──
+function Google3DTiles() {
+  const { scene, camera, gl } = useThree();
+
+  useEffect(() => {
+    let disposed = false;
+
+    (async () => {
+      try {
+        const { TilesRenderer } = await import('3d-tiles-renderer');
+        const {
+          GoogleCloudAuthPlugin,
+          TileCompressionPlugin,
+          UpdateOnChangePlugin,
+          UnloadTilesPlugin,
+          TilesFadePlugin,
+          GLTFExtensionsPlugin,
+        } = await import('3d-tiles-renderer/plugins');
+        const { DRACOLoader } = await import('three/examples/jsm/loaders/DRACOLoader.js');
+
+        if (disposed) return;
+
+        const apiKey = process.env.NEXT_PUBLIC_GOOGLE_TILES_API_KEY;
+        if (!apiKey) {
+          console.warn('Google Tiles API key not found');
+          return;
+        }
+
+        const tiles = new TilesRenderer();
+        tiles.registerPlugin(new GoogleCloudAuthPlugin({ apiToken: apiKey, autoRefreshToken: true }));
+        tiles.registerPlugin(new TileCompressionPlugin());
+        tiles.registerPlugin(new UpdateOnChangePlugin());
+        tiles.registerPlugin(new UnloadTilesPlugin());
+        tiles.registerPlugin(new TilesFadePlugin());
+        tiles.registerPlugin(new GLTFExtensionsPlugin({
+          dracoLoader: new DRACOLoader().setDecoderPath(
+            'https://unpkg.com/three@0.170.0/examples/jsm/libs/draco/gltf/'
+          ),
+        }));
+
+        tiles.errorTarget = 2;
+        tiles.group.rotation.x = -Math.PI / 2; // ECEF Z-up → Y-up
+
+        scene.add(tiles.group);
+        tiles.setCamera(camera);
+        tiles.setResolutionFromRenderer(camera, gl);
+
+        _tilesRenderer = tiles;
+      } catch (err) {
+        console.error('Failed to load Google 3D Tiles:', err);
+      }
+    })();
+
+    return () => {
+      disposed = true;
+      if (_tilesRenderer) {
+        scene.remove(_tilesRenderer.group);
+        _tilesRenderer.dispose();
+        _tilesRenderer = null;
+      }
+    };
+  }, [scene, camera, gl]);
+
+  useFrame(() => {
+    if (_tilesRenderer) {
+      _tilesRenderer.setCamera(camera);
+      _tilesRenderer.setResolutionFromRenderer(camera, gl);
+      camera.updateMatrixWorld();
+      _tilesRenderer.update();
+    }
+  });
+
+  return null;
 }
 
 // ── UAM 기체 (Archer EVTOL) ──
@@ -28,30 +141,49 @@ function UAMModel() {
   useFrame(() => {
     if (!ref.current) return;
     const state = useFlightStore.getState();
-    const [x, y, z] = gpsToLocal(state.position.lat, state.position.lon, state.position.altitude_m);
+    const { lat, lon, altitude_m: alt } = state.position;
 
-    // 부드러운 위치 이동
-    ref.current.position.lerp(new THREE.Vector3(x, y, z), 0.15);
+    // Scene 위치
+    const pos = gpsToScene(lat, lon, alt);
+    ref.current.position.lerp(pos, 0.15);
 
-    // 회전 (heading: Y축, pitch: X축, roll: Z축)
-    const targetQuat = new THREE.Quaternion();
-    const euler = new THREE.Euler(
-      -state.pitch * Math.PI / 180 * 0.3,
-      -(state.heading - 90) * Math.PI / 180,
-      -state.roll * Math.PI / 180 * 0.5,
-      'YXZ'
-    );
-    targetQuat.setFromEuler(euler);
+    // 로컬 ENU 프레임
+    const up = getLocalUp(lat, lon);
+    const east = getLocalEast(lon);
+    const north = _v1.crossVectors(up, east).normalize();
+
+    // 헤딩 방향
+    const headingRad = state.heading * Math.PI / 180;
+    const forward = _v2.set(0, 0, 0)
+      .addScaledVector(north, Math.cos(headingRad))
+      .addScaledVector(east, Math.sin(headingRad))
+      .normalize();
+
+    // 오른쪽 벡터
+    const right = _v3.crossVectors(forward, up).normalize();
+
+    // 방향 행렬: right=X, up=Y, -forward=Z (Three.js 규칙)
+    _mat4.makeBasis(right, up, forward.clone().negate());
+    const targetQuat = _quat.setFromRotationMatrix(_mat4);
+
+    // 피치/롤 적용
+    const pitchQ = new THREE.Quaternion().setFromAxisAngle(right, -state.pitch * Math.PI / 180 * 0.3);
+    const rollQ = new THREE.Quaternion().setFromAxisAngle(forward, -state.roll * Math.PI / 180 * 0.5);
+    targetQuat.multiply(pitchQ).multiply(rollQ);
+
     ref.current.quaternion.slerp(targetQuat, 0.1);
   });
 
   return (
     <group ref={ref}>
-      <primitive object={clonedScene} scale={[3, 3, 3]} />
+      {/* 모델 보정: GLB 기체 방향(Y축 fuselage) → -Z축(Three.js forward) */}
+      <group rotation={[-Math.PI / 2, 0, 0]}>
+        <primitive object={clonedScene} scale={[3, 3, 3]} />
+      </group>
       {/* 기체 아래 그림자 */}
-      <mesh rotation-x={-Math.PI / 2} position={[0, -0.5, 0]}>
-        <circleGeometry args={[8, 32]} />
-        <meshBasicMaterial color="#000000" transparent opacity={0.15} />
+      <mesh>
+        <sphereGeometry args={[2, 8, 8]} />
+        <meshBasicMaterial color="#000000" transparent opacity={0.1} />
       </mesh>
     </group>
   );
@@ -61,15 +193,22 @@ function UAMModel() {
 function Helipad({ lat, lon, name }: { lat: number; lon: number; name: string }) {
   const { scene } = useGLTF('/models/helipad.glb');
   const clonedScene = useMemo(() => scene.clone(), [scene]);
-  const [x, y, z] = useMemo(() => gpsToLocal(lat, lon, 0), [lat, lon]);
+
+  const { pos, quat } = useMemo(() => {
+    const p = gpsToScene(lat, lon, 2); // 지면 약간 위
+    const up = getLocalUp(lat, lon);
+    const east = getLocalEast(lon);
+    const north = new THREE.Vector3().crossVectors(up, east).normalize();
+    const m = new THREE.Matrix4().makeBasis(east, up, north.clone().negate());
+    const q = new THREE.Quaternion().setFromRotationMatrix(m);
+    return { pos: p, quat: q };
+  }, [lat, lon]);
 
   return (
-    <group position={[x, y, z]}>
+    <group position={pos} quaternion={quat}>
       <primitive object={clonedScene} scale={[4, 4, 4]} />
-      {/* 패드 조명 */}
       <pointLight color="#f97316" intensity={50} distance={100} position={[0, 10, 0]} />
-      {/* 이름 라벨 */}
-      <Html position={[0, 20, 0]} center distanceFactor={300}>
+      <Html position={[0, 25, 0]} center distanceFactor={400}>
         <div className="bg-black/70 backdrop-blur px-3 py-1 rounded-full text-orange-400 text-xs font-bold whitespace-nowrap border border-orange-500/30">
           {name}
         </div>
@@ -87,211 +226,97 @@ function ChaseCamera() {
 
   useFrame(() => {
     const state = useFlightStore.getState();
-    const [x, y, z] = gpsToLocal(state.position.lat, state.position.lon, state.position.altitude_m);
+    const { lat, lon, altitude_m: alt } = state.position;
 
-    // 카메라 위치: 기체 뒤쪽 위에서 따라감
-    const headingRad = -(state.heading - 90) * Math.PI / 180;
+    const uamPos = gpsToScene(lat, lon, alt);
+    const up = getLocalUp(lat, lon);
+    const east = getLocalEast(lon);
+    const north = new THREE.Vector3().crossVectors(up, east).normalize();
+
+    const headingRad = state.heading * Math.PI / 180;
+    const forward = new THREE.Vector3()
+      .addScaledVector(north, Math.cos(headingRad))
+      .addScaledVector(east, Math.sin(headingRad))
+      .normalize();
+
+    // 카메라: 기체 뒤쪽 위
     const chaseDist = 60;
     const chaseHeight = 25;
     const lookAheadDist = 30;
 
-    const camX = x - Math.sin(headingRad) * chaseDist;
-    const camZ = z - Math.cos(headingRad) * chaseDist;
-    const camY = y + chaseHeight;
+    const camPos = uamPos.clone()
+      .addScaledVector(forward, -chaseDist)
+      .addScaledVector(up, chaseHeight);
 
-    // 카메라가 바라보는 지점: 기체 앞쪽
-    const targetX = x + Math.sin(headingRad) * lookAheadDist;
-    const targetZ = z + Math.cos(headingRad) * lookAheadDist;
-    const targetY = y;
+    const lookTarget = uamPos.clone()
+      .addScaledVector(forward, lookAheadDist);
 
     if (!initialized.current) {
-      smoothPos.current.set(camX, camY, camZ);
-      smoothTarget.current.set(targetX, targetY, targetZ);
+      smoothPos.current.copy(camPos);
+      smoothTarget.current.copy(lookTarget);
+      camera.position.copy(camPos);
+      camera.up.copy(up);
+      camera.lookAt(lookTarget);
       initialized.current = true;
+      return;
     }
 
-    // 부드러운 추적
-    smoothPos.current.lerp(new THREE.Vector3(camX, camY, camZ), 0.04);
-    smoothTarget.current.lerp(new THREE.Vector3(targetX, targetY, targetZ), 0.06);
+    smoothPos.current.lerp(camPos, 0.04);
+    smoothTarget.current.lerp(lookTarget, 0.06);
 
     camera.position.copy(smoothPos.current);
+    camera.up.copy(up);
     camera.lookAt(smoothTarget.current);
   });
 
   return null;
 }
 
-// ── 지형 (서울 지면 - V-World StaticMap API 위성사진) ──
-function Terrain() {
-  const apiKey = process.env.NEXT_PUBLIC_VWORLD_API_KEY;
-  const textureRef = useRef<THREE.Texture | null>(null);
-
-  // V-World StaticMap API로 서울 중심 위성사진 로드
-  const texture = useMemo(() => {
-    if (!apiKey) return null;
-    const loader = new THREE.TextureLoader();
-    // V-World StaticMap API: 여의도~잠실 영역 위성사진 (1024x1024)
-    // center: 서울 중심(126.98, 37.54), zoom 13으로 서울 전역 커버
-    const url = `https://api.vworld.kr/req/image?service=image&request=getmap&key=${apiKey}&basemap=PHOTO&center=126.98,37.54&crs=EPSG:4326&zoom=13&size=1024,1024&format=jpeg`;
-    const tex = loader.load(url, undefined, undefined, () => {
-      console.warn('V-World StaticMap load failed, using fallback');
-    });
-    tex.colorSpace = THREE.SRGBColorSpace;
-    textureRef.current = tex;
-    return tex;
-  }, [apiKey]);
-
-  // 지면 크기: zoom 13에서 1024px ≈ 약 20km
-  const groundSize = 20000; // 20km
-
-  return (
-    <group>
-      {/* 위성사진 지면 (V-World) */}
-      <mesh rotation-x={-Math.PI / 2} position={[0, -2, 0]} receiveShadow>
-        <planeGeometry args={[groundSize, groundSize]} />
-        <meshStandardMaterial
-          color={texture ? '#ffffff' : '#1a2a1a'}
-          map={texture}
-          roughness={0.9}
-        />
-      </mesh>
-
-      {/* V-World 로드 실패 시 보조 그리드 */}
-      {!texture && (
-        <gridHelper args={[20000, 200, '#1a3a1a', '#152515']} position={[0, -1, 0]} />
-      )}
-
-      {/* 한강 */}
-      <HanRiver />
-    </group>
-  );
-}
-
-// ── 한강 ──
-function HanRiver() {
-  const riverPoints = useMemo(() => {
-    const points = [
-      { lat: 37.535, lon: 126.78 }, { lat: 37.538, lon: 126.82 },
-      { lat: 37.535, lon: 126.86 }, { lat: 37.532, lon: 126.90 },
-      { lat: 37.527, lon: 126.93 }, { lat: 37.522, lon: 126.95 },
-      { lat: 37.520, lon: 126.97 }, { lat: 37.518, lon: 127.00 },
-      { lat: 37.519, lon: 127.03 }, { lat: 37.521, lon: 127.06 },
-      { lat: 37.519, lon: 127.08 }, { lat: 37.515, lon: 127.10 },
-      { lat: 37.512, lon: 127.12 }, { lat: 37.510, lon: 127.15 },
-    ];
-    return points.map(p => {
-      const [x, , z] = gpsToLocal(p.lat, p.lon, 0);
-      return new THREE.Vector3(x, 0, z);
-    });
-  }, []);
-
-  const curve = useMemo(() => new THREE.CatmullRomCurve3(riverPoints), [riverPoints]);
-  const geometry = useMemo(() => {
-    const pts = curve.getPoints(200);
-    const shape = new THREE.Shape();
-    // 강 너비 약 800m
-    shape.moveTo(-400, 0);
-    shape.lineTo(400, 0);
-    shape.lineTo(400, 1);
-    shape.lineTo(-400, 1);
-    shape.closePath();
-
-    const frames = curve.computeFrenetFrames(200, false);
-    const positions: number[] = [];
-    const indices: number[] = [];
-
-    for (let i = 0; i <= 200; i++) {
-      const pt = pts[i];
-      const normal = frames.normals[i];
-      const binormal = frames.binormals[i];
-
-      // 강 양쪽 꼭짓점
-      for (const side of [-400, 400]) {
-        const px = pt.x + binormal.x * side;
-        const py = -1;
-        const pz = pt.z + binormal.z * side;
-        positions.push(px, py, pz);
-      }
-
-      if (i < 200) {
-        const base = i * 2;
-        indices.push(base, base + 1, base + 2);
-        indices.push(base + 1, base + 3, base + 2);
-      }
-    }
-
-    const geo = new THREE.BufferGeometry();
-    geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-    geo.setIndex(indices);
-    geo.computeVertexNormals();
-    return geo;
-  }, [curve]);
-
-  return (
-    <mesh geometry={geometry}>
-      <meshStandardMaterial color="#1a3a5a" transparent opacity={0.8} roughness={0.3} metalness={0.1} />
-    </mesh>
-  );
-}
-
 // ── POI 3D 마커 ──
 function POIMarker({ name, lat, lon, altitude, visited }: {
   name: string; lat: number; lon: number; altitude: number; visited: boolean;
 }) {
-  const [x, , z] = useMemo(() => gpsToLocal(lat, lon, 0), [lat, lon]);
-  const markerHeight = Math.max(altitude * SCALE, 50);
+  const markerAlt = Math.max(altitude, 30) + 40; // 건물 위에 떠있게
+  const pos = useMemo(() => gpsToScene(lat, lon, markerAlt), [lat, lon, markerAlt]);
   const ref = useRef<THREE.Group>(null);
+  const upDir = useMemo(() => getLocalUp(lat, lon), [lat, lon]);
 
   useFrame(({ clock }) => {
     if (ref.current) {
-      // 부유 애니메이션
-      ref.current.position.y = markerHeight + Math.sin(clock.elapsedTime * 2) * 3;
+      ref.current.position.copy(pos);
+      // 부유 애니메이션 (로컬 up 방향)
+      ref.current.position.addScaledVector(upDir, Math.sin(clock.elapsedTime * 2) * 3);
     }
   });
 
   return (
-    <group position={[x, 0, z]}>
-      {/* 지면에서 마커까지 연결선 */}
-      <mesh position={[0, markerHeight / 2, 0]}>
-        <cylinderGeometry args={[0.3, 0.3, markerHeight, 8]} />
-        <meshBasicMaterial color={visited ? '#22c55e' : '#3b82f6'} transparent opacity={0.3} />
-      </mesh>
-
+    <group ref={ref}>
       {/* 마커 구체 */}
-      <group ref={ref}>
-        <mesh>
-          <sphereGeometry args={[8, 16, 16]} />
-          <meshStandardMaterial
-            color={visited ? '#22c55e' : '#f97316'}
-            emissive={visited ? '#22c55e' : '#f97316'}
-            emissiveIntensity={0.5}
-            transparent
-            opacity={0.8}
-          />
-        </mesh>
-        {/* 외곽 링 */}
-        <mesh rotation-x={Math.PI / 2}>
-          <ringGeometry args={[10, 12, 32]} />
-          <meshBasicMaterial color={visited ? '#22c55e' : '#f97316'} transparent opacity={0.4} side={THREE.DoubleSide} />
-        </mesh>
-
-        {/* 라벨 */}
-        <Html position={[0, 18, 0]} center distanceFactor={500} occlude={false}>
-          <div className={`px-2 py-1 rounded text-xs font-bold whitespace-nowrap border ${
-            visited
-              ? 'bg-green-900/80 text-green-300 border-green-500/50'
-              : 'bg-black/80 text-white border-orange-500/50'
-          }`}>
-            {name}
-          </div>
-        </Html>
-      </group>
-
-      {/* 지면 원 표시 */}
-      <mesh rotation-x={-Math.PI / 2} position={[0, 0.5, 0]}>
-        <ringGeometry args={[15, 20, 32]} />
-        <meshBasicMaterial color={visited ? '#22c55e' : '#f97316'} transparent opacity={0.2} side={THREE.DoubleSide} />
+      <mesh>
+        <sphereGeometry args={[6, 16, 16]} />
+        <meshStandardMaterial
+          color={visited ? '#22c55e' : '#f97316'}
+          emissive={visited ? '#22c55e' : '#f97316'}
+          emissiveIntensity={0.5}
+          transparent
+          opacity={0.8}
+        />
       </mesh>
+      {/* 외곽 링 */}
+      <mesh>
+        <ringGeometry args={[8, 10, 32]} />
+        <meshBasicMaterial color={visited ? '#22c55e' : '#f97316'} transparent opacity={0.4} side={THREE.DoubleSide} />
+      </mesh>
+      {/* 라벨 */}
+      <Html position={[0, 15, 0]} center distanceFactor={600} occlude={false}>
+        <div className={`px-2 py-1 rounded text-xs font-bold whitespace-nowrap border ${
+          visited
+            ? 'bg-green-900/80 text-green-300 border-green-500/50'
+            : 'bg-black/80 text-white border-orange-500/50'
+        }`}>
+          {name}
+        </div>
+      </Html>
     </group>
   );
 }
@@ -299,7 +324,6 @@ function POIMarker({ name, lat, lon, altitude, visited }: {
 // ── POI 전체 로드 ──
 function POIMarkers() {
   const visitedPOIIds = useGameStore((s) => s.visitedPOIIds);
-  // Dynamic import to avoid circular deps
   const poiData = useMemo(() => {
     try {
       return require('@/infrastructure/data/poi-data.json') as any[];
@@ -324,64 +348,22 @@ function POIMarkers() {
   );
 }
 
-// ── 건물 (주요 랜드마크 높이 표현) ──
-function Buildings() {
-  const buildings = useMemo(() => [
-    { lat: 37.5137, lon: 127.1025, height: 555, name: '롯데월드타워', color: '#4a5568' },
-    { lat: 37.5512, lon: 126.9882, height: 480, name: 'N서울타워', color: '#6b7280' },
-    { lat: 37.5197, lon: 126.9399, height: 250, name: '63빌딩', color: '#d4a017' },
-    { lat: 37.5108, lon: 127.0610, height: 230, name: '무역센터', color: '#4a5568' },
-    { lat: 37.5668, lon: 127.0096, height: 100, name: 'DDP', color: '#9ca3af' },
-    { lat: 37.5580, lon: 126.9698, height: 17, name: '서울로7017', color: '#6b8c42' },
-  ], []);
-
-  return (
-    <>
-      {buildings.map((b) => {
-        const [x, , z] = gpsToLocal(b.lat, b.lon, 0);
-        return (
-          <mesh key={b.name} position={[x, b.height * SCALE / 2, z]} castShadow>
-            <boxGeometry args={[30, b.height * SCALE, 30]} />
-            <meshStandardMaterial color={b.color} roughness={0.7} metalness={0.3} />
-          </mesh>
-        );
-      })}
-    </>
-  );
-}
-
 // ── 조명 ──
 function Lighting() {
   return (
     <>
-      <ambientLight intensity={0.4} />
-      <directionalLight
-        position={[5000, 8000, 3000]}
-        intensity={1.5}
-        color="#fff5e6"
-        castShadow
-        shadow-mapSize-width={2048}
-        shadow-mapSize-height={2048}
-        shadow-camera-far={30000}
-        shadow-camera-left={-10000}
-        shadow-camera-right={10000}
-        shadow-camera-top={10000}
-        shadow-camera-bottom={-10000}
-      />
-      <hemisphereLight args={['#87ceeb', '#3a5a2a', 0.3]} />
+      <ambientLight intensity={0.5} />
+      <directionalLight position={[1, 2, 1]} intensity={2.0} />
     </>
   );
 }
 
-// ── 안개 효과 ──
-function FogEffect() {
+// ── Scene 배경 설정 ──
+function SceneSetup() {
   const { scene } = useThree();
   useEffect(() => {
-    scene.fog = new THREE.FogExp2('#b8cfe6', 0.00008);
     scene.background = new THREE.Color('#87ceeb');
-    return () => {
-      scene.fog = null;
-    };
+    return () => { scene.background = null; };
   }, [scene]);
   return null;
 }
@@ -390,13 +372,10 @@ function FogEffect() {
 function Scene3DContent() {
   return (
     <>
+      <SceneSetup />
       <ChaseCamera />
-      <FogEffect />
       <Lighting />
-      <Sky sunPosition={[5000, 4000, 3000]} turbidity={3} rayleigh={0.5} />
-
-      <Terrain />
-      <Buildings />
+      <Google3DTiles />
 
       <Suspense fallback={null}>
         <UAMModel />
@@ -414,21 +393,29 @@ function LoadingFallback() {
     <div className="absolute inset-0 bg-gradient-to-b from-sky-900 via-sky-800 to-green-900 flex items-center justify-center">
       <div className="text-center">
         <div className="text-4xl mb-4 animate-pulse">✈️</div>
-        <p className="text-white/70 text-sm">3D 씬 로딩 중...</p>
+        <p className="text-white/70 text-sm">3D Seoul 로딩 중...</p>
       </div>
     </div>
   );
 }
 
-// ── 메인 컴포넌트 (SSR 방지) ──
+// ── 초기 카메라 위치 (여의도 300m 상공) ──
+const INIT_POS = gpsToScene(37.5219, 126.9245, 300);
+
+// ── 메인 컴포넌트 ──
 export default function MapScene() {
   return (
     <div className="absolute inset-0 w-full h-full">
       <Canvas
-        camera={{ fov: 60, near: 1, far: 50000, position: [0, 300, 100] }}
-        shadows
+        camera={{
+          fov: 60,
+          near: 1,
+          far: 160000000,
+          position: [INIT_POS.x, INIT_POS.y, INIT_POS.z],
+        }}
         gl={{
           antialias: true,
+          logarithmicDepthBuffer: true,
           toneMapping: THREE.ACESFilmicToneMapping,
           toneMappingExposure: 1.2,
           powerPreference: 'high-performance',
