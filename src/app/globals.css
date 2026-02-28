@@ -57,6 +57,16 @@ body {
   50% { opacity: 0; }
 }
 
+/* 이륙 프로그레스 바 애니메이션 */
+@keyframes takeoffBar {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+.animate-takeoff-bar {
+  animation: takeoffBar 5s ease-in-out forwards;
+}
+
 /* CesiumJS UI 숨김 */
 .cesium-viewer .cesium-widget-credits,
 .cesium-viewer .cesium-viewer-toolbar,

@@ -141,7 +141,7 @@ export default function MiniMap() {
           {/* UAM 회랑 경로 */}
           {corridorInRange.length > 1 && (
             <polyline
-              points={corridor.waypoints.map((wp) => {
+              points={corridorInRange.map((wp) => {
                 const c = toMapCoord(wp.lat, wp.lon);
                 return `${clamp(c.x)},${clamp(c.y)}`;
               }).join(' ')}
