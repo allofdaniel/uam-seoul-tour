@@ -56,3 +56,22 @@ body {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
 }
+
+/* CesiumJS UI 숨김 */
+.cesium-viewer .cesium-widget-credits,
+.cesium-viewer .cesium-viewer-toolbar,
+.cesium-viewer-bottom,
+.cesium-viewer .cesium-viewer-animationContainer,
+.cesium-viewer .cesium-viewer-timelineContainer {
+  display: none !important;
+}
+
+.cesium-viewer,
+.cesium-widget {
+  outline: none !important;
+}
+
+.cesium-widget canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
