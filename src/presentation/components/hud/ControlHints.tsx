@@ -65,6 +65,10 @@ export default function ControlHints() {
             <kbd className="px-1.5 py-0.5 bg-gray-700 rounded text-white">L</kbd>
             <span>착륙</span>
           </div>
+          <div className="flex items-center gap-1">
+            <kbd className="px-1.5 py-0.5 bg-gray-700 rounded text-white">M</kbd>
+            <span>음성</span>
+          </div>
         </div>
       </div>
     </div>

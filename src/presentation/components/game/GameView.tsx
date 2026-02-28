@@ -8,6 +8,7 @@ import FlightHUD from '@/presentation/components/hud/FlightHUD';
 import GuidePanel from '@/presentation/components/hud/GuidePanel';
 import MiniMap from '@/presentation/components/hud/MiniMap';
 import ControlHints from '@/presentation/components/hud/ControlHints';
+import VoiceMicButton from '@/presentation/components/hud/VoiceMicButton';
 import useFlightControls from '@/presentation/hooks/useFlightControls';
 import usePOIDetection from '@/presentation/hooks/usePOIDetection';
 import useGameLoop from '@/presentation/hooks/useGameLoop';
@@ -42,6 +43,7 @@ export default function GameView() {
           <FlightHUD />
           <MiniMap />
           <GuidePanel />
+          <VoiceMicButton />
           <ControlHints />
         </>
       )}

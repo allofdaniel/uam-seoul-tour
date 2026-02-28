@@ -140,6 +140,9 @@ export interface TTSRequest {
   language: Language;
 }
 
+// 음성 대화
+export type { VoicePhase, MicPermission, VoiceGuideRequest, VoiceGuideResponse } from './voice';
+
 // 게임 결과
 export interface GameResult {
   sessionId: string;

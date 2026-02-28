@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { useFlightStore } from '@/stores/useFlightStore';
 import { useGameStore } from '@/stores/useGameStore';
 import { useGuideStore } from '@/stores/useGuideStore';
+import { useVoiceStore } from '@/stores/useVoiceStore';
 import { POI, TriggerType, GeminiRequest } from '@/domain/types';
 import poiData from '@/infrastructure/data/poi-data.json';
 
@@ -46,6 +47,10 @@ export default function usePOIDetection() {
       const flight = useFlightStore.getState();
       const game = useGameStore.getState();
       const guide = useGuideStore.getState();
+
+      // 음성 대화 중이면 자동 안내 스킵 (큐는 보존)
+      const voicePhase = useVoiceStore.getState().voicePhase;
+      if (voicePhase !== 'idle') return;
 
       const { lat, lon } = flight.position;
       const heading = flight.heading;
